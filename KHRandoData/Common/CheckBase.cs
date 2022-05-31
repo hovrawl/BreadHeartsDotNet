@@ -16,4 +16,9 @@ public class CheckBase
     /// 
     /// </summary>
     public string Name { get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public CheckType CheckType { get; set; }
 }
