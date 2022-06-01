@@ -1,4 +1,4 @@
-namespace KHRandoData.Items;
+namespace KHData.Items;
 
 public enum Keyblades
 {

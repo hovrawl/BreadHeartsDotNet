@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <RootNamespace>KHRandoEngine</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Memory.dll.x64" Version="1.2.24" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\KHData\KHData.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configuration" />
+      <Folder Include="Randomiser" />
+      <Folder Include="Tracking" />
+    </ItemGroup>
+
+</Project>
