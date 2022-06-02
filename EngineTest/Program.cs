@@ -26,9 +26,12 @@ namespace EngineTest // Note: actual namespace depends on the project name.
             Console.WriteLine("Press any key after KH1 is open...");
             Console.ReadKey();
             
-            Engine.InitialiseModules();
+            Engine.Start();
             
             Console.WriteLine("Press any key close...");
+            
+            Engine.Stop();
+            
             Console.ReadKey();
         }
     }

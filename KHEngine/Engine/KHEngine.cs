@@ -38,7 +38,8 @@ public sealed class KHEngine
 
     public WorldFlag CurrentWorld;
     private List<CheckBase> Worlds = new List<CheckBase>();
-    
+    public Timer aTimer;
+
     public void Initialise(Mem mem)
     {
         Memory = mem;
@@ -47,8 +48,33 @@ public sealed class KHEngine
         GetPID();
         Worlds = KHData.Worlds.Worlds.GetWorldList();
     }
+
+    public void Start()
+    {
+        InitialiseModules();
+        SetTimer();
+    }
     
-    public bool InitialiseModules()
+    public void Stop()
+    {
+        aTimer?.Dispose();
+    }
+
+    
+    
+    private void OnFrame(Object stateInfo)
+    {
+        // Update Current World
+        CurrentWorld = GetCurrentWorld();
+
+        foreach (var module in Modules)
+        {
+            module.OnFrame();
+        }
+    }
+
+    
+    private bool InitialiseModules()
     {
         var success = false;
 
@@ -65,18 +91,11 @@ public sealed class KHEngine
         return success;
     }
 
-    public void OnFrame()
+
+    private void SetTimer()
     {
-        // Update Current World
-        CurrentWorld = GetCurrentWorld();
-
-        foreach (var module in Modules)
-        {
-            module.OnFrame();
-        }
+        aTimer = new Timer(OnFrame, null,1000, 250 );
     }
-
-   
 
     private void GetPID()
     {
