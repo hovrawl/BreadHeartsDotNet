@@ -133,7 +133,6 @@ public sealed class KHEngine
                 Address = worldCheck.OriginalAddress,
                 FlagName = worldCheck.Name
             } : null;
-        
         return world;
     }
     

@@ -29,9 +29,12 @@ namespace EngineTest // Note: actual namespace depends on the project name.
             Engine.Start();
             
             Console.WriteLine("Press any key close...");
-            
+            Console.ReadKey();
+
             Engine.Stop();
             
+            Console.WriteLine("Stopping...");
+
             Console.ReadKey();
         }
     }

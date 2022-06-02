@@ -8,33 +8,33 @@ public enum GameFlags
     [Address(0x3A0606)]
     Offset,
     
-    [Address(0x246E516)]
+    [Address(0x280EB1C)]
     HudOpen = 1,
     
-    [Address(0x1F9C4D6)]
+    [Address(0x233CADC)]
     WorldId = 2,
     
-    [Address(0x1F9C53E)]
+    [Address(0x233CB44)]
     RoomId = 3,
     
-    [Address(0x1F9C542)]
+    [Address(0x233CB48)]
     EventId = 4,
     
-    [Address(0x1F9CA2E)]
+    [Address(0x233D034)]
     ButtonPress = 5,
     
-    [Address(0x1F9CA2F)]
+    [Address(0x233D035)]
     ShoulderPress = 6,
     
-    [Address(0x1F480DA)]
+    [Address(0x22E86E0)]
     WarpRequirement1 = 7,
     
-    [Address(0x1F9BC3A)]
+    [Address(0x233C240)]
     WarpRequirement2 = 8,
     
-    [Address(0x1F9C562)]
+    [Address(0x233CB68)]
     LastUsedOverworldMap = 9,
     
-    [Address(0x1F480D6)]
+    [Address(0x22E86DC)]
     Warp = 10,
 }

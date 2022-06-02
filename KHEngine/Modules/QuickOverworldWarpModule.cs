@@ -69,8 +69,25 @@ public class QuickOverworldWarpModule: BaseModule
         var buttonPress = Engine.ReadInt(ButtonPress.Address);
         var shoulderPress = Engine.ReadInt(ShoulderPress.Address);
         CurrentWorld = KhEngine.CurrentWorld;
+        if (buttonPress == 0x06)
+        {
+            //
+        }
+        if (shoulderPress == 0x03)
+        {
+            //
+        }
+
+        if (buttonPress > 0)
+        {
+            Console.WriteLine($"Button Press: {buttonPress}");
+        }
+        if (shoulderPress > 0)
+        {
+            Console.WriteLine($"Shoulder Press: {shoulderPress}");
+        }
         // If both shoulder buttons are pressed and both analog sticks are pressed, warp out
-        if(buttonPress == 0x06 && shoulderPress == 0x03)
+        if(buttonPress == 0x06 && shoulderPress == 0x03 || buttonPress == 774 && shoulderPress == 0x03)
         {
             // Set warp flag
             Engine.WriteInt(Warp.Address, 10);
