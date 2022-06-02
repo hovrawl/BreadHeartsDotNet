@@ -78,14 +78,14 @@ public class QuickOverworldWarpModule: BaseModule
             //
         }
 
-        if (buttonPress > 0)
-        {
-            Console.WriteLine($"Button Press: {buttonPress}");
-        }
-        if (shoulderPress > 0)
-        {
-            Console.WriteLine($"Shoulder Press: {shoulderPress}");
-        }
+        // if (buttonPress > 0)
+        // {
+        //     Console.WriteLine($"Button Press: {buttonPress}");
+        // }
+        // if (shoulderPress > 0)
+        // {
+        //     Console.WriteLine($"Shoulder Press: {shoulderPress}");
+        // }
         // If both shoulder buttons are pressed and both analog sticks are pressed, warp out
         if(buttonPress == 0x06 && shoulderPress == 0x03 || buttonPress == 774 && shoulderPress == 0x03)
         {
