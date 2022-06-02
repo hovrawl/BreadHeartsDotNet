@@ -37,4 +37,13 @@ public enum GameFlags
     
     [Address(0x22E86DC)]
     Warp = 10,
+    
+    [Address(0x2978E0)]
+    DeathCheck = 11,
+    
+    [Address(0x297746)]
+    DeathSafetyMeasure = 11,
+    
+    [Address(0x232A604)]
+    SaveMenuOpen = 12,
 }
