@@ -59,8 +59,9 @@ public class QuickOverworldWarpModule: BaseModule
         };
 
         Engine = KhEngine;
-        // Get current world
         
+        Initialised = true;
+
         return success;
     }
 

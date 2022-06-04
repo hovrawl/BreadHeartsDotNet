@@ -20,8 +20,9 @@ namespace EngineTest // Note: actual namespace depends on the project name.
 
             Engine = KHEngine.Engine.KHEngine.Instance;
             
-            //Engine.AddModule(new SaveAnywhereModule());
+            Engine.AddModule(new SaveAnywhereModule());
             Engine.AddModule(new InstantGummiWarpModule());
+            Engine.AddModule(new FastCameraModule());
             
             Console.WriteLine("Engine Initialised!");
             Console.WriteLine("Press any key after KH1 is open...");

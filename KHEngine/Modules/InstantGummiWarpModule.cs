@@ -42,7 +42,8 @@ public class InstantGummiWarpModule: BaseModule
             Address = GameFlags.NeverlandProgressFlag.GetAddress()
         };
         
-        
+        Initialised = true;
+
         return success;
     }
 

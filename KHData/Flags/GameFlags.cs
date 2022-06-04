@@ -11,6 +11,38 @@ public enum GameFlags
     [Address(0x2863958)]
     GameState,
     
+    [Address(0x3E7F58)]
+    CameraAcceleration,
+    
+    [Address(0x3E7F5C)]
+    CameraDeceleration,
+    
+    [Address(0x25344C0)]
+    CameraCurrentSpeedV,
+    
+    [Address(0x25344C4)]
+    CameraCurrentSpeedH,
+    
+    [Address(0x233D060)]
+    CameraInputH,
+    
+    [Address(0x233D064)]
+    CameraInputV,
+    
+    [Address(0x2534724)]
+    CameraCenter,
+    
+    [Address(0x1DD299)]
+    CameraSnap,
+    [Address(0x1E2924)]
+    CameraAccellerationHack,
+    [Address(0x1E291B)]
+    CameraDecellertaionHack,
+    [Address(0x503A1C)]
+    CameraSpeed,
+    [Address(0x232A600)]
+    MenuOpen,
+    
     [Address(0x280EB1C)]
     SoraHud,
     
@@ -87,5 +119,5 @@ public enum GameFlags
     DJProgressFlag,
     
     [Address(0x2DE79D0+0x6C+0xED)]
-    NeverlandProgressFlag
+    NeverlandProgressFlag,
 }

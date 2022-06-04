@@ -70,7 +70,7 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
 
-        foreach (var module in Modules)
+        foreach (var module in Modules.Where(i => i.Initialised)) 
         {
             module.OnFrame();
         }
@@ -86,8 +86,8 @@ public sealed class KHEngine
             var executed = module.Initialise(this);
             if (!executed)
             {
+                // Log the individual module that didnt start
                 success = false;
-                break;
             }
         }
 

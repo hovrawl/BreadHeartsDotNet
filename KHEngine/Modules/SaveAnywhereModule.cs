@@ -153,6 +153,7 @@ public class SaveAnywhereModule: BaseModule
         }
         
         
+        Initialised = true;
 
         
         
