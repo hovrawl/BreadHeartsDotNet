@@ -150,14 +150,25 @@ public sealed class KHEngine
         return file;
     }
     
-    public string ReadFileText(string fileName)
+    public string ReadFileText(string path)
     {
-        if (!File.Exists(fileName))
+        var text = "";
+        if (!File.Exists(path))
         {
-            return "";
+            return text;
         }
         
-        var text = File.ReadAllText(fileName); ;
+        _readWriteLock.EnterReadLock();
+        try
+        {
+            text = File.ReadAllText(path);
+        }
+        finally
+        {
+            _readWriteLock.ExitWriteLock();
+        }
+        
+        
 
         return text;
     }
@@ -167,20 +178,14 @@ public sealed class KHEngine
         _readWriteLock.EnterWriteLock();
         try
         {
-            // Append text to the file
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                sw.WriteLine(text);
-                sw.Close();
-            }
+            using var sw = File.AppendText(path);
+            sw.WriteLine(text);
+            sw.Close();
         }
         finally
         {
-            // Release lock
             _readWriteLock.ExitWriteLock();
         }
-        //File.WriteAllText(fileName , text);
-        
     }
     
     

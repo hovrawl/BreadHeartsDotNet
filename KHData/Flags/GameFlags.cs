@@ -76,4 +76,16 @@ public enum GameFlags
     
     [Address(0x2D592CC)]
     SoraHp,
+    
+    [Address(0x50B940)]
+    WorldWarpBase,
+    
+    [Address(0x2DE65D0-0x200)]
+    CutsceneFlagBase,
+    
+    [Address(0x2DE79D0+0x6C+0x40)]
+    DJProgressFlag,
+    
+    [Address(0x2DE79D0+0x6C+0xED)]
+    NeverlandProgressFlag
 }
