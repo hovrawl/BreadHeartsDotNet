@@ -55,7 +55,7 @@ public class QuickOverworldWarpModule: BaseModule
         Warp = new GameFlag
         {
             FlagName = "Warp",
-            Address = GameFlags.Warp.GetAddress()
+            Address = GameFlags.WarpTrigger.GetAddress()
         };
 
         Engine = KhEngine;

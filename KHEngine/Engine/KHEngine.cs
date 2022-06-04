@@ -1,3 +1,4 @@
+using System.Text;
 using KHData.Common;
 using KHData.Enums;
 using KHData.Flags;
@@ -39,6 +40,8 @@ public sealed class KHEngine
     public WorldFlag CurrentWorld;
     private List<CheckBase> Worlds = new List<CheckBase>();
     public Timer aTimer;
+    
+    private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
 
     public void Initialise(Mem mem)
     {
@@ -135,15 +138,73 @@ public sealed class KHEngine
             } : null;
         return world;
     }
+
+    public FileStream OpenLocalFile(string fileName, FileMode openMode)
+    {
+        if (!File.Exists(fileName))
+        {
+            return null;
+        }
+        var file = File.Open(fileName, openMode);
+
+        return file;
+    }
+    
+    public string ReadFileText(string fileName)
+    {
+        if (!File.Exists(fileName))
+        {
+            return "";
+        }
+        
+        var text = File.ReadAllText(fileName); ;
+
+        return text;
+    }
+
+    public void WriteTextToFile(string path, string text)
+    {
+        _readWriteLock.EnterWriteLock();
+        try
+        {
+            // Append text to the file
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(text);
+                sw.Close();
+            }
+        }
+        finally
+        {
+            // Release lock
+            _readWriteLock.ExitWriteLock();
+        }
+        //File.WriteAllText(fileName , text);
+        
+    }
     
     
     #region Read/Write functions
-
     public void WriteInt(int address, int value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");
     }
-
+    
+    public void WriteShort(int address, short value)
+    {
+        Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");
+    }
+    
+    public void WriteShort(int address, int value)
+    {
+        ushort writeVal = 0;
+        try
+        {
+            writeVal = (ushort)value;
+        }catch{/**/}
+        Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{writeVal}");
+    }
+    
     public void WriteFloat(int address, float value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "float", $"{value}");
@@ -158,12 +219,27 @@ public sealed class KHEngine
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "byte", $"0x{value:X2}");
     }
-
-    public void Write2Bytes(int address, byte value1, byte value2)
+    public void Write2Bytes(int address, byte value)
+    {
+        Memory.WriteMemory($"{processName}+{address:X8}", "2bytes", $"0x{value:X2}");
+    }
+    public void WriteBytes(int address, byte value1, byte value2)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "bytes", $"0x{value1:X2} 0x{value2:X2}");
     }
-
+    public void WriteDouble(int address, byte value)
+    {
+        Memory.WriteMemory($"{processName}+{address:X8}", "double", $"{value}");
+    }
+    public void WriteLong(int address, long value)
+    {
+        Memory.WriteMemory($"{processName}+{address:X8}", "long", $"{value}");
+    }
+    public void WriteLong(int address, ulong value)
+    {
+        Memory.WriteMemory($"{processName}+{address:X8}", "long", $"{value}");
+    }
+    
     public int ReadInt(int address)
     {
         int result = Memory.ReadInt($"{processName}+{address:X8}");
@@ -181,12 +257,53 @@ public sealed class KHEngine
         string result = Memory.ReadString($"{processName}+{address:X8}");
         return result;
     }
-
+    
+    public string ReadString(int address, int length)
+    {
+        string result = Memory.ReadString($"{processName}+{address:X8}", length:length);
+        return result;
+    }
+    
+    public short ReadShort(int address)
+    {
+        var result = Memory.ReadInt($"{processName}+{address:X8}");
+        short shortVal = 0;
+        try
+        {
+            shortVal = (short)(result);
+        }catch{/**/}
+        return shortVal;
+    }
+    
     public byte ReadByte(int address)
     {
         byte result = (byte)Memory.ReadByte($"{processName}+{address:X8}");
         return result;
     }
 
+    public byte[] ReadBytes(int address, int length)
+    {
+        byte[] result = Memory.ReadBytes($"{processName}+{address:X8}", length);
+        return result;
+    }
+    
+    public byte Read2Byte(int address)
+    {
+        byte result = (byte)Memory.Read2Byte($"{processName}+{address:X8}");
+        return result;
+    }
+    
+    public long ReadLong(int address)
+    {
+        long result = Memory.ReadLong($"{processName}+{address:X8}");
+        return result;
+    }
+    
+    public double ReadDouble(int address)
+    {
+        double result = Memory.ReadDouble($"{processName}+{address:X8}");
+        return result;
+    }
+    
     #endregion
 }
