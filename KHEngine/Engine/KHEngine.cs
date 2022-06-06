@@ -228,9 +228,16 @@ public sealed class KHEngine
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "2bytes", $"0x{value:X2}");
     }
-    public void WriteBytes(int address, byte value1, byte value2)
+    public void WriteBytes(int address, List<int> value)
     {
-        Memory.WriteMemory($"{processName}+{address:X8}", "bytes", $"0x{value1:X2} 0x{value2:X2}");
+        var hexValues = new List<string>();
+        foreach (var byteVal in value)
+        {
+            hexValues.Add($"{byteVal:X2}");
+        }
+        var byteString = string.Join(",", hexValues);
+
+        Memory.WriteMemory($"{processName}+{address:X8}", "bytes", $"{byteString}");
     }
     public void WriteDouble(int address, byte value)
     {
