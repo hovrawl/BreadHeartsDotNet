@@ -144,4 +144,7 @@ public enum GameFlags
     
     [Address(0x2DE78E9)]
     OverworldMessageFlag,
+    
+    [Address(0x23944E4)]
+    CutsceneSkippable,
 }
