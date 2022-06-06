@@ -23,6 +23,9 @@ namespace EngineTest // Note: actual namespace depends on the project name.
             Engine.AddModule(new SaveAnywhereModule());
             Engine.AddModule(new InstantGummiWarpModule());
             Engine.AddModule(new FastCameraModule());
+            Engine.AddModule(new FasterAnimationsModule());
+            Engine.AddModule(new FasterDialogModule());
+            Engine.AddModule(new OpenInCombatModule());
             
             Console.WriteLine("Engine Initialised!");
             Console.WriteLine("Press any key after KH1 is open...");

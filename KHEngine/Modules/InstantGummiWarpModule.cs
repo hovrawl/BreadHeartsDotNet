@@ -11,13 +11,15 @@ public class InstantGummiWarpModule: BaseModule
     private GameFlag DjProgressFlag;
     private GameFlag NeverlandProgressFlag;
     
+    public override string Author => "Denhonator";
+    
     public override string Name => "Instant Gummi Ship Warp";
 
     public override string Description => "Instantly warp the Gummi Ship when selecting a world";
     
     public override bool Initialise(Engine.KHEngine khEngine)
     {
-        var success = false;
+        var success = true;
 
         KhEngine = khEngine;
         
@@ -42,7 +44,7 @@ public class InstantGummiWarpModule: BaseModule
             Address = GameFlags.NeverlandProgressFlag.GetAddress()
         };
         
-        Initialised = true;
+        Initialised = success;
 
         return success;
     }

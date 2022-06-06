@@ -37,13 +37,15 @@ public class SaveAnywhereModule: BaseModule
     private int LastDeathPointer = 0;
     private float PrevHud = 0;
     
+    public override string Author => "Denhonator";
+    
     public override string Name => "Save Anywhere";
 
     public override string Description => "Open the save menu anywhere via pressing Both Bumpers + Left Trigger + Select .";
     
     public override bool Initialise(Engine.KHEngine khEngine)
     {
-        var success = false;
+        var success = true;
 
         KhEngine = khEngine;
         
@@ -153,7 +155,7 @@ public class SaveAnywhereModule: BaseModule
         }
         
         
-        Initialised = true;
+        Initialised = success;
 
         
         

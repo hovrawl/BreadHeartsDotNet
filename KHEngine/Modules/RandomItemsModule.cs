@@ -39,16 +39,19 @@ public class RandomItemsModule : BaseModule
     public int infiniteDetection = 0;
     public bool canExecute = false;
     
+    public override string Author => "Denhonator";
+    
     public override string Name => "Random Items";
 
     public override string Description => "Randomise the items in game. Can be configured";
     
     public override bool Initialise(Engine.KHEngine khEngine)
     {
-        var success = false;
+        var success = true;
 
         KhEngine = khEngine;
         
+        Initialised = success;
         return success;
     }
 

@@ -16,6 +16,7 @@ public class QuickOverworldWarpModule: BaseModule
 
     private Engine.KHEngine Engine;
 
+    public override string Author => "KSX";
     public override string Name => "Quick Warp to Gummi Ship";
 
     public override string Description =>
@@ -23,7 +24,7 @@ public class QuickOverworldWarpModule: BaseModule
 
     public override bool Initialise(Engine.KHEngine khEngine)
     {
-        var success = false;
+        var success = true;
 
         KhEngine = khEngine;
 
@@ -60,7 +61,7 @@ public class QuickOverworldWarpModule: BaseModule
 
         Engine = KhEngine;
         
-        Initialised = true;
+        Initialised = success;
 
         return success;
     }

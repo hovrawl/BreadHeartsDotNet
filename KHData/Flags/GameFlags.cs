@@ -120,4 +120,28 @@ public enum GameFlags
     
     [Address(0x2DE79D0+0x6C+0xED)]
     NeverlandProgressFlag,
+    
+    [Address(0x3EA148)]
+    GravityBreakHack,
+    
+    [Address(0x2A2804)]
+    ZantetsukenHack,
+    
+    [Address(0x17A81A)]
+    OpenMenuInCombat,
+    
+    [Address(0x2903F9)]
+    TalkRequirement,
+    
+    [Address(0x2B12C4)]
+    ChestOpenRequirement,
+    
+    [Address(0x1A06CF)]
+    TrinityRequirement,
+    
+    [Address(0x2903B9)]
+    ExamineRequirement,
+    
+    [Address(0x2DE78E9)]
+    OverworldMessageFlag,
 }

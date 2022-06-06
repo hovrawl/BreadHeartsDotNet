@@ -32,13 +32,15 @@ public class FastCameraModule : BaseModule
     private double LastSpeedH = 0;
     private double LastSpeedV = 0;
     
+    public override string Author => "Denhonator";
+    
     public override string Name => "Fast Camera";
 
     public override string Description => "Allows for faster camera control.";
     
     public override bool Initialise(Engine.KHEngine khEngine)
     {
-        var success = false;
+        var success = true;
 
         KhEngine = khEngine;
         
@@ -103,8 +105,7 @@ public class FastCameraModule : BaseModule
             Address = GameFlags.MenuOpen.GetAddress()
         };
         
-        success = true;
-        Initialised = true;
+        Initialised = success;
         return success;
     }
 
