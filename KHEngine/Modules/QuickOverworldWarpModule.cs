@@ -14,7 +14,6 @@ public class QuickOverworldWarpModule: BaseModule
     private GameFlag ShoulderPress;
     private WorldFlag CurrentWorld;
 
-    private Engine.KHEngine Engine;
 
     public override string Author => "KSX";
     public override string Name => "Quick Warp to Gummi Ship";
@@ -28,39 +27,13 @@ public class QuickOverworldWarpModule: BaseModule
 
         KhEngine = khEngine;
 
-        WarpRequirement1 = new GameFlag
-        {
-            FlagName = "Warp Requirement 1",
-            Address = GameFlags.WarpRequirement1.GetAddress()
-        };
-        WarpRequirement2 = new GameFlag
-        {
-            FlagName = "Warp Requirement 2",
-            Address = GameFlags.WarpRequirement2.GetAddress()
-        };
-        LastUsedOverworldMap = new GameFlag
-        {
-            FlagName = "Last Used Overworld Map",
-            Address = GameFlags.LastUsedOverworldMap.GetAddress()
-        };
-        ButtonPress = new GameFlag
-        {
-            FlagName = "Button Pressed",
-            Address = GameFlags.ButtonPress.GetAddress()
-        };
-        ShoulderPress = new GameFlag
-        {
-            FlagName = "Shoulder Pressed",
-            Address = GameFlags.ShoulderPress.GetAddress()
-        };
-        Warp = new GameFlag
-        {
-            FlagName = "Warp",
-            Address = GameFlags.WarpTrigger.GetAddress()
-        };
+        WarpRequirement1 = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpRequirement1);
+        WarpRequirement2 = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpRequirement2);
+        LastUsedOverworldMap = KhEngine.GameFlagsRepo.GetFlag(GameFlags.LastUsedOverworldMap);
+        ButtonPress = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ButtonPress);
+        ShoulderPress = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ShoulderPress);
+        Warp = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpTrigger);
 
-        Engine = KhEngine;
-        
         Initialised = success;
 
         return success;
@@ -68,8 +41,8 @@ public class QuickOverworldWarpModule: BaseModule
 
     public override void OnFrame()
     {
-        var buttonPress = Engine.ReadInt(ButtonPress.Address);
-        var shoulderPress = Engine.ReadInt(ShoulderPress.Address);
+        var buttonPress = KhEngine.ReadInt(ButtonPress.Address);
+        var shoulderPress = KhEngine.ReadInt(ShoulderPress.Address);
         CurrentWorld = KhEngine.CurrentWorld;
         if (buttonPress == 0x06)
         {
@@ -92,15 +65,15 @@ public class QuickOverworldWarpModule: BaseModule
         if(buttonPress == 0x06 && shoulderPress == 0x03 || buttonPress == 774 && shoulderPress == 0x03)
         {
             // Set warp flag
-            Engine.WriteInt(Warp.Address, 10);
+            KhEngine.WriteInt(Warp.Address, 10);
             // Set last overworld map to the world we just left
-            Engine.WriteInt(LastUsedOverworldMap.Address, CurrentWorld.Address);
+            KhEngine.WriteInt(LastUsedOverworldMap.Address, (int)CurrentWorld.Address);
             
-            var currentWarpFlag = Engine.ReadInt(Warp.Address);
+            var currentWarpFlag = KhEngine.ReadInt(Warp.Address);
             if (currentWarpFlag == 10)
             {
-                Engine.WriteInt(WarpRequirement1.Address, 6);
-                Engine.WriteInt(WarpRequirement2.Address, 7);
+                KhEngine.WriteInt(WarpRequirement1.Address, 6);
+                KhEngine.WriteInt(WarpRequirement2.Address, 7);
             }
 
         }

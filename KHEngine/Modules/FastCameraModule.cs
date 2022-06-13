@@ -44,66 +44,18 @@ public class FastCameraModule : BaseModule
 
         KhEngine = khEngine;
         
-        Accel = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraAcceleration.GetAddress()
-        };
-        Deaccel = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraDeceleration.GetAddress()
-        };
-        CurSpeedV = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraCurrentSpeedV.GetAddress()
-        };
-        CurSpeedH = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraCurrentSpeedH.GetAddress()
-        };
-        CameraInputH = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraInputH.GetAddress()
-        };
-        CameraInputV = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraInputV.GetAddress()
-        };
-        CameraCenter = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraCenter.GetAddress()
-        };
-        Snap = new GameFlag
-        {
-            FlagName = "Camera Snap Flag",
-            Address = GameFlags.CameraSnap.GetAddress()
-        };
-        AccelHack = new GameFlag
-        {
-            FlagName = "Camera Acceleration",
-            Address = GameFlags.CameraAccellerationHack.GetAddress()
-        };
-        DeaccelHack = new GameFlag
-        {
-            FlagName = "Camera Deceleration",
-            Address = GameFlags.CameraDecellertaionHack.GetAddress()
-        };
-        Speed = new GameFlag
-        {
-            FlagName = "Camera Speed",
-            Address = GameFlags.CameraSpeed.GetAddress()
-        };
-        MenuOpen = new GameFlag
-        {
-            FlagName = "Menu Open",
-            Address = GameFlags.MenuOpen.GetAddress()
-        };
+        Accel = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraAcceleration);
+        Deaccel = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraDeceleration);
+        CurSpeedV = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraCurrentSpeedV);
+        CurSpeedH = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraCurrentSpeedH);
+        CameraInputH = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraInputH);
+        CameraInputV = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraInputV);
+        CameraCenter = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraCenter);
+        Snap = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraSnap);
+        AccelHack = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraAccelerationHack);
+        DeaccelHack = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraDecelerationHack);
+        Speed = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraSpeed);
+        MenuOpen = KhEngine.GameFlagsRepo.GetFlag(GameFlags.MenuOpen);
         
         Initialised = success;
         return success;

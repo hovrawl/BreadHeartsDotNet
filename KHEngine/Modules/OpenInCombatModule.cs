@@ -30,31 +30,11 @@ public class OpenInCombatModule: BaseModule
 
         KhEngine = khEngine;
         
-        OpenMenuInCombat = new GameFlag
-        {
-            FlagName = "Open Menu in Combat",
-            Address = GameFlags.OpenMenuInCombat.GetAddress()
-        };
-        TalkRequirement = new GameFlag
-        {
-            FlagName = "Open Menu in Combat",
-            Address = GameFlags.TalkRequirement.GetAddress()
-        };
-        ChestOpenRequirement = new GameFlag
-        {
-            FlagName = "Open Menu in Combat",
-            Address = GameFlags.ChestOpenRequirement.GetAddress()
-        };
-        TrinityRequirement = new GameFlag
-        {
-            FlagName = "Open Menu in Combat",
-            Address = GameFlags.TrinityRequirement.GetAddress()
-        };
-        ExamineRequirement = new GameFlag
-        {
-            FlagName = "Open Menu in Combat",
-            Address = GameFlags.ExamineRequirement.GetAddress()
-        };
+        OpenMenuInCombat = KhEngine.GameFlagsRepo.GetFlag(GameFlags.OpenMenuInCombat);
+        TalkRequirement = KhEngine.GameFlagsRepo.GetFlag(GameFlags.TalkRequirement);
+        ChestOpenRequirement = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ChestOpenRequirement);
+        TrinityRequirement = KhEngine.GameFlagsRepo.GetFlag(GameFlags.TrinityRequirement);
+        ExamineRequirement = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ExamineRequirement);
         
         OpenChest = true;
         OpenMenu = true;

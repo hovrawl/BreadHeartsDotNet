@@ -49,96 +49,27 @@ public class SaveAnywhereModule: BaseModule
 
         KhEngine = khEngine;
         
-        GameState = new GameFlag
-        {
-            FlagName = "Game State",
-            Address = GameFlags.GameState.GetAddress()
-        };
-        DeathCheck = new GameFlag
-        {
-            FlagName = "Death Check",
-            Address = GameFlags.DeathCheck.GetAddress()
-        };
-        DeathSafetyMeasure = new GameFlag
-        {
-            FlagName = "Death Safety Measure",
-            Address = GameFlags.DeathSafetyMeasure.GetAddress()
-        };
-        ButtonPress = new GameFlag
-        {
-            FlagName = "Button Pressed",
-            Address = GameFlags.ButtonPress.GetAddress()
-        };
-        SaveMenuOpen = new GameFlag
-        {
-            FlagName = "Save Menu Open",
-            Address = GameFlags.SaveMenuOpen.GetAddress()
-        };
-        CloseMenu = new GameFlag
-        {
-            FlagName = "Close Menu",
-            Address = GameFlags.CloseMenu.GetAddress()
-        };
-        Continue = new GameFlag
-        {
-            FlagName = "Continue",
-            Address = GameFlags.Continue.GetAddress()
-        };
-        CameraBase = new GameFlag
-        {
-            FlagName = "Camera Base",
-            Address = GameFlags.CameraBase.GetAddress()
-        };
-        Config = new GameFlag
-        {
-            FlagName = "Config",
-            Address = GameFlags.Config.GetAddress()
-        };
-        WarpTrigger = new GameFlag
-        {
-            FlagName = "Warp Trigger",
-            Address = GameFlags.WarpTrigger.GetAddress()
-        };
-        WarpRequirement1 = new GameFlag
-        {
-            FlagName = "Warp Requirement 1",
-            Address = GameFlags.WarpRequirement1.GetAddress()
-        };
-        WarpRequirement2 = new GameFlag
-        {
-            FlagName = "Warp Requirement 2",
-            Address = GameFlags.WarpRequirement2.GetAddress()
-        };
-        Title = new GameFlag
-        {
-            FlagName = "Title",
-            Address = GameFlags.Title.GetAddress()
-        };
-        WhiteFade = new GameFlag
-        {
-            FlagName = "White Fade",
-            Address = GameFlags.WhiteFade.GetAddress()
-        };
-        SoraHud = new GameFlag
-        {
-            FlagName = "Sora Hud Visible",
-            Address = GameFlags.SoraHud.GetAddress()
-        };
-        SoraHp = new GameFlag
-        {
-            FlagName = "Sora Hp",
-            Address = GameFlags.SoraHp.GetAddress()
-        };
-        BlackFade = new GameFlag
-        {
-            FlagName = "Black Fade",
-            Address = GameFlags.BlackFade.GetAddress()
-        };
-        DeathPointer = new GameFlag
-        {
-            FlagName = "Death Pointer",
-            Address = GameFlags.DeathPointer.GetAddress()
-        };
+        GameState = KhEngine.GameFlagsRepo.GetFlag(GameFlags.GameState);
+        DeathCheck = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathCheck);
+        DeathSafetyMeasure = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathSafetyMeasure);
+        ButtonPress = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ButtonPress);
+        SaveMenuOpen = KhEngine.GameFlagsRepo.GetFlag(GameFlags.SaveMenuOpen);
+        CloseMenu = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CloseMenu);
+        Continue = KhEngine.GameFlagsRepo.GetFlag(GameFlags.Continue);
+        CameraBase = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CameraBase);
+        Config = KhEngine.GameFlagsRepo.GetFlag(GameFlags.Config);
+        WarpTrigger = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpTrigger);
+        WarpRequirement1 = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpRequirement1);
+        WarpRequirement2 = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WarpRequirement2);
+        Title = KhEngine.GameFlagsRepo.GetFlag(GameFlags.Title);
+        WhiteFade = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WhiteFade);
+        SoraHud = KhEngine.GameFlagsRepo.GetFlag(GameFlags.SoraHud);
+        SoraHp = KhEngine.GameFlagsRepo.GetFlag(GameFlags.SoraHp);
+        BlackFade = KhEngine.GameFlagsRepo.GetFlag(GameFlags.BlackFade);
+        DeathPointer = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathPointer);
+
+       
+        
         ExtraSafety = true;
         
         var deathCheck = khEngine.ReadShort(DeathCheck.Address);

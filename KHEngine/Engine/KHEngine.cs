@@ -3,6 +3,7 @@ using KHData.Common;
 using KHData.Enums;
 using KHData.Flags;
 using KHEngine.Modules;
+using KHRandoData.Flags;
 using Memory;
 
 namespace KHEngine.Engine;
@@ -11,24 +12,12 @@ public sealed class KHEngine
 {
     
     #region InstanceLocking
-    private static volatile KHEngine _instance;
+    private static volatile KHEngine _instance = new KHEngine();
     private static readonly object ThreadLock = new object();
 
     private static readonly object SyncRoot = new object();
-    public static KHEngine Instance
-    {
-        get
-        {
-            if (_instance != null) return _instance;
-            lock (SyncRoot)
-            {
-                if (_instance != null) return _instance;
-                _instance = new KHEngine();
-            }
+    public static KHEngine Instance => _instance;
 
-            return _instance;
-        }
-    }
     #endregion
     
     private string processName = "KINGDOM HEARTS FINAL MIX.exe";
@@ -41,6 +30,7 @@ public sealed class KHEngine
     public WorldFlag CurrentWorld;
     private List<CheckBase> Worlds = new List<CheckBase>();
     public Timer aTimer;
+    public GameFlagsRepo GameFlagsRepo = new();
     
     private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
 
@@ -71,7 +61,7 @@ public sealed class KHEngine
     {
         // Update Current World
         CurrentWorld = GetCurrentWorld();
-
+        
         foreach (var module in Modules.Where(i => i.Initialised)) 
         {
             module.OnFrame();
@@ -136,7 +126,7 @@ public sealed class KHEngine
             new WorldFlag
             {
                 Address = worldCheck.OriginalAddress,
-                FlagName = worldCheck.Name
+                Name = worldCheck.Name
             } : null;
         return world;
     }

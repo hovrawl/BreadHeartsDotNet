@@ -27,16 +27,7 @@ public class UnskippableModule : BaseModule
         var success = true;
 
         KhEngine = khEngine;
-        // SoraHud = new GameFlag
-        // {
-        //     FlagName = "Sora Hud Visible",
-        //     Address = GameFlags.SoraHud.GetAddress()
-        // };
-        // BlackFade = new GameFlag
-        // {
-        //     FlagName = "Black fade on screen",
-        //     Address = GameFlags.BlackFade.GetAddress()
-        // };
+        
         var processAddress = KhEngine.Memory.mProc.MainModule.BaseAddress.ToInt64();
         var offset = GameFlags.Offset.GetAddress();
         
@@ -64,11 +55,8 @@ public class UnskippableModule : BaseModule
             });
         }
         
-        CutsceneSkippable = new GameFlag
-        {
-            FlagName = "Can the cutscene be skipped",
-            Address = GameFlags.CutsceneSkippable.GetAddress()
-        };
+        CutsceneSkippable = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CutsceneSkippable);
+        
         EarlySkip = true;
         Initialised = success;
         return success;

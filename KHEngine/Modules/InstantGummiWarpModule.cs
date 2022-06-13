@@ -23,27 +23,12 @@ public class InstantGummiWarpModule: BaseModule
 
         KhEngine = khEngine;
         
-        WorldWarpBase = new GameFlag
-        {
-            FlagName = "Death Pointer",
-            Address = GameFlags.WorldWarpBase.GetAddress()
-        };
-        CutsceneFlagBase = new GameFlag
-        {
-            FlagName = "Death Pointer",
-            Address = GameFlags.CutsceneFlagBase.GetAddress()
-        };
-        DjProgressFlag = new GameFlag
-        {
-            FlagName = "Death Pointer",
-            Address = GameFlags.DJProgressFlag.GetAddress()
-        };
-        NeverlandProgressFlag = new GameFlag
-        {
-            FlagName = "Death Pointer",
-            Address = GameFlags.NeverlandProgressFlag.GetAddress()
-        };
-        
+        // Get Flags
+        WorldWarpBase = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WorldWarpBase);
+        CutsceneFlagBase = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CutsceneFlagBase);
+        DjProgressFlag = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DjProgressFlag);
+        NeverlandProgressFlag = KhEngine.GameFlagsRepo.GetFlag(GameFlags.NeverlandProgressFlag);
+
         Initialised = success;
 
         return success;

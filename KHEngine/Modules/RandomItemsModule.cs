@@ -1,42 +1,86 @@
+using KHData.Flags;
 using Memory;
 
 namespace KHEngine.Modules;
 
 public class RandomItemsModule : BaseModule
 {
+    #region Flags
+
+    private GameFlag BtlTbl;
+    private GameFlag ItemTable;
+    private GameFlag WeaponTable;
+    private GameFlag SoraStatTable;
+    private GameFlag DonaldStatTable;
+    private GameFlag GoofyStatTable;
+    private GameFlag SoraAbilityTable;
+    private GameFlag SoraAbilityTable2;
+    private GameFlag SoraAbilityTable3;
+    private GameFlag DonaldAbilityTable;
+    private GameFlag GoofyAbilityTable;
+    private GameFlag RewardTable;
+    private GameFlag ChestTable;
+    private GameFlag ShopTableBase;
+    private GameFlag SynthRequirements;
+    private GameFlag SynthItems;
+    
+    private GameFlag ChestsOpened;
+    private GameFlag SummonsReturned;
+    private GameFlag Summon;
+    private GameFlag Inventory;
+    private GameFlag TornPageCount;
+    private GameFlag EmblemCount;
+    private GameFlag Slides;
+    private GameFlag Evidence;
+    private GameFlag ClawmarkBox;
+    private GameFlag EmblemDoor;
+    private GameFlag MinigameStatus;
+    private GameFlag GummiInventory;
+    private GameFlag Reports;
+    
+    private GameFlag WorldWarps;
+    private GameFlag WorldFlagBase;
+    private GameFlag GummiFlagBase;
+    private GameFlag WorldMapLines;
+    private GameFlag GummiSelect;
+    private GameFlag InGummi;
+    
+    
+    #endregion
+    
     public List<string> GummiNames = new List<string>();
     public List<string> ItemNames = new List<string>();
     public List<string> ChestDetails = new List<string>();
     public List<string> RewardDetails = new List<string>();
-    public List<string> vanillaChests = new List<string>();
-    public List<string> vanillaRewards = new List<string>();
-    public List<string> itemids = new List<string>();
-    public List<string> rewards = new List<string>();
-    public List<string> soraLevels = new List<string>();
-    public List<string> soraAbilities = new List<string>();
-    public List<string> soraAbilities2 = new List<string>();
-    public List<string> soraAbilities3 = new List<string>();
-    public List<string> donaldLevels = new List<string>();
-    public List<string> donaldAbilities = new List<string>();
-    public List<string> goofyLevels = new List<string>();
-    public List<string> goofyAbilities = new List<string>();
-    public List<string> weaponStr = new List<string>();
-    public List<string> weaponMag = new List<string>();
-    public List<string> itemData = new List<string>();
-    public List<string> shops = new List<string>();
-    public List<string> synths = new List<string>();
-    public List<string> chests = new List<string>();
-    public List<string> itemsAvailable = new List<string>();
-    public List<string> abilitiesAvailable = new List<string>();
-    public List<string> magicAvailable = new List<string>();
-    public List<string> reportData = new List<string>();
-    public int dalmatiansAvailable = 0;
-    public string seedstring = "";
-    public bool randomized = false;
-    public bool successfulRando = true;
-    public bool isValidSeed = false;
-    public bool initDone = false;
-    public int infiniteDetection = 0;
+    public List<string> VanillaChests = new List<string>();
+    public List<string> VanillaRewards = new List<string>();
+    public List<string> Itemids = new List<string>();
+    public List<string> Rewards = new List<string>();
+    public List<string> SoraLevels = new List<string>();
+    public List<string> SoraAbilities = new List<string>();
+    public List<string> SoraAbilities2 = new List<string>();
+    public List<string> SoraAbilities3 = new List<string>();
+    public List<string> DonaldLevels = new List<string>();
+    public List<string> DonaldAbilities = new List<string>();
+    public List<string> GoofyLevels = new List<string>();
+    public List<string> GoofyAbilities = new List<string>();
+    public List<string> WeaponStr = new List<string>();
+    public List<string> WeaponMag = new List<string>();
+    public List<string> ItemData = new List<string>();
+    public List<string> Shops = new List<string>();
+    public List<string> Synths = new List<string>();
+    public List<string> Chests = new List<string>();
+    public List<string> ItemsAvailable = new List<string>();
+    public List<string> AbilitiesAvailable = new List<string>();
+    public List<string> MagicAvailable = new List<string>();
+    public List<string> ReportData = new List<string>();
+    public int DalmatiansAvailable = 0;
+    public string SeedString = "";
+    public bool Randomized = false;
+    public bool SuccessfulRando = true;
+    public bool IsValidSeed = false;
+    public bool InitDone = false;
+    public int InfiniteDetection = 0;
     public bool canExecute = false;
     
     public override string Author => "Denhonator";

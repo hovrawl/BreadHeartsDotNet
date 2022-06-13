@@ -21,16 +21,9 @@ public class ConsistentFinishersModule: BaseModule
         var success = true;
 
         KhEngine = khEngine;
-        GravityBreak = new GameFlag
-        {
-            FlagName = "Gravity Break Hack",
-            Address = GameFlags.GravityBreakHack.GetAddress()
-        };
-        Zantetsuken = new GameFlag
-        {
-            FlagName = "Zantetsuken Hack",
-            Address = GameFlags.ZantetsukenHack.GetAddress()
-        };
+        GravityBreak = KhEngine.GameFlagsRepo.GetFlag(GameFlags.GravityBreakHack);
+        Zantetsuken = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ZantetsukenHack);
+        
         
         Initialised = success;
         return success;

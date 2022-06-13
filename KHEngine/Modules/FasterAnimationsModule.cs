@@ -21,12 +21,8 @@ public class FasterAnimationsModule : BaseModule
         var success = true;
 
         KhEngine = khEngine;
-        SoraHud = new GameFlag
-        {
-            FlagName = "Sora HUD on screen",
-            Address = GameFlags.SoraHud.GetAddress()
-        };
-        
+        SoraHud = KhEngine.GameFlagsRepo.GetFlag(GameFlags.SoraHud);
+
         Initialised = success;
         return success;
     }
