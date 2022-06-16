@@ -25,7 +25,6 @@ public sealed class KHEngine
     
     private static List<BaseModule> Modules = new List<BaseModule>();
     public Mem Memory;
-    public ManualReader ManualReader;
 
     public WorldFlag CurrentWorld;
     private List<CheckBase> Worlds = new List<CheckBase>();
@@ -37,7 +36,6 @@ public sealed class KHEngine
     public void Initialise(Mem mem)
     {
         Memory = mem;
-        ManualReader = new ManualReader();
         
         //Memory = new Mem();
         GetPID();
