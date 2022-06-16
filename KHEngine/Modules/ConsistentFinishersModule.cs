@@ -1,5 +1,6 @@
 using KHData.Enums;
 using KHData.Flags;
+using KHEngine.Extensions;
 using Memory;
 
 namespace KHEngine.Modules;
@@ -31,6 +32,7 @@ public class ConsistentFinishersModule: BaseModule
 
     public override void OnFrame()
     {
+        Zantetsuken.ReadMemory(KhEngine);
         var zanteCheck = KhEngine.ReadByte(Zantetsuken.Address + 4);
         KhEngine.WriteFloat(GravityBreak.Address, (float)-1.0);
         if (zanteCheck == 0x6C)

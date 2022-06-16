@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using KHData.Common;
 using KHData.Enums;
@@ -184,6 +185,20 @@ public sealed class KHEngine
     
     
     #region Read/Write functions
+
+    public void ReadMemory(GameFlag flag)
+    {
+        
+    }
+
+    public void WriteMemory(GameFlag flag, object value)
+    {
+        switch (flag.Type)
+        {
+            
+        }
+    }
+    
     public void WriteInt(long address, int value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");

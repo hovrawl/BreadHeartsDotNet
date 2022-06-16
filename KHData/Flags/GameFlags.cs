@@ -10,6 +10,7 @@ public enum GameFlags
     [Address(0x3A0606)]
     Offset,
     
+    [FlagType(FlagType.Int)]
     [Description("Game State")]
     [Address(0x2863958)]
     GameState,
@@ -178,6 +179,7 @@ public enum GameFlags
     [Address(0x3EA148)]
     GravityBreakHack,
     
+    [FlagType(FlagType.Byte)]
     [Description("Zantetsuken Hack")]
     [Address(0x2A2804)]
     ZantetsukenHack,

@@ -1,3 +1,5 @@
+using KHData.Flags;
+
 namespace KHData.Enums;
 
 public class AddressAttribute : Attribute
@@ -16,5 +18,24 @@ public class AddressAttribute : Attribute
     public AddressAttribute(int address)
     {
         _address = address;
+    }
+}
+
+public class FlagTypeAttribute : Attribute
+{
+    private readonly FlagType _type;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public FlagType Type => _type;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    public FlagTypeAttribute(FlagType type)
+    {
+        _type = type;
     }
 }
