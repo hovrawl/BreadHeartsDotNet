@@ -106,6 +106,10 @@ public enum GameFlags
     [Address(0x2978E0)]
     DeathCheck,
     
+    [Description("Death Check Alternate(JP)")]
+    [Address(0x2978E0 - 0x1C0)]
+    DeathCheckAlternate,
+    
     [Description("Death Pointer")]
     [Address(0x23944B8)]
     DeathPointer,
@@ -113,6 +117,10 @@ public enum GameFlags
     [Description("Death Safety Measure")]
     [Address(0x297746)]
     DeathSafetyMeasure,
+    
+    [Description("Death Safety Measure Alternate(JP)")]
+    [Address(0x297746- 0x1C0)]
+    DeathSafetyMeasureAlternate,
     
     [Description("Is the Save Menu Open")]
     [Address(0x232A604)]

@@ -2,6 +2,7 @@ using System.Text;
 using KHData.Common;
 using KHData.Enums;
 using KHData.Flags;
+using KHData.Worlds;
 using KHEngine.Modules;
 using KHRandoData.Flags;
 using Memory;
@@ -23,15 +24,15 @@ public sealed class KHEngine
     private string processName = "KINGDOM HEARTS FINAL MIX.exe";
     private string processId = "KINGDOM HEARTS FINAL MIX";
     
-    private static List<BaseModule> Modules = new List<BaseModule>();
+    private static List<BaseModule> Modules = new ();
     public Mem Memory;
 
-    public WorldFlag CurrentWorld;
-    private List<CheckBase> Worlds = new List<CheckBase>();
+    public WorldInfo CurrentWorld;
+    private List<WorldInfo> Worlds = new ();
     public Timer aTimer;
     public GameFlagsRepo GameFlagsRepo = new();
     
-    private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
+    private static ReaderWriterLockSlim _readWriteLock = new ();
 
     public void Initialise(Mem mem)
     {
@@ -113,19 +114,22 @@ public sealed class KHEngine
     {
         Modules.RemoveAll(i => i.Id.Equals(moduleId));
     }
-    
-    private WorldFlag GetCurrentWorld()
-    {
-        var worldFlag = GameFlags.WorldId;
 
-        var worldId = ReadInt(worldFlag.GetAddress());
-        var worldCheck = Worlds.FirstOrDefault(i => i.OriginalAddress == worldId);
-        var world = worldCheck != null ? 
-            new WorldFlag
+    private int WorldIdAddress = GameFlags.WorldId.GetAddress();
+    
+    private WorldInfo GetCurrentWorld()
+    {
+        var worldId = ReadInt(WorldIdAddress);
+        var world = Worlds.FirstOrDefault(i => i.WorldId == worldId);
+        if (world == null)
+        {
+            world = new WorldInfo
             {
-                Address = worldCheck.OriginalAddress,
-                Name = worldCheck.Name
-            } : null;
+                World = WorldList.DiveToHeart,
+                Name = "Invalid",
+                WorldId = -1,
+            };
+        }
         return world;
     }
 

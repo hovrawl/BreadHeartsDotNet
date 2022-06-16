@@ -69,7 +69,7 @@ public class UnskippableModule : BaseModule
         var summoning = KhEngine.ReadInt(0x2D5D62C);
         // var HUD = KhEngine.ReadFloat(SoraHud.Address);
         // var blackFade = KhEngine.ReadByte(BlackFade.Address);
-        var worldId = KhEngine.CurrentWorld.Address;
+        var worldId = KhEngine.CurrentWorld.WorldId;
         
         if (cutsceneNow > 0 && (worldId == 4 || worldId >= 0xF) && summoning == 0)
         {

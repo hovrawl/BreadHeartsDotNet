@@ -76,11 +76,11 @@ public class SaveAnywhereModule: BaseModule
         if (deathCheck != 0x2E74)
         {
             // Run jp checks
-            deathCheck = khEngine.ReadShort(DeathCheck.Address - 0x1C0);
+            deathCheck = khEngine.ReadShort(GameFlags.DeathCheckAlternate.GetAddress());
             if (deathCheck == 0x2E74)
             {
-                DeathCheck.Address = DeathCheck.Address - 0x1C0;
-                DeathSafetyMeasure.Address = DeathSafetyMeasure.Address - 0x1C0;
+                DeathCheck = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathCheckAlternate);
+                DeathSafetyMeasure = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathSafetyMeasureAlternate);
                 ExtraSafety = false;
             }
         }

@@ -1,21 +1,22 @@
 using KHData.Common;
 using KHData.Enums;
+using KHData.Flags;
 
 namespace KHData.Worlds;
 
 public static class Worlds
 {
-    public static List<CheckBase> GetWorldList()
+    public static List<WorldInfo> GetWorldList()
     {
-        var returnList = new List<CheckBase>();
+        var returnList = new List<WorldInfo>();
 
         foreach (var worldEnum in Enum.GetValues<WorldList>())
         {
-            var world = new CheckBase
+            var world = new WorldInfo
             {
+                World = worldEnum,
                 Name = worldEnum.GetDescription(),
-                OriginalAddress = (int) worldEnum,
-                CheckType = CheckType.World,
+                WorldId = (int) worldEnum,
             };
             
             returnList.Add(world);

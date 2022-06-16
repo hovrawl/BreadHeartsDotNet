@@ -12,7 +12,7 @@ public class QuickOverworldWarpModule: BaseModule
     private GameFlag Warp;
     private GameFlag ButtonPress;
     private GameFlag ShoulderPress;
-    private WorldFlag CurrentWorld;
+    private WorldInfo CurrentWorld;
 
 
     public override string Author => "KSX";
@@ -67,7 +67,7 @@ public class QuickOverworldWarpModule: BaseModule
             // Set warp flag
             KhEngine.WriteInt(Warp.Address, 10);
             // Set last overworld map to the world we just left
-            KhEngine.WriteInt(LastUsedOverworldMap.Address, (int)CurrentWorld.Address);
+            KhEngine.WriteInt(LastUsedOverworldMap.Address, CurrentWorld.WorldId);
             
             var currentWarpFlag = KhEngine.ReadInt(Warp.Address);
             if (currentWarpFlag == 10)
