@@ -32,12 +32,15 @@ public class ConsistentFinishersModule: BaseModule
 
     public override void OnFrame()
     {
+        //var zanteCheck = KhEngine.ReadByte(Zantetsuken.Address);
+        // KhEngine.WriteFloat(GravityBreak.Address, (float)-1.0);
+
         Zantetsuken.ReadMemory(KhEngine);
-        var zanteCheck = KhEngine.ReadByte(Zantetsuken.Address + 4);
-        KhEngine.WriteFloat(GravityBreak.Address, (float)-1.0);
-        if (zanteCheck == 0x6C)
+        GravityBreak.WriteMemory(KhEngine, (float)-1.0);
+        if (Zantetsuken.ValueAsInt == 0x6C)
         {
-            KhEngine.WriteByte(Zantetsuken.Address + 4, 0xC4);
+            Zantetsuken.WriteMemory(KhEngine, 0xC4);
+            //KhEngine.WriteByte(Zantetsuken.Address, 0xC4);
         }
         
     }

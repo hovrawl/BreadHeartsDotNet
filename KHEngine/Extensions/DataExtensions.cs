@@ -10,35 +10,42 @@ public static class DataExtensions
         {
             case FlagType.Int:
             {
-                flag.Value = engine.ReadInt(flag.Address).ToString();
+                flag.Value = engine.ReadInt(flag.Address);
                 break;
             }
             case FlagType.Long:
             {
+                flag.Value = engine.ReadLong(flag.Address);
                 break;
             }
             case FlagType.Float:
             {
+                flag.Value = engine.ReadFloat(flag.Address);
                 break;
             }
             case FlagType.Double:
             {
+                flag.Value = engine.ReadDouble(flag.Address);
                 break;
             }
             case FlagType.Bool:
             {
+                flag.Value = engine.ReadInt(flag.Address) != 0;
                 break;
             }
             case FlagType.String:
             {
+                flag.Value = engine.ReadString(flag.Address);
                 break;
             }
             case FlagType.Byte:
             {
+                flag.Value = engine.ReadByte(flag.Address);
                 break;
             }
             case FlagType.Bytes:
             {
+                flag.Value = engine.ReadBytes(flag.Address, flag.Length);
                 break;
             }
             default:
@@ -52,37 +59,46 @@ public static class DataExtensions
     {
         switch (flag.Type)
         {
-            case FlagType.Int when newValue is int intVal:
+            case FlagType.Int when newValue is int result:
             {
-                engine.WriteInt(flag.Address, intVal);
+                engine.WriteInt(flag.Address, result);
                 break;
             }
-            case FlagType.Long:
+            case FlagType.Long when newValue is long result:
             {
+                engine.WriteLong(flag.Address, result);
                 break;
             }
-            case FlagType.Float:
+            case FlagType.Float when newValue is float result:
             {
+                engine.WriteFloat(flag.Address, result);
                 break;
             }
-            case FlagType.Double:
+            case FlagType.Double when newValue is double result:
             {
+                engine.WriteDouble(flag.Address, result);
                 break;
             }
-            case FlagType.Bool:
+            case FlagType.Bool when newValue is bool result:
             {
+                // true == 1
+                // false == 0
+                engine.WriteInt(flag.Address, result ? 1 : 0);
                 break;
             }
-            case FlagType.String:
+            case FlagType.String when newValue is string result:
             {
+                engine.WriteString(flag.Address, result);
                 break;
             }
-            case FlagType.Byte:
+            case FlagType.Byte when newValue is byte result:
             {
+                engine.WriteByte(flag.Address, result);
                 break;
             }
-            case FlagType.Bytes:
+            case FlagType.Bytes when newValue is List<int> result:
             {
+                engine.WriteBytes(flag.Address, result);
                 break;
             }
             default:

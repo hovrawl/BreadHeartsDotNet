@@ -186,29 +186,11 @@ public sealed class KHEngine
     
     #region Read/Write functions
 
-    public void ReadMemory(GameFlag flag)
-    {
-        
-    }
-
-    public void WriteMemory(GameFlag flag, object value)
-    {
-        switch (flag.Type)
-        {
-            
-        }
-    }
-    
     public void WriteInt(long address, int value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");
     }
-    
-    public void WriteShort(long address, short value)
-    {
-        Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");
-    }
-    
+
     public void WriteShort(long address, int value)
     {
         ushort writeVal = 0;
@@ -261,10 +243,11 @@ public sealed class KHEngine
         Memory.WriteMemory($"{address:X8}", "bytes", $"{byteString}");
     }
     
-    public void WriteDouble(long address, byte value)
+    public void WriteDouble(long address, double value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "double", $"{value}");
     }
+    
     public void WriteLong(long address, long value)
     {
         Memory.WriteMemory($"{processName}+{address:X8}", "long", $"{value}");

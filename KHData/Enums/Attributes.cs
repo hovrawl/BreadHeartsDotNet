@@ -39,3 +39,22 @@ public class FlagTypeAttribute : Attribute
         _type = type;
     }
 }
+
+public class LengthAttribute : Attribute
+{
+    private readonly int _length;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int Length => _length;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="length"></param>
+    public LengthAttribute(int length)
+    {
+        _length = length;
+    }
+}

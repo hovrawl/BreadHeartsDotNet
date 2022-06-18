@@ -1,5 +1,6 @@
 using KHData.Enums;
 using KHData.Flags;
+using KHEngine.Extensions;
 using Memory;
 
 namespace KHEngine.Modules;
@@ -10,6 +11,7 @@ public class InstantGummiWarpModule: BaseModule
     private GameFlag CutsceneFlagBase;
     private GameFlag DjProgressFlag;
     private GameFlag NeverlandProgressFlag;
+    private GameFlag WorldSelection;
     
     public override string Author => "Denhonator";
     
@@ -28,6 +30,7 @@ public class InstantGummiWarpModule: BaseModule
         CutsceneFlagBase = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CutsceneFlagBase);
         DjProgressFlag = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DjProgressFlag);
         NeverlandProgressFlag = KhEngine.GameFlagsRepo.GetFlag(GameFlags.NeverlandProgressFlag);
+        WorldSelection = KhEngine.GameFlagsRepo.GetFlag(GameFlags.WorldSelection);
 
         Initialised = success;
 
@@ -36,11 +39,14 @@ public class InstantGummiWarpModule: BaseModule
 
     public override void OnFrame()
     {
-        var selection = KhEngine.ReadInt(0x503CEC);
-        var realWorld = KhEngine.ReadInt(0x503C04);
-        var soraWorld = KhEngine.ReadInt(0x233CADC);
+        var currentWorld = KhEngine.CurrentWorld;
+        WorldSelection.ReadMemory(KhEngine);
+        var selection = WorldSelection.ValueAsInt;
+        // var selection = KhEngine.ReadInt(0x503CEC);
+        // var realWorld = KhEngine.ReadInt(0x503C04);
+        // var soraWorld = KhEngine.ReadInt(0x233CADC);
+        
         var room = KhEngine.ReadInt(0x25346D0);
-
         var monstroInt = KhEngine.ReadByte(0x2DE78CA);
         var neverlandInt = KhEngine.ReadByte(CutsceneFlagBase.Address + 0xB0D);
         var deepJungleInt = KhEngine.ReadByte(CutsceneFlagBase.Address + 0xB05);
@@ -57,9 +63,10 @@ public class InstantGummiWarpModule: BaseModule
         KhEngine.WriteInt(WorldWarpBase.Address + 0x9C , neverlandState ? 0x18 : 0x25);
         
         
-        if (room > 0 && soraWorld != selection)
+        if (room > 0 && currentWorld.WorldId != selection)
         {
-            KhEngine.WriteInt(0x503CEC, soraWorld);
+            WorldSelection.WriteMemory(KhEngine, currentWorld.WorldId);
+            //KhEngine.WriteInt(0x503CEC, soraWorld);
         }
         
         // Replace HT and Atlantica with Monstro at first
@@ -84,14 +91,16 @@ public class InstantGummiWarpModule: BaseModule
         if (selection == 25)
         {
             selection = 15;
-            KhEngine.WriteInt(0x503CEC, selection);
+            WorldSelection.WriteMemory(KhEngine, selection);
+            //KhEngine.WriteInt(0x503CEC, selection);
         }
         
         // Change warp to Agrabah
         if (selection == 21)
         {
             selection = 8;
-            KhEngine.WriteInt(0x503CEC, selection);
+            WorldSelection.WriteMemory(KhEngine, selection);
+            //KhEngine.WriteInt(0x503CEC, selection);
 
         }
 	

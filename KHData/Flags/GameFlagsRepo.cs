@@ -32,6 +32,7 @@ public class GameFlagsRepo
             {
                 Name = flagEnum.GetDescription(),
                 Address = flagEnum.GetAddress(),
+                Type = flagEnum.GetFlagType(),
                 Flag = flagEnum,
             };
             Flags.Add(flagEnum, flag);

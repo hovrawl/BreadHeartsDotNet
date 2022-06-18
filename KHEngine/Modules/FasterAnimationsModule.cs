@@ -1,5 +1,6 @@
 using KHData.Enums;
 using KHData.Flags;
+using KHEngine.Extensions;
 using Memory;
 
 namespace KHEngine.Modules;
@@ -9,6 +10,10 @@ public class FasterAnimationsModule : BaseModule
     private bool summonSpeedup = true;
     private double speedMult = 2.0;
     private GameFlag SoraHud;
+    private GameFlag Summoning;
+    private GameFlag FramerateHack;
+    private GameFlag InCutscene;
+    private GameFlag CutsceneSkippable;
     
     public override string Author => "Denhonator";
     
@@ -22,6 +27,10 @@ public class FasterAnimationsModule : BaseModule
 
         KhEngine = khEngine;
         SoraHud = KhEngine.GameFlagsRepo.GetFlag(GameFlags.SoraHud);
+        Summoning = KhEngine.GameFlagsRepo.GetFlag(GameFlags.Summoning);
+        FramerateHack = KhEngine.GameFlagsRepo.GetFlag(GameFlags.FramerateHack);
+        InCutscene = KhEngine.GameFlagsRepo.GetFlag(GameFlags.InCutscene);
+        CutsceneSkippable = KhEngine.GameFlagsRepo.GetFlag(GameFlags.CutsceneSkippable);
 
         Initialised = success;
         return success;
@@ -29,19 +38,26 @@ public class FasterAnimationsModule : BaseModule
 
     public override void OnFrame()
     {
-        var cutscene = KhEngine.ReadInt(0x2378B60);
-        var skippable = KhEngine.ReadInt(0x23944E4);
-        var summoning = KhEngine.ReadInt(0x2D5D62C);
-        var soraHud = KhEngine.ReadInt(SoraHud.Address);
+        SoraHud.ReadMemory(KhEngine);
+        Summoning.ReadMemory(KhEngine);
+        InCutscene.ReadMemory(KhEngine);
+        CutsceneSkippable.ReadMemory(KhEngine);
+        
+        var cutscene = InCutscene.ValueAsInt;
+        var skippable = CutsceneSkippable.ValueAsInt;
+        var summoning = Summoning.ValueAsInt;
+        var soraHud = SoraHud.ValueAsBool;
 
-        if (soraHud < 1 && cutscene > 0 && cutscene != 8
+        if (!soraHud && cutscene > 0 && cutscene != 8
         && skippable != 1025 && (summoning == 0 || summonSpeedup))
         {
-            KhEngine.WriteFloat(0x233C24C, (float)speedMult);
+            FramerateHack.WriteMemory(KhEngine, (float)speedMult);
+            //KhEngine.WriteFloat(0x233C24C, (float)speedMult);
         }
         else
         {
-            KhEngine. WriteFloat(0x233C24C, (float)1.0);
+            FramerateHack.WriteMemory(KhEngine, (float)1.0);
+            //KhEngine. WriteFloat(0x233C24C, (float)1.0);
         }
     }
 }

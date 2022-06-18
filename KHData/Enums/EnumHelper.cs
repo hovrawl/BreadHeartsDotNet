@@ -56,7 +56,7 @@ public static class EnumHelper
         return 0;
     }
     
-    public static FlagType GetType<T>(this T enumerationValue) where T : struct
+    public static FlagType GetFlagType<T>(this T enumerationValue) where T : struct
     {
         Type type = enumerationValue.GetType();
         if (!type.IsEnum)
@@ -68,14 +68,36 @@ public static class EnumHelper
         MemberInfo[] memberInfo = type.GetMember(enumerationValue.ToString() ?? string.Empty);
         if (memberInfo.Length > 0)
         {
-            object[] attrs = memberInfo[0].GetCustomAttributes(typeof(FlagType), false);
+            object[] attrs = memberInfo[0].GetCustomAttributes(typeof(FlagTypeAttribute), false);
 
             if (attrs is { Length: > 0 })
             {
-                return attrs[0] as FlagType? ?? FlagType.Int;
+                return ((FlagTypeAttribute)attrs[0]).Type;
             }
         }
         // No address set, return 0
         return FlagType.Int;
+    }
+    
+    public static int GetLength<T>(this T enumerationValue) where T : struct
+    {
+        Type type = enumerationValue.GetType();
+        if (!type.IsEnum)
+        {
+            throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
+        }
+
+        //Tries to find Length for the enum value
+        MemberInfo[] memberInfo = type.GetMember(enumerationValue.ToString());
+        if (memberInfo != null && memberInfo.Length > 0)
+        {
+            object[] attrs = memberInfo[0].GetCustomAttributes(typeof(LengthAttribute), false);
+
+            if (attrs != null && attrs.Length > 0)
+            {
+                return ((LengthAttribute)attrs[0]).Length;
+            }
+        }
+        return 0;
     }
 }

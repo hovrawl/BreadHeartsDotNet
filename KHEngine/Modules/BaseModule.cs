@@ -4,6 +4,8 @@ namespace KHEngine.Modules;
 
 public abstract class BaseModule
 {
+    protected Engine.KHEngine KhEngine;
+
     public Guid Id { get; } = Guid.NewGuid();
     
     public abstract string Author { get; }
@@ -12,9 +14,6 @@ public abstract class BaseModule
     
     public abstract string Description { get; }
 
-
-    public Engine.KHEngine KhEngine;
-    
     public abstract bool Initialise(Engine.KHEngine khEngine);
 
     public abstract void OnFrame();
