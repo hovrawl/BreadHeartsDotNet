@@ -5,6 +5,8 @@ An engine written in .Net Framework to hook into a running Kingdom Hearts 1 Fina
 ##  Features
  - Execute scripts on a priority based system(500ms, 1000ms, 5000ms)
  - Console App to run the engine
+ - Game flags to facilitate easy access to game parameters/objects
+ - Thread safe memory access to GameFlags during script execution
 
 ##  Planned Features
   - Externally load scripts dynamically; Drag n Drop style
