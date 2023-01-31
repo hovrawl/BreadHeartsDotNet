@@ -1,7 +1,6 @@
 using KHData.Enums;
-using KHData.Flags;
 
-namespace KHRandoData.Flags;
+namespace KHData.Flags;
 
 public class GameFlagsRepo
 {
