@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="AvolniaEngineUI/App.axaml" value="AvolniaEngineUI/AvolniaEngineUI.csproj" />
+        <entry key="AvolniaEngineUI/MainWindow.axaml" value="AvolniaEngineUI/AvolniaEngineUI.csproj" />
+        <entry key="AvoloniaEngineUI/App.axaml" value="AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
+        <entry key="AvoloniaEngineUI/MainWindow.axaml" value="AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
