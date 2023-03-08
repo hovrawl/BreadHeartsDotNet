@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTest", "EngineTest\En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoloniaEngineUI", "AvoloniaEngineUI\AvoloniaEngineUI.csproj", "{1AC27082-87FD-4020-8012-C472B4DDD4AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerators", "CodeGenerators\CodeGenerators.csproj", "{B6A58177-FBD3-44DF-862E-3D09E79351DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{1AC27082-87FD-4020-8012-C472B4DDD4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC27082-87FD-4020-8012-C472B4DDD4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC27082-87FD-4020-8012-C472B4DDD4AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
