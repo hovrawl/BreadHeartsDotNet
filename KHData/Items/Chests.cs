@@ -1867,7 +1867,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Aladdin's House")]
     [CheckRequirements("")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir = 0xE8,
 
@@ -1947,7 +1947,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Chamber 6")]
     [CheckRequirements(" High Jump OR Glide")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     MegalixirF2 = 0xF2,
 
@@ -2859,7 +2859,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Chamber 2")]
     [CheckRequirements("")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir164 = 0x164,
 
@@ -3307,7 +3307,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Rising Falls")]
     [CheckRequirements("")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir19C = 0x19C,
 
@@ -3371,7 +3371,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("High Tower")]
     [CheckRequirements(" HB1")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir1A4 = 0x1A4,
 
@@ -3811,7 +3811,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("World Terminus")]
     [CheckRequirements(" EotW")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir1DB = 0x1DB,
 
@@ -3827,7 +3827,7 @@ public enum Chests
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Final Rest")]
     [CheckRequirements(" HB1 ")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir1DD = 0x1DD,
 

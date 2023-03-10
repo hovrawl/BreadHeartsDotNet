@@ -147,7 +147,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Dragon Maleficent")]
     [CheckRequirements(" HB1")]
-    [CheckItem(ItemList.FireGlow)]
+    [CheckItem(ItemList.Fireglow)]
     [CheckName("Fireglow")]
     Fireglow = 0x11,
 
@@ -187,7 +187,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Halloween Town")]
     [CheckRequirements(" Jack-In-The-Box")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Pumpkinhead)]
     [CheckName("Pumpkinhead")]
     Pumpkinhead = 0x16,
 
@@ -331,7 +331,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Chest")]
     [CheckRequirements(" -")]
-    [CheckItem(ItemList.WaterGleam)]
+    [CheckItem(ItemList.Watergleam)]
     [CheckName("Watergleam")]
     Watergleam = 0x28,
 
@@ -347,7 +347,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Hundred Acre Wood")]
     [CheckRequirements(" Page1")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Naturespark)]
     [CheckName("Naturespark")]
     Naturespark = 0x2A,
 
@@ -435,7 +435,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Dalmatians' House")]
     [CheckRequirements(" 60 Puppies")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir = 0x35,
 
@@ -491,7 +491,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Pot Centipede")]
     [CheckRequirements("")]
-    [CheckItem(ItemList.RayOfLight)]
+    [CheckItem(ItemList.RayofLight)]
     [CheckName("Ray of Light")]
     RayofLight = 0x3C,
 
@@ -563,7 +563,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Chest")]
     [CheckRequirements(" -")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir45 = 0x45,
 
@@ -787,7 +787,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Hades Cup Solo")]
     [CheckRequirements(" HB1 ")]
-    [CheckItem(ItemList.SaveTheQueen)]
+    [CheckItem(ItemList.SavetheQueen)]
     [CheckName("Save the Queen")]
     SavetheQueen = 0x61,
 
@@ -819,7 +819,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Hades Cup Time Trial")]
     [CheckRequirements(" HB1 ")]
-    [CheckItem(ItemList.SaveTheKing)]
+    [CheckItem(ItemList.SavetheKing)]
     [CheckName("Save the King")]
     SavetheKing = 0x65,
 
@@ -883,7 +883,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Postcard 7")]
     [CheckRequirements(" Postcard 7")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir6D = 0x6D,
 
@@ -1059,7 +1059,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("Final Dimension")]
     [CheckRequirements(" EotW")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Gale)]
     [CheckName("Gale")]
     Gale = 0x83,
 
@@ -1075,7 +1075,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("?")]
     [CheckRequirements(" ?")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir85 = 0x85,
 
@@ -1083,7 +1083,7 @@ public enum Rewards
     [CheckWorld(WorldList.TraverseTown)]
     [CheckLocation("?")]
     [CheckRequirements(" ?")]
-    [CheckItem(ItemList.A41)]
+    [CheckItem(ItemList.Megalixir)]
     [CheckName("Megalixir")]
     Megalixir86 = 0x86,
 
