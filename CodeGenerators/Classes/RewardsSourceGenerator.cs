@@ -3,7 +3,7 @@ using KHData.Worlds;
 
 namespace CodeGenerators.Classes;
 
-public class RewardsSourceGenerator
+public static class RewardsSourceGenerator
 {
     public static void Generate ()
     {

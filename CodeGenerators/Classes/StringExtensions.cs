@@ -138,7 +138,7 @@ namespace CodeGenerators.Classes
         public static string MakeSafe(this string input)
         {
             if(string.IsNullOrEmpty(input)) return "";
-            var pattern = new Regex(@"[-|_=,!.&$\(\)\[\]\{\} ]");
+            var pattern = new Regex(@"[-|_=,!.&$'\(\)\[\]\{\} ]");
            
             return pattern.Replace(input, "").Replace(@"\","|");
         }

@@ -1,7 +1,5 @@
 using System.Text;
 using KHData.Worlds;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 
 namespace CodeGenerators.Classes;
 
