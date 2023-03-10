@@ -140,6 +140,7 @@ public class RandomItemsModule : BaseModule
 
     #endregion
     
+    #region Variables
     public int TextPos = 0;
     public int IdFind = 0;
     public int IdReplace = 0;
@@ -216,6 +217,8 @@ public class RandomItemsModule : BaseModule
     public List<int> ChecksDebug2 = new();
     public Dictionary<string, int> Sets = new();
 
+    #endregion
+    
     public override string Author => "Original Script By Denhonator";
     
     public override string Name => "Random Items";

@@ -5,3 +5,5 @@ ItemListSourceGenerator.Generate();
 ChestSourceGenerator.Generate();
 
 RewardsSourceGenerator.Generate();
+
+GummiListSourceGenerator.Generate();
