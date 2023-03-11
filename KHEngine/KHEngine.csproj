@@ -17,11 +17,4 @@
       <ProjectReference Include="..\KHData\KHData.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Configuration" />
-      <Folder Include="Helpers" />
-      <Folder Include="Randomiser" />
-      <Folder Include="Tracking" />
-    </ItemGroup>
-
 </Project>
