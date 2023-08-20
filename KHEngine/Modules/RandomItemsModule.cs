@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using KHData.Flags;
@@ -180,7 +181,10 @@ public class RandomItemsModule : BaseModule
     public List<int> ShopPool = new ();
     public List<string> GummiNames = new ();
     public Dictionary<int, List<string>> ItemNames = new ();
-    public Dictionary<int, List<string>> ChestDetails = new ();
+    /// <summary>
+    ///  List of chests where the key is the world is and List of string is the list of chests
+    /// </summary>
+    public Dictionary<int, List<Chests>> ChestDetails = new ();
     public Dictionary<int, List<string>> RewardDetails = new ();
     public List<string> VanillaChests = new ();
     public List<string> VanillaRewards = new ();
@@ -197,9 +201,9 @@ public class RandomItemsModule : BaseModule
     public List<string> WeaponStr = new();
     public List<string> WeaponMag = new();
     public List<string> ItemData = new();
-    public List<string> Shops = new();
-    public List<string> Synths = new();
-    public List<string> Chests = new();
+    public Dictionary<int, int> Shops = new();
+    public Dictionary<int, int> Synths = new();
+    public Dictionary<int, int> Chests = new();
     public Dictionary<int, int> ItemsAvailable = new();
     public Dictionary<int, int> AbilitiesAvailable = new();
     public Dictionary<int, int> MagicAvailable = new();
@@ -231,20 +235,6 @@ public class RandomItemsModule : BaseModule
 
         KhEngine = khEngine;
 
-        // Load ID's
-        var gummisTextPath = "randofiles/gummis.txt";
-        if (!File.Exists(gummisTextPath))
-        {
-            // Error Log - gummis.txt missing!
-        }
-        else
-        {
-            var gummiLines = File.ReadAllLines(gummisTextPath);
-            ChestDetails = LoadRewards("randofiles/Chests.txt", 1);
-            RewardDetails = LoadRewards("randofiles/Rewards.txt", 1);
-            ItemNames = LoadRewards("randofiles/items.txt", 0);
-        }
-
         Sets["RequiredSlides"] = 0;
         Sets["RequiredEvidence"] = 0;
         
@@ -256,7 +246,6 @@ public class RandomItemsModule : BaseModule
         else
         {
             var settingsString = File.ReadAllText(settingsPath);
-            var settings = JsonConvert.DeserializeObject<RandoSettings>(settingsString);
             
         }
 
@@ -547,12 +536,28 @@ public class RandomItemsModule : BaseModule
         return accessible;
     }
 
-    private bool IsAccessible(int t, int i)
+    /// <summary>
+    /// Is the specified Check Accessible
+    /// </summary>
+    /// <param name="t"></param>
+    /// <param name="i"></param>
+    /// <returns></returns>
+    private bool IsAccessible<T>(List<T> t, int i)
     {
+        if (t.Count < 1) return false;
+        
         var accessible = true;
 
         for (int k = 3; k <= 6; k++)
         {
+            var val = t[k];
+            if (val is KHData.Items.Chests chest)
+            {
+                if(chest == KHData.Items.Chests.Cottage)
+                {
+                    
+                }
+            }
             // if (t[i][k])
             // {
             //     break;
@@ -560,6 +565,44 @@ public class RandomItemsModule : BaseModule
         }
 
         return accessible;
+    }
+
+
+    private void GetAvailability()
+    {
+        var abilitiesAvaiable = new Dictionary<int, int>();
+        var itemsAvaiable = new Dictionary<int, int>();
+        var rewardsAvaiable = new Dictionary<int, int>();
+        var dalmationsAvaiable = 0;
+
+        for (int i = 1; i < 0xFF; i++)
+        {
+            abilitiesAvaiable.Add(i, 0);
+            itemsAvaiable.Add(i, 0);
+        }
+        
+        for (int i = 1; i < 0x1FF; i++)
+        {
+            var chestDetails = ChestDetails.ContainsKey(i) ? ChestDetails[i] : new List<Chests>();
+            var chestDetailsAccesible = IsAccessible(chestDetails, i);
+
+            if (chestDetailsAccesible)
+            {
+                var chestsI = Chests[i] % 0x10;
+                if (chestsI == 0)
+                {
+                
+                } 
+                else if (chestsI == 4)
+                {
+                
+                }
+                else if (chestsI == 0xE)
+                {
+                
+                }
+            }
+        }
     }
     
     #endregion
