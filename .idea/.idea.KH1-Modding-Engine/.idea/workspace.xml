@@ -9,64 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2049a6f6-364d-4851-a20b-3c98fc73283e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BreadFramework/Abilities/Abilities.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BreadFramework/Items/Keyblades.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/avalonia.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/Classes/ChestSourceGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/Classes/ChestSourceGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/Classes/GummiListSourceGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/Classes/GummiListSourceGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/Classes/Helpers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/Classes/Helpers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/Classes/ItemListSourceGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/Classes/ItemListSourceGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/Classes/RewardsSourceGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/Classes/RewardsSourceGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGenerators/CodeGenerators.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGenerators/CodeGenerators.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EngineTest/EngineTest.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EngineTest/EngineTest.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EngineTest/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EngineTest/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KH1-Modding-Engine.sln" beforeDir="false" afterPath="$PROJECT_DIR$/BreadHeartsDotNet.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Abilities/Abilities.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Common/ControllerInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Common/ControllerInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Common/InputHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Common/InputHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Enums/Attributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Enums/Attributes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Enums/EnumHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Enums/EnumHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Flags/FlagType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Flags/FlagType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Flags/GameFlag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Flags/GameFlag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Flags/GameFlags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Flags/GameFlags.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Flags/GameFlagsRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Flags/GameFlagsRepo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Flags/WorldFlag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Flags/WorldFlag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/FlatData/Chests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/FlatData/Chests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/FlatData/Rewards.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/FlatData/Rewards.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/FlatData/gummis.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/FlatData/gummis.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/FlatData/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/FlatData/items.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Helpers/MathHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Helpers/MathHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/Chests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Items/Chests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/GummiList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Items/GummiList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/ItemList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Items/ItemList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/ItemType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Items/ItemType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/Keyblades.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Items/Rewards.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Items/Rewards.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/KHData.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/BreadFramework.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Worlds/WorldList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Worlds/WorldList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHData/Worlds/Worlds.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Worlds/Worlds.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Engine/KHEngine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Engine/KHEngine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Extensions/DataExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Extensions/DataExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/KHEngine.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/BreadRuntime.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/BaseModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/BaseModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/ConsistentFinishersModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/ConsistentFinishersModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/DiscordRichPresenceModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/DiscordRichPresenceModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/FastCameraModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/FastCameraModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/FasterAnimationsModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/FasterAnimationsModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/FasterDialogModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/FasterDialogModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/InstantGummiWarpModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/InstantGummiWarpModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/OpenInCombatModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/OpenInCombatModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/QuickOverworldWarpModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/QuickOverworldWarpModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/RandomItemsModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/RandomItemsModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/SaveAnywhereModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/SaveAnywhereModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Modules/UnskippableModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/UnskippableModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Settings/ModuleSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Settings/ModuleSetting.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/Settings/ModuleSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Settings/ModuleSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KHEngine/app.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/app.manifest" afterDir="false" />
+    <list default="true" id="2049a6f6-364d-4851-a20b-3c98fc73283e" name="Changes" comment="old settings">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,24 +57,6 @@
   }
 }]]></component>
   <component name="RunManager" selected=".NET Project.EngineTest">
-    <configuration name="AvoloniaEngineUI" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="PROJECT_PATH" value="$PROJECT_DIR$/AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
-      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
-      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
-      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="PROJECT_KIND" value="DotNetCore" />
-      <option name="PROJECT_TFM" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
     <configuration name="CodeGenerators" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -188,7 +114,7 @@
       <workItem from="1685163004099" duration="3009000" />
       <workItem from="1687506241062" duration="1932000" />
       <workItem from="1692430976829" duration="4390000" />
-      <workItem from="1698464984672" duration="687000" />
+      <workItem from="1698464984672" duration="1321000" />
     </task>
     <task id="LOCAL-00001" summary="Add Source code generation for KHData - Chests, Rewards">
       <created>1678278452695</created>
@@ -260,7 +186,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692494540218</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Refactor project into Framework+Runtime">
+      <created>1698465811611</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698465811611</updated>
+    </task>
+    <task id="LOCAL-00012" summary="old settings">
+      <created>1698465931174</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698465931174</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +231,8 @@
     <MESSAGE value="Module setting" />
     <MESSAGE value="Random module progress" />
     <MESSAGE value="remove avalonia test" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove avalonia test" />
+    <MESSAGE value="Refactor project into Framework+Runtime" />
+    <MESSAGE value="old settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="old settings" />
   </component>
 </project>

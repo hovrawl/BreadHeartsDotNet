@@ -17,3 +17,15 @@ The runtime is an engine that connects to an instance of a Kingdom Hearts game a
   - Bespoke interface to utilise the runtime
       - Mod Configuration (Enable, Disable, settings)
       - 'Tracker' interface
+  - Support for KH2/KHBBS
+
+## Game Support
+
+| Game                                    | Supported | Notes |
+|:----------------------------------------|:---------:|------:|
+| Kingdom Hearts Final Mix                |     ✅     |       |
+| Kingdom Hearts II Final Mix             |     ❌     |       |
+| Kingdom Hearts Birth By Sleep Final Mix |     ❌     |       |
+
+
+
