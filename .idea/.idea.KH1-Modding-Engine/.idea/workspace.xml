@@ -9,8 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2049a6f6-364d-4851-a20b-3c98fc73283e" name="Changes" comment="old settings">
+    <list default="true" id="2049a6f6-364d-4851-a20b-3c98fc73283e" name="Changes" comment="Update README.md">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.KH1-Modding-Engine/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreadFramework/Common/ControllerInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Common/ControllerInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreadFramework/Common/InputHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadFramework/Common/InputHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreadRuntime/Engine/KHEngine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Engine/KHEngine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BreadRuntime/Modules/SaveAnywhereModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BreadRuntime/Modules/SaveAnywhereModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EngineTest/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EngineTest/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +27,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/DEV/Hovrawl/KH1-Modding-Engine/KHEngine/Modules/RandomItemsModule.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/DEV/Hovrawl/KH1-Modding-Engine/BreadFramework/Common/ControllerInput.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/58a0568ceffb461b95c963a49b7205e8b800/df/5b107e87/Mem.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -45,6 +56,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Language Defaults",
     "vue.rearranger.settings.migration": "true"
   },
@@ -114,7 +126,7 @@
       <workItem from="1685163004099" duration="3009000" />
       <workItem from="1687506241062" duration="1932000" />
       <workItem from="1692430976829" duration="4390000" />
-      <workItem from="1698464984672" duration="1321000" />
+      <workItem from="1698464984672" duration="10195000" />
     </task>
     <task id="LOCAL-00001" summary="Add Source code generation for KHData - Chests, Rewards">
       <created>1678278452695</created>
@@ -200,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698465931174</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update README.md">
+      <created>1698466598380</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698466598380</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +227,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -233,6 +263,26 @@
     <MESSAGE value="remove avalonia test" />
     <MESSAGE value="Refactor project into Framework+Runtime" />
     <MESSAGE value="old settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="old settings" />
+    <MESSAGE value="Update README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update README.md" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BreadRuntime/Modules/SaveAnywhereModule.cs</url>
+          <line>121</line>
+          <properties documentPath="C:\DEV\Hovrawl\KH1-Modding-Engine\BreadRuntime\Modules\SaveAnywhereModule.cs" initialLine="121" containingFunctionPresentation="Method 'OnFrame'">
+            <startOffsets>
+              <option value="4841" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4953" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

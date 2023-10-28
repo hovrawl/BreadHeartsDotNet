@@ -1,24 +1,23 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-using System;
+﻿using System;
 using BreadRuntime.Modules;
+using BreadRuntime.Engine;
 using Memory;
 
-namespace EngineTest // Note: actual namespace depends on the project name.
+namespace EngineTest
 {
     internal class Program
     {
 
-        public static BreadRuntime.Engine.KHEngine Engine;
+        public static KHEngine Engine;
+        
         static void Main(string[] args)
         {
             Console.WriteLine("KH Engine Test!");
             Console.WriteLine("Initialising Engine...");
 
-            BreadRuntime.Engine.KHEngine.Instance.Initialise(new Mem());
+            KHEngine.Instance.Initialise(new Mem());
 
-            Engine = BreadRuntime.Engine.KHEngine.Instance;
+            Engine = KHEngine.Instance;
             
             Engine.AddModule(new SaveAnywhereModule());
             Engine.AddModule(new InstantGummiWarpModule());

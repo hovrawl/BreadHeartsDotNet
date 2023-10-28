@@ -16,6 +16,7 @@ The runtime is an engine that connects to an instance of a Kingdom Hearts game a
   - Externally load scripts dynamically; Drag n Drop style (MEF/MAF)
   - Bespoke interface to utilise the runtime
       - Mod Configuration (Enable, Disable, settings)
+      - Mod Presets (Rando Rules, etc.)
       - 'Tracker' interface
   - Support for KH2/KHBBS
 
@@ -27,5 +28,13 @@ The runtime is an engine that connects to an instance of a Kingdom Hearts game a
 | Kingdom Hearts II Final Mix             |     ❌     |       |
 | Kingdom Hearts Birth By Sleep Final Mix |     ❌     |       |
 
+## Built in Mods
 
+<details>
+
+<summary>Kingdom Hearts Final Mix</summary>
+    - Save Anywhere
+    
+
+</details>
 

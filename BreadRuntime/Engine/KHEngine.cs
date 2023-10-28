@@ -39,12 +39,12 @@ public sealed class KHEngine
         Memory = mem;
         
         //Memory = new Mem();
-        GetPID();
         Worlds = BreadFramework.Worlds.Worlds.GetWorldList();
     }
 
     public void Start()
     {
+        GetPID();
         InitialiseModules();
         SetTimer();
     }

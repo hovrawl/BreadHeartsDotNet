@@ -1,5 +1,7 @@
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Xml.Schema;
+using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using Memory;
@@ -108,24 +110,31 @@ public class SaveAnywhereModule: BaseModule
         var deathCheck = KhEngine.ReadShort(DeathCheck.Address);
         var deathPointer = KhEngine.ReadInt(DeathPointer.Address);
         
-        
-        if (input == 1793 && LastInput != 1793 && saveMenuOpen != 4 && extra == 0)
+        // if(input > 0) Console.WriteLine($"Controller input: {input}");
+        var saveAnyWhereCombination = InputHelper.CombineInputs(ControllerInput.LeftBumper, ControllerInput.LeftTrigger,
+            ControllerInput.RightTrigger, ControllerInput.SelectButton);
+        var instantDeathContinueCombination = 3968;
+        var reloadSaveCombination = 3872;
+        var softResetCombination = InputHelper.CombineInputs(ControllerInput.LeftBumper, ControllerInput.RightBumper,
+            ControllerInput.LeftTrigger, ControllerInput.RightTrigger, ControllerInput.StartButton);
+
+        if (input == saveAnyWhereCombination && LastInput != saveAnyWhereCombination && saveMenuOpen != 4 && extra == 0)
         {
             KhEngine.WriteByte(0x2350CD4, 0x1);
             AddGummi = 5;
-
-        }else if (input == 1793 && LastInput != 1793)
+        }
+        else if (input == saveAnyWhereCombination && LastInput != saveAnyWhereCombination)
         {
             KhEngine.WriteLong(CloseMenu.Address, 0);
         }
 
-        if (input == 3968 && LastInput != 3968 && menuClose == 0)
+        if (input == instantDeathContinueCombination && LastInput != instantDeathContinueCombination && menuClose == 0)
         {
             // Instant death + continue
             InstantContinue();
         }
         
-        if (input == 3872 && LastInput != 3872 && menuClose == 0)
+        if (input == reloadSaveCombination && LastInput != reloadSaveCombination && menuClose == 0)
         {
             // Read autosave
             var autosave = KhEngine.ReadFileText(AutoSaveFileName);
@@ -146,7 +155,7 @@ public class SaveAnywhereModule: BaseModule
             }
         }
         
-        if (input == 3848 && LastInput != 3848)
+        if (input == softResetCombination && LastInput != softResetCombination)
         {
             // Soft Reset
             SoftReset();
