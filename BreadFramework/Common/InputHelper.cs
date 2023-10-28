@@ -2,11 +2,8 @@ namespace BreadFramework.Common;
 
 public class InputHelper
 {
-    public int CombineInputs(List<ControllerInput> inputs)
+    public static int CombineInputs(params ControllerInput[] inputs)
     {
-        var inputCombined = 0;
-
-
-        return inputCombined;
+        return inputs.Sum(input => (int)input);
     }
 }
