@@ -1,5 +1,5 @@
 using System.Text;
-using KHData.Worlds;
+using BreadFramework.Worlds;
 
 namespace CodeGenerators.Classes;
 
@@ -12,10 +12,10 @@ public static class GummiListSourceGenerator
 
         // begin creating the source we'll inject into the users compilation
         var sourceBuilder = new StringBuilder(@"
-using KHData.Enums;
-using KHData.Worlds;
+using BreadFramework.Enums;
+using BreadFramework.Worlds;
 
-namespace KHData.Items;
+namespace BreadFramework.Items;
 
 public enum GummiList 
 {        

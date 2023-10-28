@@ -1,14 +1,19 @@
-# KH1 .Net Modding Engine
+# Bread Hearts dotNet
 
-An engine written in .Net Framework to hook into a running Kingdom Hearts 1 Final Mix game on PC and execute mod scripts in a timely manner.
+## Modding Framework and Runtime
+This repository contains a modding framework for the Kingdom Hearts games on PC and a runtime that utilises said framework.
+
+The framework is all of the data that describes the Kingdom Hearts games, split by each game.
+
+The runtime is an engine that connects to an instance of a Kingdom Hearts game and can run mods built using the framework.
 
 ##  Features
- - Execute scripts on a priority based system(500ms, 1000ms, 5000ms)
- - Console App to run the engine
+ - Execute mods on a priority based system(500ms, 1000ms, 5000ms)
  - Game flags to facilitate easy access to game parameters/objects
  - Thread safe memory access to GameFlags during script execution
 
 ##  Planned Features
-  - Externally load scripts dynamically; Drag n Drop style
-  - Interface to configure laoded mods(Enable, Disable, settings)
-  - Interface to build a mod, no scripting required, but optional(Potentially, needs lots more thought into what a user wants)
+  - Externally load scripts dynamically; Drag n Drop style (MEF/MAF)
+  - Bespoke interface to utilise the runtime
+      - Mod Configuration (Enable, Disable, settings)
+      - 'Tracker' interface

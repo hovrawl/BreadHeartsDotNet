@@ -2,7 +2,7 @@
 
 
 using System;
-using KHEngine.Modules;
+using BreadRuntime.Modules;
 using Memory;
 
 namespace EngineTest // Note: actual namespace depends on the project name.
@@ -10,15 +10,15 @@ namespace EngineTest // Note: actual namespace depends on the project name.
     internal class Program
     {
 
-        public static KHEngine.Engine.KHEngine Engine;
+        public static BreadRuntime.Engine.KHEngine Engine;
         static void Main(string[] args)
         {
             Console.WriteLine("KH Engine Test!");
             Console.WriteLine("Initialising Engine...");
 
-            KHEngine.Engine.KHEngine.Instance.Initialise(new Mem());
+            BreadRuntime.Engine.KHEngine.Instance.Initialise(new Mem());
 
-            Engine = KHEngine.Engine.KHEngine.Instance;
+            Engine = BreadRuntime.Engine.KHEngine.Instance;
             
             Engine.AddModule(new SaveAnywhereModule());
             Engine.AddModule(new InstantGummiWarpModule());
