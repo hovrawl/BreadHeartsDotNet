@@ -7,6 +7,11 @@
         <entry key="AvolniaEngineUI/MainWindow.axaml" value="AvolniaEngineUI/AvolniaEngineUI.csproj" />
         <entry key="AvoloniaEngineUI/App.axaml" value="AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
         <entry key="AvoloniaEngineUI/MainWindow.axaml" value="AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
+        <entry key="BreadHeartsLauncher/App.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/ConsoleWindow.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/MainWindow.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/ModConfigView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/da.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
       </map>
     </option>
   </component>

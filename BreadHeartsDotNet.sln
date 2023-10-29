@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTest", "EngineTest\En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerators", "CodeGenerators\CodeGenerators.csproj", "{B6A58177-FBD3-44DF-862E-3D09E79351DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreadHeartsLauncher", "BreadHeartsLauncher\BreadHeartsLauncher.csproj", "{7623417A-838F-4027-88E0-9460397C80B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A58177-FBD3-44DF-862E-3D09E79351DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7623417A-838F-4027-88E0-9460397C80B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7623417A-838F-4027-88E0-9460397C80B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7623417A-838F-4027-88E0-9460397C80B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7623417A-838F-4027-88E0-9460397C80B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

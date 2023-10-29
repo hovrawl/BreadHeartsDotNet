@@ -34,9 +34,9 @@ public sealed class KHEngine
     
     private static ReaderWriterLockSlim _readWriteLock = new ();
 
-    public void Initialise(Mem mem)
+    public void Initialise()
     {
-        Memory = mem;
+        Memory = new Mem();
         
         //Memory = new Mem();
         Worlds = BreadFramework.Worlds.Worlds.GetWorldList();
@@ -54,6 +54,11 @@ public sealed class KHEngine
         aTimer?.Dispose();
     }
 
+    public void Attach()
+    {
+        GetPID();
+    }
+
     
     
     private void OnFrame(Object stateInfo)
@@ -68,21 +73,18 @@ public sealed class KHEngine
     }
 
     
-    private bool InitialiseModules()
+    private void InitialiseModules()
     {
-        var success = false;
-
+        // Iterate over modules, attempt to activate if enabled
         foreach (var module in Modules)
         {
+            if (!module.Enabled) continue;
             var executed = module.Initialise(this);
             if (!executed)
             {
                 // Log the individual module that didnt start
-                success = false;
             }
         }
-
-        return success;
     }
 
 
@@ -93,6 +95,8 @@ public sealed class KHEngine
 
     private void GetPID()
     {
+        if (Memory.mProc?.Process.HasExited == false) return;
+        
         int pid = Memory.GetProcIdFromName(processId);
         bool openProc = false;
 

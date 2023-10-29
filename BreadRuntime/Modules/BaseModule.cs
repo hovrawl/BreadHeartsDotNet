@@ -19,4 +19,6 @@ public abstract class BaseModule
     public abstract void OnFrame();
 
     public bool Initialised = false;
+    
+    public bool Enabled = false;
 }

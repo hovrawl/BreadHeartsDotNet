@@ -1,0 +1,62 @@
+using Avalonia;
+using Avalonia.Controls;
+using BreadHeartsLauncher.Classes;
+using BreadRuntime.Engine;
+using BreadRuntime.Modules;
+
+namespace BreadHeartsLauncher.Views;
+
+public partial class MainWindow : Window
+{
+    public static KHEngine Engine;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+
+    private void ConsoleAttached(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        // console tab is attached
+        if (ConsoleTab.Content is not ConsoleView consoleView) return;
+        
+        var console = consoleView.Find<TextBlock>("ConsoleTextBlock");
+        ConsoleManager.Initialize(console);
+
+        ConsoleManager.Write("Console Initialized...");
+
+        InitializeRuntime();
+    }
+
+
+    private void AutoAttach()
+    {
+        ConsoleManager.WriteLine("Checking for running game...");
+
+        Engine.Attach();
+
+    }
+
+    private void InitializeRuntime()
+    {
+        ConsoleManager.WriteLine("Initializing runtime...");
+        
+        // Initialise and cache engine
+        KHEngine.Instance.Initialise();
+
+        Engine = KHEngine.Instance;
+        
+        // Built-in modules
+        Engine.AddModule(new SaveAnywhereModule());
+        Engine.AddModule(new InstantGummiWarpModule());
+        Engine.AddModule(new FastCameraModule());
+        Engine.AddModule(new FasterAnimationsModule());
+        Engine.AddModule(new FasterDialogModule());
+        Engine.AddModule(new OpenInCombatModule());
+        Engine.AddModule(new UnskippableModule());
+
+
+        // Auto-attach to running game
+        AutoAttach();
+    }
+}

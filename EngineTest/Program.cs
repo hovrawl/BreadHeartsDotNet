@@ -1,7 +1,6 @@
 ﻿using System;
 using BreadRuntime.Modules;
 using BreadRuntime.Engine;
-using Memory;
 
 namespace EngineTest
 {
@@ -15,7 +14,7 @@ namespace EngineTest
             Console.WriteLine("KH Engine Test!");
             Console.WriteLine("Initialising Engine...");
 
-            KHEngine.Instance.Initialise(new Mem());
+            KHEngine.Instance.Initialise();
 
             Engine = KHEngine.Instance;
             
