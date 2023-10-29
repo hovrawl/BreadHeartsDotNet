@@ -2,7 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:BreadHeartsLauncher.ViewModels"
+             xmlns:modules="clr-namespace:BreadRuntime.Modules;assembly=BreadRuntime"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:ModConfigViewModel"
              x:Class="BreadHeartsLauncher.Views.ModConfigView">
-    <DataGrid Name="ModConfigGrid" ></DataGrid>
+    
+    <DataGrid Name="ModConfigGrid" AttachedToVisualTree="ModConfigGrid_OnAttachedToVisualTree"
+              GridLinesVisibility="All"
+              ItemsSource="{Binding Modules}"
+              BorderThickness="1" BorderBrush="Gray">
+        
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+            <DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}"/>
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>

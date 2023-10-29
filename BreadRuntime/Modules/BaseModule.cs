@@ -1,3 +1,4 @@
+using BreadRuntime.Settings;
 using Memory;
 
 namespace BreadRuntime.Modules;
@@ -18,7 +19,21 @@ public abstract class BaseModule
 
     public abstract void OnFrame();
 
-    public bool Initialised = false;
+    public bool Initialised { get; set; } = false;
     
-    public bool Enabled = false;
+    public bool Enabled => true;
+
+    public virtual List<ModuleSetting> GetSettings()
+    {
+        // Base settings
+        var settings = new List<ModuleSetting>();
+        settings.Add(new ModuleSetting()
+        {
+            Name = "Enabled",
+            ValueAsString = "true"
+        });
+
+        return settings;
+    }
+    
 }

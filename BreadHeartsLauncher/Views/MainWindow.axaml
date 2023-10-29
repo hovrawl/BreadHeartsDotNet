@@ -16,12 +16,12 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TabControl Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <TabControl Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="LauncherTab_SelectionChanged">
         <TabItem Header="Console" Name="ConsoleTab">
             <views:ConsoleView AttachedToVisualTree="ConsoleAttached"/>
         </TabItem>
         <TabItem Header="Config" Name="ConfigTab">
-            <views:ModConfigView />
+            <views:ModConfigView DataContext="{Binding ModConfigViewModel}"/>
         </TabItem>
         <TabItem Header="Tracker" Name="TrackerTab">
             <TextBlock Margin="5">Tracker will be here eventually</TextBlock>

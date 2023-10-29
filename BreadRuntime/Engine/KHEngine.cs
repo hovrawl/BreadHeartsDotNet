@@ -5,6 +5,7 @@ using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Worlds;
 using BreadRuntime.Modules;
+using BreadRuntime.Settings;
 using Memory;
 
 namespace BreadRuntime.Engine;
@@ -87,15 +88,40 @@ public sealed class KHEngine
         }
     }
 
+    
+    public List<BaseModule> GetModules()
+    {
+        return Modules;
+    }
+    
+    public BaseModule GetModuleById(Guid moduleId)
+    {
+        return Modules.FirstOrDefault(i => i.Id.Equals(moduleId));
+    }
+
+    public BaseModule GetModuleByName(string moduleName)
+    {
+        return Modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
+    }
+
+    public List<ModuleSetting> GetModuleSettings(string moduleName)
+    {
+        var module = Modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
+        
+        if (module == null) return new List<ModuleSetting>();
+
+        return module.GetSettings();
+    }
 
     private void SetTimer()
     {
+        // TODO - need timers for other priorities
         aTimer = new Timer(OnFrame, null,1000, 100 );
     }
 
     private void GetPID()
     {
-        if (Memory.mProc?.Process.HasExited == false) return;
+        if (Memory.mProc?.Process?.HasExited == false) return;
         
         int pid = Memory.GetProcIdFromName(processId);
         bool openProc = false;

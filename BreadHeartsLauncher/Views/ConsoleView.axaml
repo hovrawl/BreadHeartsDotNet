@@ -14,6 +14,7 @@
         
         <StackPanel Name="EngineControlPanel">
             <Button Name="StartEngineBtn" Click="StartEngineBtn_OnClick">Start</Button>
+            <Button Name="StopEngineBtn" Click="StopEngineBtn_OnClick">Stop</Button>
         </StackPanel>
     </StackPanel>
 </UserControl>

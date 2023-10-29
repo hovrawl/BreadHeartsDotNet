@@ -4,6 +4,7 @@ using System.Xml.Schema;
 using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadRuntime.Settings;
 using Memory;
 
 namespace BreadRuntime.Modules;
@@ -95,8 +96,35 @@ public class SaveAnywhereModule: BaseModule
         return success;
     }
 
-    
-    
+    public override List<ModuleSetting> GetSettings()
+    {
+        var settings = base.GetSettings();
+
+        // Combinations enabled
+        settings.Add(new ModuleSetting
+        {
+            Name = "Save Anywhere Enabled", 
+            ValueAsString = "true"
+        });
+        settings.Add(new ModuleSetting
+        {
+            Name = "Soft Reset Enabled", 
+            ValueAsString = "true"
+        });
+        settings.Add(new ModuleSetting
+        {
+            Name = "Reload AutoSave Enabled", 
+            ValueAsString = "true"
+        });
+        settings.Add(new ModuleSetting
+        {
+            Name = "Instant Death Enabled", 
+            ValueAsString = "true"
+        });
+        
+        return settings;
+    }
+
     public override void OnFrame()
     {
 
