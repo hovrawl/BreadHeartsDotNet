@@ -17,10 +17,26 @@
     </Design.DataContext>
 
     <TabControl Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="LauncherTab_SelectionChanged">
-        <TabItem Header="Console" Name="ConsoleTab">
+        <TabItem Header="Home" Name="ConsoleTab">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <PathIcon Data="{StaticResource home_regular}" Margin="4 0"/> 
+                        <TextBlock>Home</TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
             <views:ConsoleView AttachedToVisualTree="ConsoleAttached"/>
         </TabItem>
         <TabItem Header="Config" Name="ConfigTab">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <PathIcon Data="{StaticResource settings_regular}" Margin="4 0"/> 
+                        <TextBlock>Config</TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
             <views:ModConfigView DataContext="{Binding ModConfigViewModel}"/>
         </TabItem>
         <TabItem Header="Tracker" Name="TrackerTab">

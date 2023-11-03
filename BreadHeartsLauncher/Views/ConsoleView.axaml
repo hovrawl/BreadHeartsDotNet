@@ -12,7 +12,7 @@
             <TextBlock Name="ConsoleTextBlock" Margin="5" ></TextBlock>
         </Border>
         
-        <StackPanel Name="EngineControlPanel">
+        <StackPanel Name="EngineControlPanel" Orientation="Horizontal">
             <Button Name="StartEngineBtn" Click="StartEngineBtn_OnClick">Start</Button>
             <Button Name="StopEngineBtn" Click="StopEngineBtn_OnClick">Stop</Button>
         </StackPanel>
