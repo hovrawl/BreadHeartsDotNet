@@ -1,3 +1,4 @@
+using BreadRuntime.Enums;
 using BreadRuntime.Settings;
 using Memory;
 
@@ -22,6 +23,8 @@ public abstract class BaseModule
     public bool Initialised { get; set; } = false;
     
     public bool Enabled => true;
+    
+    public ModulePriority Priority => ModulePriority.Medium;
 
     public virtual List<ModuleSetting> GetSettings()
     {

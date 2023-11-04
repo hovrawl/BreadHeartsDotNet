@@ -4,6 +4,7 @@ using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Worlds;
+using BreadRuntime.Enums;
 using BreadRuntime.Modules;
 using BreadRuntime.Settings;
 using Memory;
@@ -18,6 +19,7 @@ public sealed class KHEngine
     private static readonly object ThreadLock = new object();
 
     private static readonly object SyncRoot = new object();
+    
     public static KHEngine Instance => _instance;
 
     #endregion
@@ -30,50 +32,138 @@ public sealed class KHEngine
 
     public WorldInfo CurrentWorld;
     private List<WorldInfo> Worlds = new ();
-    public Timer aTimer;
+
+    private Timer LowPriorityTimer;
+    private Timer MediumPriorityTimer;
+    private Timer HighPriorityTimer;
+
+    private List<BaseModule> LowPriorityModules = new ();
+    private List<BaseModule> MediumPriorityModules = new ();
+    private List<BaseModule> HighPriorityModules = new ();
+
     public GameFlagsRepo GameFlagsRepo = new();
     
     private static ReaderWriterLockSlim _readWriteLock = new ();
 
+    private static bool _attached = false;
+    
+    public static bool Attached => _attached;
+
     public void Initialise()
     {
         Memory = new Mem();
-        
-        //Memory = new Mem();
-        Worlds = BreadFramework.Worlds.Worlds.GetWorldList();
     }
 
     public void Start()
     {
-        GetPID();
+        // Attempt to attach
+        AttachToProcess();
+        
+        // Failed to attach, dont start mods
+        if (!Attached) return;
+        
+        // Setup World List
+        SetupWorldList();
+        
+        // Initialise Modules
         InitialiseModules();
-        SetTimer();
+        
+        // Setup timers
+        SetupTimers();
     }
     
     public void Stop()
     {
-        aTimer?.Dispose();
+        MediumPriorityTimer?.Dispose();
     }
 
     public void Attach()
     {
-        GetPID();
+        AttachToProcess();
+    }
+
+    private void AttachToProcess()
+    {
+        // Rest memory
+        Memory.CloseProcess();
+        _attached = false;
+        
+        if (Memory.mProc?.Process?.HasExited == false) return;
+        var openedProc = false;
+
+        
+        var pid = Memory.GetProcIdFromName(processId);
+
+        if (pid > 0) openedProc = Memory.OpenProcess(pid);
+
+        if (openedProc) _attached = true;
+    }
+    
+    #region Timers
+
+    private void SetupTimers()
+    {
+        var initialisedModules = Modules.Where(i => i.Initialised);
+        
+        // Low Priority
+        LowPriorityModules.Clear();
+        LowPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.Low));
+        LowPriorityTimer?.Dispose();
+        LowPriorityTimer = new Timer(LowTimerFrame, null,1000, (int)ModulePriority.Low);
+        
+        // Medium Priority
+        MediumPriorityModules.Clear();
+        MediumPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.Medium));
+        MediumPriorityTimer?.Dispose();
+        MediumPriorityTimer = new Timer(MediumTimerFrame, null,1000, (int)ModulePriority.Medium);
+        
+        // High Priority
+        HighPriorityModules.Clear();
+        HighPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.High));
+        HighPriorityTimer?.Dispose();
+        HighPriorityTimer = new Timer(HighTimerFrame, null,1000, (int)ModulePriority.High);
     }
 
     
-    
-    private void OnFrame(Object stateInfo)
+    private void LowTimerFrame(Object stateInfo)
     {
         // Update Current World
         CurrentWorld = GetCurrentWorld();
         
-        foreach (var module in Modules.Where(i => i.Initialised)) 
+        foreach (var module in LowPriorityModules) 
         {
+            if(!module.Initialised) continue;
+            module.OnFrame();
+        }
+    }
+    
+    private void MediumTimerFrame(Object stateInfo)
+    {
+        // Update Current World
+        CurrentWorld = GetCurrentWorld();
+        
+        foreach (var module in MediumPriorityModules) 
+        {
+            if(!module.Initialised) continue;
+            module.OnFrame();
+        }
+    }
+    
+    private void HighTimerFrame(Object stateInfo)
+    {
+        // Update Current World
+        CurrentWorld = GetCurrentWorld();
+        
+        foreach (var module in HighPriorityModules) 
+        {
+            if(!module.Initialised) continue;
             module.OnFrame();
         }
     }
 
+    #endregion
     
+    #region Modules
     private void InitialiseModules()
     {
         // Iterate over modules, attempt to activate if enabled
@@ -88,7 +178,6 @@ public sealed class KHEngine
         }
     }
 
-    
     public List<BaseModule> GetModules()
     {
         return Modules;
@@ -113,22 +202,6 @@ public sealed class KHEngine
         return module.GetSettings();
     }
 
-    private void SetTimer()
-    {
-        // TODO - need timers for other priorities
-        aTimer = new Timer(OnFrame, null,1000, 100 );
-    }
-
-    private void GetPID()
-    {
-        if (Memory.mProc?.Process?.HasExited == false) return;
-        
-        int pid = Memory.GetProcIdFromName(processId);
-        bool openProc = false;
-
-        if (pid > 0) openProc = Memory.OpenProcess(pid);
-    }
-    
     public void AddModule(BaseModule module)
     {
         RemoveModule(module);
@@ -144,11 +217,22 @@ public sealed class KHEngine
     {
         Modules.RemoveAll(i => i.Id.Equals(moduleId));
     }
+    
+    #endregion
 
+    #region Worlds
+
+    private void SetupWorldList()
+    {
+        Worlds = BreadFramework.Worlds.Worlds.GetWorldList();
+    }
+    
+    // TODO - this should be game specific 
     private int WorldIdAddress = GameFlags.WorldId.GetAddress();
     
     private WorldInfo GetCurrentWorld()
     {
+        // when reading, we check cached value so we dont read too often
         var worldId = ReadInt(WorldIdAddress);
         var world = Worlds.FirstOrDefault(i => i.WorldId == worldId);
         if (world == null)
@@ -162,6 +246,9 @@ public sealed class KHEngine
         }
         return world;
     }
+
+    #endregion
+    
 
     public FileStream OpenLocalFile(string fileName, FileMode openMode)
     {
