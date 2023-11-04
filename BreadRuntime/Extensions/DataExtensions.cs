@@ -1,11 +1,16 @@
 using BreadFramework.Flags;
+using BreadRuntime.Enums;
 
 namespace BreadRuntime.Extensions;
 
 public static class DataExtensions
 {
-    public static void ReadMemory(this GameFlag flag, Engine.KHEngine engine)
+    public static void ReadMemory(this GameFlag flag, Engine.KHEngine engine, ModulePriority priority)
     {
+        var priorityTimeMs = (int) priority;
+        // Do not re-read memory if enough time has not passed
+        if (flag.TimeSinceLastRead + priorityTimeMs <= DateTime.Now.Millisecond) return;
+        
         switch (flag.Type)
         {
             case FlagType.Int:
@@ -53,10 +58,16 @@ public static class DataExtensions
                 throw new ArgumentOutOfRangeException();
             }
         }
+
+        flag.UpdateLastRead();
     }
     
-    public static void WriteMemory(this GameFlag flag, Engine.KHEngine engine, object newValue)
+    public static void WriteMemory(this GameFlag flag, Engine.KHEngine engine, ModulePriority priority, object newValue)
     {
+        var priorityTimeMs = (int) priority;
+        // Do not re-write memory if enough time has not passed
+        if (flag.TimeSinceLastWrite + priorityTimeMs <= DateTime.Now.Millisecond) return;
+        
         switch (flag.Type)
         {
             case FlagType.Int when newValue is int result:
@@ -106,8 +117,9 @@ public static class DataExtensions
                 throw new ArgumentOutOfRangeException();
             }
         }
-        
-        flag.ReadMemory(engine);
 
+        flag.UpdateLastWrite();
+        
+        flag.ReadMemory(engine, priority);
     }
 }

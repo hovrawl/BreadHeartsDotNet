@@ -40,7 +40,7 @@ public class InstantGummiWarpModule: BaseModule
     public override void OnFrame()
     {
         var currentWorld = KhEngine.CurrentWorld;
-        WorldSelection.ReadMemory(KhEngine);
+        WorldSelection.ReadMemory(KhEngine, Priority);
         var selection = WorldSelection.ValueAsInt;
         // var selection = KhEngine.ReadInt(0x503CEC);
         // var realWorld = KhEngine.ReadInt(0x503C04);
@@ -65,7 +65,7 @@ public class InstantGummiWarpModule: BaseModule
         
         if (room > 0 && currentWorld.WorldId != selection)
         {
-            WorldSelection.WriteMemory(KhEngine, currentWorld.WorldId);
+            WorldSelection.WriteMemory(KhEngine, Priority, currentWorld.WorldId);
             //KhEngine.WriteInt(0x503CEC, soraWorld);
         }
         
@@ -91,7 +91,7 @@ public class InstantGummiWarpModule: BaseModule
         if (selection == 25)
         {
             selection = 15;
-            WorldSelection.WriteMemory(KhEngine, selection);
+            WorldSelection.WriteMemory(KhEngine, Priority, selection);
             //KhEngine.WriteInt(0x503CEC, selection);
         }
         
@@ -99,7 +99,7 @@ public class InstantGummiWarpModule: BaseModule
         if (selection == 21)
         {
             selection = 8;
-            WorldSelection.WriteMemory(KhEngine, selection);
+            WorldSelection.WriteMemory(KhEngine, Priority, selection);
             //KhEngine.WriteInt(0x503CEC, selection);
 
         }

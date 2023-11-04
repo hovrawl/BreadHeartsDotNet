@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadRuntime.Enums;
 using BreadRuntime.Extensions;
 using Memory;
 
@@ -38,6 +39,8 @@ public class FastCameraModule : BaseModule
     public override string Name => "Fast Camera";
 
     public override string Description => "Allows for faster camera control.";
+
+    public override ModulePriority Priority => ModulePriority.High;
     
     public override bool Initialise(Engine.KHEngine khEngine)
     {
@@ -76,16 +79,16 @@ public class FastCameraModule : BaseModule
         // var cameraInputH = KhEngine.ReadFloat(CameraInputH.Address);
         // var cameraInputV = KhEngine.ReadFloat(CameraInputV.Address);
         
-        MenuOpen.ReadMemory(KhEngine);
+        MenuOpen.ReadMemory(KhEngine, Priority);
 
         if (MenuOpen.ValueAsBool) return;
         
-        CurSpeedH.ReadMemory(KhEngine);
-        CurSpeedV.ReadMemory(KhEngine);
-        CameraCenter.ReadMemory(KhEngine);
-        Speed.ReadMemory(KhEngine);
-        CameraInputH.ReadMemory(KhEngine);
-        CameraInputV.ReadMemory(KhEngine);
+        CurSpeedH.ReadMemory(KhEngine, Priority);
+        CurSpeedV.ReadMemory(KhEngine, Priority);
+        CameraCenter.ReadMemory(KhEngine, Priority);
+        Speed.ReadMemory(KhEngine, Priority);
+        CameraInputH.ReadMemory(KhEngine, Priority);
+        CameraInputV.ReadMemory(KhEngine, Priority);
        
         
         var currentSpeedH = CurSpeedH.ValueAsFloat;
@@ -102,13 +105,13 @@ public class FastCameraModule : BaseModule
         if (cameraCenter > 1)
         {
             //KhEngine.WriteFloat(CameraCenter.Address, (float)(cameraCenter - CenterSpeed));
-            CameraCenter.WriteMemory(KhEngine, (float)(cameraCenter - CenterSpeed));
+            CameraCenter.WriteMemory(KhEngine, Priority, (float)(cameraCenter - CenterSpeed));
         }
         if (Math.Abs(cameraSpeed) == 1.0)  // This way it works for inverted camera
         {
             var speedMinusFour = KhEngine.ReadFloat(Speed.Address - 4);
             //KhEngine.WriteFloat(Speed.Address, (float)(cameraSpeed * OverallSpeed));
-            Speed.WriteMemory(KhEngine, (float)(cameraSpeed * OverallSpeed));
+            Speed.WriteMemory(KhEngine, Priority, (float)(cameraSpeed * OverallSpeed));
             KhEngine.WriteFloat(Speed.Address - 4, (float)(speedMinusFour * OverallSpeedV));
 
         }
@@ -118,14 +121,14 @@ public class FastCameraModule : BaseModule
         {
             if(Math.Abs(cameraInputH) > 0.05)
             {
-                CurSpeedH.WriteMemory(KhEngine, (float)(Math.Min(Math.Max(currentSpeedH + cameraInputH * AccelerationSpeed, -0.44), 0.44)));
+                CurSpeedH.WriteMemory(KhEngine, Priority, (float)(Math.Min(Math.Max(currentSpeedH + cameraInputH * AccelerationSpeed, -0.44), 0.44)));
 
                 // KhEngine.WriteFloat(CurSpeedH.Address,
                 //     (float)(Math.Min(Math.Max(currentSpeedH + cameraInputH * AccelerationSpeed, -0.44), 0.44)));
             }
             else
             {
-                CurSpeedH.WriteMemory(KhEngine, (float)(currentSpeedH * (1.0 - DeaccelerationSpeed * 10)));
+                CurSpeedH.WriteMemory(KhEngine, Priority, (float)(currentSpeedH * (1.0 - DeaccelerationSpeed * 10)));
 
                 //KhEngine.WriteFloat(CurSpeedH.Address, (float)(currentSpeedH * (1.0 - DeaccelerationSpeed * 10)));
             }
@@ -134,13 +137,13 @@ public class FastCameraModule : BaseModule
         {
             if (Math.Abs(cameraInputV) > 0.05) 
             {
-                CurSpeedV.WriteMemory(KhEngine, (float)(Math.Min(Math.Max(currentSpeedV - cameraInputV * AccelerationSpeedV, -0.44), 0.44)));
+                CurSpeedV.WriteMemory(KhEngine, Priority, (float)(Math.Min(Math.Max(currentSpeedV - cameraInputV * AccelerationSpeedV, -0.44), 0.44)));
                 // KhEngine.WriteFloat(CurSpeedV.Address,
                 //     (float)(Math.Min(Math.Max(currentSpeedV - cameraInputV * AccelerationSpeedV, -0.44), 0.44)));
             }
             else
             {
-                CurSpeedV.WriteMemory(KhEngine, (float)(currentSpeedV * (1.0 - DeaccelerationSpeedV * 10)));
+                CurSpeedV.WriteMemory(KhEngine, Priority, (float)(currentSpeedV * (1.0 - DeaccelerationSpeedV * 10)));
                 // KhEngine.WriteFloat(CurSpeedV.Address, (float)(currentSpeedV * (1.0 - DeaccelerationSpeedV * 10)));
             }
                 

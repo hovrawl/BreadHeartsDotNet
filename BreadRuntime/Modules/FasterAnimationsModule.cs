@@ -38,10 +38,10 @@ public class FasterAnimationsModule : BaseModule
 
     public override void OnFrame()
     {
-        SoraHud.ReadMemory(KhEngine);
-        Summoning.ReadMemory(KhEngine);
-        InCutscene.ReadMemory(KhEngine);
-        CutsceneSkippable.ReadMemory(KhEngine);
+        SoraHud.ReadMemory(KhEngine, Priority);
+        Summoning.ReadMemory(KhEngine, Priority);
+        InCutscene.ReadMemory(KhEngine, Priority);
+        CutsceneSkippable.ReadMemory(KhEngine, Priority);
         
         var cutscene = InCutscene.ValueAsInt;
         var skippable = CutsceneSkippable.ValueAsInt;
@@ -51,12 +51,12 @@ public class FasterAnimationsModule : BaseModule
         if (!soraHud && cutscene > 0 && cutscene != 8
         && skippable != 1025 && (summoning == 0 || summonSpeedup))
         {
-            FramerateHack.WriteMemory(KhEngine, (float)speedMult);
+            FramerateHack.WriteMemory(KhEngine, Priority, (float)speedMult);
             //KhEngine.WriteFloat(0x233C24C, (float)speedMult);
         }
         else
         {
-            FramerateHack.WriteMemory(KhEngine, (float)1.0);
+            FramerateHack.WriteMemory(KhEngine, Priority, (float)1.0);
             //KhEngine. WriteFloat(0x233C24C, (float)1.0);
         }
     }

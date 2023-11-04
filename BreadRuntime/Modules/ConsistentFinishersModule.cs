@@ -35,11 +35,11 @@ public class ConsistentFinishersModule: BaseModule
         //var zanteCheck = KhEngine.ReadByte(Zantetsuken.Address);
         // KhEngine.WriteFloat(GravityBreak.Address, (float)-1.0);
 
-        Zantetsuken.ReadMemory(KhEngine);
-        GravityBreak.WriteMemory(KhEngine, (float)-1.0);
+        Zantetsuken.ReadMemory(KhEngine, Priority);
+        GravityBreak.WriteMemory(KhEngine, Priority, (float)-1.0);
         if (Zantetsuken.ValueAsInt == 0x6C)
         {
-            Zantetsuken.WriteMemory(KhEngine, 0xC4);
+            Zantetsuken.WriteMemory(KhEngine, Priority, 0xC4);
             //KhEngine.WriteByte(Zantetsuken.Address, 0xC4);
         }
         

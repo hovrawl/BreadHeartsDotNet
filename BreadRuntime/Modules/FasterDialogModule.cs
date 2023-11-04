@@ -37,23 +37,23 @@ public class FasterDialogModule: BaseModule
 
     public override void OnFrame()
     {
-        TextBoxProgression.ReadMemory(KhEngine);
+        TextBoxProgression.ReadMemory(KhEngine, Priority);
         
         //var textProg = KhEngine.ReadShort(0x232A5F4);
         var textProg = TextBoxProgression.ValueAsInt;
 
-        TextBoxTransition.WriteMemory(KhEngine, (float)0);
+        TextBoxTransition.WriteMemory(KhEngine, Priority, (float)0);
         //KhEngine.WriteFloat(0x22E8744, 0); // finishes box transitions;
 
         if (textProg > lastProg && lastProg > 0 && textSpeedup ) // 1 frame turbo
         {
-            TextBoxSpeed.WriteMemory(KhEngine, (float)100.0);
+            TextBoxSpeed.WriteMemory(KhEngine, Priority, (float)100.0);
             //KhEngine.WriteFloat(0x233C25C, (float)100.0);
             turbo = true;
         }
         else if (turbo)
         {
-            TextBoxSpeed.WriteMemory(KhEngine, (float)0);
+            TextBoxSpeed.WriteMemory(KhEngine, Priority, (float)0);
             //KhEngine.WriteFloat(0x233c25c, (float)1.0);
         }
         lastProg = textProg;

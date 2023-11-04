@@ -46,6 +46,22 @@ public class GameFlag
     public byte ValueAsByte => Value as byte? ?? new byte();
     
     public byte[] ValueAsBytes => Value as byte[] ?? Array.Empty<byte>();
+
+    private int _timeSinceLastRead = 0;
+    public int TimeSinceLastRead => _timeSinceLastRead;
+
+    public void UpdateLastRead()
+    {
+        _timeSinceLastRead = DateTime.Now.Millisecond;
+    }
+    
+    private int _timeSinceLastWrite = 0;
+    public int TimeSinceLastWrite => _timeSinceLastWrite;
+
+    public void UpdateLastWrite()
+    {
+        _timeSinceLastWrite = DateTime.Now.Millisecond;
+    }
     
     public override string ToString()
     {

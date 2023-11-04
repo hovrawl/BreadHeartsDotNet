@@ -24,7 +24,7 @@ public abstract class BaseModule
     
     public bool Enabled => true;
     
-    public ModulePriority Priority => ModulePriority.Medium;
+    public virtual ModulePriority Priority => ModulePriority.Medium;
 
     public virtual List<ModuleSetting> GetSettings()
     {
