@@ -74,7 +74,12 @@ public sealed class KHEngine
     
     public void Stop()
     {
+        LowPriorityTimer?.Dispose();
+        LowPriorityModules.Clear();
         MediumPriorityTimer?.Dispose();
+        MediumPriorityModules.Clear();
+        HighPriorityTimer?.Dispose();
+        HighPriorityModules.Clear();
     }
 
     public void Attach()
@@ -86,12 +91,9 @@ public sealed class KHEngine
     {
         // Reset memory
         _attached = false;
-        if (Memory.mProc?.Process?.HasExited == false) return;
-        Memory.CloseProcess();
-        
+
         var openedProc = false;
 
-        
         var pid = Memory.GetProcIdFromName(processId);
 
         if (pid > 0) openedProc = Memory.OpenProcess(pid);
@@ -106,22 +108,22 @@ public sealed class KHEngine
         var initialisedModules = Modules.Where(i => i.Initialised);
         
         // Low Priority
+        LowPriorityTimer?.Dispose();
         LowPriorityModules.Clear();
         LowPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.Low));
-        LowPriorityTimer?.Dispose();
-        LowPriorityTimer = new Timer(LowTimerFrame, null,1000, (int)ModulePriority.Low);
+        LowPriorityTimer = new Timer(LowTimerFrame, LowPriorityModules,1000, (int)ModulePriority.Low);
         
         // Medium Priority
+        MediumPriorityTimer?.Dispose();
         MediumPriorityModules.Clear();
         MediumPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.Medium));
-        MediumPriorityTimer?.Dispose();
-        MediumPriorityTimer = new Timer(MediumTimerFrame, null,1000, (int)ModulePriority.Medium);
+        MediumPriorityTimer = new Timer(MediumTimerFrame, MediumPriorityModules,1000, (int)ModulePriority.Medium);
         
         // High Priority
+        HighPriorityTimer?.Dispose();
         HighPriorityModules.Clear();
         HighPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.High));
-        HighPriorityTimer?.Dispose();
-        HighPriorityTimer = new Timer(HighTimerFrame, null,1000, (int)ModulePriority.High);
+        HighPriorityTimer = new Timer(HighTimerFrame, HighPriorityModules,1000, (int)ModulePriority.High);
     }
 
     
@@ -130,7 +132,9 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
         
-        foreach (var module in LowPriorityModules) 
+        if (stateInfo is not List<BaseModule> modules) return;
+        
+        foreach (var module in modules)
         {
             if(!module.Initialised) continue;
             module.OnFrame();
@@ -141,8 +145,10 @@ public sealed class KHEngine
     {
         // Update Current World
         CurrentWorld = GetCurrentWorld();
+
+        if (stateInfo is not List<BaseModule> modules) return;
         
-        foreach (var module in MediumPriorityModules) 
+        foreach (var module in modules)
         {
             if(!module.Initialised) continue;
             module.OnFrame();
@@ -154,7 +160,9 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
         
-        foreach (var module in HighPriorityModules) 
+        if (stateInfo is not List<BaseModule> modules) return;
+        
+        foreach (var module in modules)
         {
             if(!module.Initialised) continue;
             module.OnFrame();
