@@ -84,11 +84,11 @@ public sealed class KHEngine
 
     private void AttachToProcess()
     {
-        // Rest memory
-        Memory.CloseProcess();
+        // Reset memory
         _attached = false;
-        
         if (Memory.mProc?.Process?.HasExited == false) return;
+        Memory.CloseProcess();
+        
         var openedProc = false;
 
         
