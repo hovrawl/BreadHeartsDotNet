@@ -16,7 +16,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     /// <summary>
     /// Name of the Game
     /// </summary>
-    public abstract string Name { get; }
+    public abstract string GameName { get; }
     
     /// <summary>
     /// Process executable name
@@ -30,7 +30,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     
     private sealed class KHFMGame : KHGame
     {
-        public override string Name => "KINGDOM HEARTS Final Mix";
+        public override string GameName => "KINGDOM HEARTS Final Mix";
         public override string ProcessName => "KINGDOM HEARTS FINAL MIX.exe";
         public override string ProcessId => "KINGDOM HEARTS FINAL MIX";
         
@@ -41,7 +41,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     
     private sealed class KHIIFMGame : KHGame
     {
-        public override string Name => "KINGDOM HEARTS II Final Mix";
+        public override string GameName => "KINGDOM HEARTS II Final Mix";
         public override string ProcessName => "KINGDOM HEARTS II FINAL MIX.exe";
         public override string ProcessId => "KINGDOM HEARTS II FINAL MIX";
         
@@ -52,7 +52,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     
     private sealed class KHRECOMGame : KHGame
     {
-        public override string Name => "KINGDOM HEARTS Re: Chain of Memories";
+        public override string GameName => "KINGDOM HEARTS Re: Chain of Memories";
         public override string ProcessName => "KINGDOM HEARTS Re_Chain of Memories.exe";
         public override string ProcessId => "KINGDOM HEARTS Re_Chain of Memories";
         
@@ -63,7 +63,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     
     private sealed class KHBBSGame : KHGame
     {
-        public override string Name => "KINGDOM HEARTS Birth By Sleep";
+        public override string GameName => "KINGDOM HEARTS Birth By Sleep";
         public override string ProcessName => "KINGDOM HEARTS Birth by Sleep FINAL MIX.exe";
         public override string ProcessId => "KINGDOM HEARTS Birth by Sleep FINAL MIX";
         

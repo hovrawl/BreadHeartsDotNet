@@ -544,4 +544,12 @@ public sealed class KHEngine
     }
     
     #endregion
+
+    #region Abilities
+
+    private GameFlags AbilityFlags = new ();
+    
+    
+
+    #endregion
 }
