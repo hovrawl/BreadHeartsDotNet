@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadRuntime.Enums;
 using BreadRuntime.Extensions;
 using Memory;
@@ -33,6 +34,8 @@ public class FastCameraModule : BaseModule
 
     private double LastSpeedH = 0;
     private double LastSpeedV = 0;
+    
+    public override KHGame Game => KHGame.KHFM;
     
     public override string Author => "Denhonator";
     

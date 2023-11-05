@@ -1,4 +1,5 @@
 using BreadFramework.Flags;
+using BreadFramework.Game;
 
 namespace BreadRuntime.Modules;
 
@@ -6,6 +7,9 @@ public class DiscordRichPresenceModule : BaseModule
 {
     private GameFlag GravityBreak;
     private GameFlag Zantetsuken;
+    
+    public override KHGame Game => KHGame.KHFM;
+    
     public override string Author => "Dekirai";
     
     public override string Name => "Discord Rich Presence";

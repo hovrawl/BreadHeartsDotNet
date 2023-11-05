@@ -1,5 +1,7 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
+using BreadRuntime.Enums;
 using BreadRuntime.Extensions;
 using Memory;
 
@@ -9,6 +11,9 @@ public class ConsistentFinishersModule: BaseModule
 {
     private GameFlag GravityBreak;
     private GameFlag Zantetsuken;
+
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Denhonator";
     
     public override string Name => "Consistent Finishers";

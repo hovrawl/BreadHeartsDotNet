@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadRuntime.Extensions;
 using Memory;
 
@@ -13,6 +14,8 @@ public class InstantGummiWarpModule: BaseModule
     private GameFlag NeverlandProgressFlag;
     private GameFlag WorldSelection;
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Denhonator";
     
     public override string Name => "Instant Gummi Ship Warp";

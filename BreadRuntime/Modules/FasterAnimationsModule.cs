@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadRuntime.Extensions;
 using Memory;
 
@@ -14,6 +15,8 @@ public class FasterAnimationsModule : BaseModule
     private GameFlag FramerateHack;
     private GameFlag InCutscene;
     private GameFlag CutsceneSkippable;
+    
+    public override KHGame Game => KHGame.KHFM;
     
     public override string Author => "Denhonator";
     

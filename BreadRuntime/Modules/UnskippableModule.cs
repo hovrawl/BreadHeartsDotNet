@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadFramework.Helpers;
 
 namespace BreadRuntime.Modules;
@@ -17,6 +18,8 @@ public class UnskippableModule : BaseModule
 
     public bool EarlySkip;
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Denhonator/TopazTK";
     
     public override string Name => "Unskippable";

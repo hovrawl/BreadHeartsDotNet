@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using Memory;
 
 namespace BreadRuntime.Modules;
@@ -18,6 +19,8 @@ public class OpenInCombatModule: BaseModule
     public bool ActivateTrinity;
     public bool Examine;
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "KSX";
     public override string Name => "Open in Combat";
 

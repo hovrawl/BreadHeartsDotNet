@@ -4,6 +4,7 @@ using System.Xml.Schema;
 using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadRuntime.Settings;
 using Memory;
 
@@ -40,6 +41,8 @@ public class SaveAnywhereModule: BaseModule
     private int LastDeathPointer = 0;
     private float PrevHud = 0;
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Denhonator";
     
     public override string Name => "Save Anywhere";

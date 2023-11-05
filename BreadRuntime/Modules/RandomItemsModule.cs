@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadFramework.Items;
 using BreadFramework.Worlds;
 using Memory;
@@ -223,6 +224,8 @@ public class RandomItemsModule : BaseModule
 
     #endregion
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Original Script By Denhonator";
     
     public override string Name => "Random Items";

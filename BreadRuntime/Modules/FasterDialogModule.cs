@@ -1,4 +1,5 @@
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using BreadRuntime.Extensions;
 using Memory;
 
@@ -14,6 +15,8 @@ public class FasterDialogModule: BaseModule
     private GameFlag TextBoxTransition;
     private GameFlag TextBoxSpeed;
     
+    public override KHGame Game => KHGame.KHFM;
+
     public override string Author => "Denhonator";
     
     public override string Name => "Faster Dialog";

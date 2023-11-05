@@ -1,5 +1,6 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
+using BreadFramework.Game;
 using Memory;
 
 namespace BreadRuntime.Modules;
@@ -14,6 +15,7 @@ public class QuickOverworldWarpModule: BaseModule
     private GameFlag ShoulderPress;
     private WorldInfo CurrentWorld;
 
+    public override KHGame Game => KHGame.KHFM;
 
     public override string Author => "KSX";
     public override string Name => "Quick Warp to Gummi Ship";
