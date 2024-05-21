@@ -189,7 +189,7 @@ public class RandomItemsModule : BaseModule
     public Dictionary<int, List<string>> RewardDetails = new ();
     public List<string> VanillaChests = new ();
     public List<string> VanillaRewards = new ();
-    public List<string> ItemIds = new ();
+    public List<int> ItemIds = new ();
     public List<string> Rewards = new ();
     public List<string> SoraLevels = new();
     public List<string> SoraAbilities = new();
@@ -575,7 +575,7 @@ public class RandomItemsModule : BaseModule
     {
         var abilitiesAvaiable = new Dictionary<int, int>();
         var itemsAvaiable = new Dictionary<int, int>();
-        var rewardsAvaiable = new Dictionary<int, int>();
+        var rewardsAvailable = new Dictionary<int, int>();
         var dalmationsAvaiable = 0;
 
         for (int i = 1; i < 0xFF; i++)
@@ -594,17 +594,40 @@ public class RandomItemsModule : BaseModule
                 var chestsI = Chests[i] % 0x10;
                 if (chestsI == 0)
                 {
-                
+                    var it = ItemIds[Chests[i] / 0x10];
+                    itemsAvaiable[it] += 1;
                 } 
                 else if (chestsI == 4)
                 {
-                
+                    dalmationsAvaiable += 3;
                 }
                 else if (chestsI == 0xE)
                 {
-                
+                    rewardsAvailable[(Chests[i] / 0x10) + 1] += 1;
                 }
             }
+        }
+
+        for (int i = 1; i < 0xA9; i++)
+        {
+            var rewardDetail = RewardDetails[i];
+            if (!rewardDetail.Any()) continue;
+
+            if (!rewardsAvailable.TryGetValue(i, out var availableReward))
+            {
+                // if reward not yet saved, check if accessible
+                if (IsAccessible(rewardDetail, i))
+                {
+                    
+                }
+                continue;
+            }
+            else if (availableReward > 0) 
+            {
+                // if saved we can move on
+                continue;
+            }
+            
         }
     }
     
