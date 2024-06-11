@@ -8,6 +8,7 @@ using BreadFramework.Worlds;
 using BreadRuntime.Enums;
 using BreadRuntime.Modules;
 using BreadRuntime.Settings;
+using BreadRuntime.Tools;
 using Memory;
 
 namespace BreadRuntime.Engine;
@@ -550,6 +551,16 @@ public sealed class KHEngine
     private GameFlags AbilityFlags = new ();
     
     
+
+    #endregion
+
+    #region File Patching
+
+    public void PatchFiles(List<string> patchFile, string patchType, string epicFolder = null, bool backupPKG = true,
+        bool extractPatch = false)
+    {
+        FilePatcher.ApplyPatch(patchFile, patchType, epicFolder, backupPKG, extractPatch);
+    }
 
     #endregion
 }
