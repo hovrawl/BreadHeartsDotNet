@@ -1,0 +1,24 @@
+using BreadFramework.Game;
+using BreadRuntime.Engine;
+
+namespace BreadRuntime.Modules;
+
+public class OpenKhPatchModule : BaseModule
+{
+    public override KHGame Game { get; init; }
+    public override string Author { get; init; }
+    public override string Name { get; init; }
+    public override string Description { get; init; }
+    
+    public string PatchFilePath { get; init; }
+    
+    public override bool Initialise(KHEngine khEngine)
+    {
+        return true;
+    }
+
+    public override void OnFrame()
+    {
+        // No op
+    }
+}

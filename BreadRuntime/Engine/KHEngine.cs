@@ -30,7 +30,28 @@ public sealed class KHEngine
     private KHGame _selectedGame = KHGame.KHFM;
     
     public KHGame SelectedGame => _selectedGame;
+
+    private GameDirectoryInfo _gameDirectoryInfo;
+
+    public GameDirectoryInfo GameDirectoryInfo
+    {
+        get => _gameDirectoryInfo;
+        private set => _gameDirectoryInfo = value;
+    }
     
+    
+    public string GameDataFolder
+    {
+        get
+        {
+            if (GameDirectoryInfo.Platform == GamePlatform.Steam)
+            {
+                return Path.Combine(Instance.GameDirectoryInfo.Path, "Image\\dt\\");
+            }
+            
+            return Path.Combine(Instance.GameDirectoryInfo.Path, "Image\\en\\");
+        }
+    }
 
     private static List<BaseModule> Modules = new ();
     public Mem Memory;
@@ -57,6 +78,8 @@ public sealed class KHEngine
     
     public static bool Attached => _attached;
 
+
+    public List<string> Errors = new List<string>();
     #endregion
 
     #region Engine
@@ -556,11 +579,25 @@ public sealed class KHEngine
 
     #region File Patching
 
-    public void PatchFiles(List<string> patchFile, string patchType, string epicFolder = null, bool backupPKG = true,
+
+    public void PatchFiles(List<string> patchFile, KHGame patchType, PatchBackgroundWorker bgWorker, bool backupPKG = true,
         bool extractPatch = false)
     {
-        FilePatcher.ApplyPatch(patchFile, patchType, epicFolder, backupPKG, extractPatch);
+        try
+        {
+            FilePatcher.ApplyPatch(patchFile, patchType, Instance.GameDataFolder,  bgWorker, backupPKG, extractPatch);
+        }
+        catch (Exception ex)
+        {
+            var errMsg = ex.Message;
+            Errors.Add(errMsg);
+        }
     }
 
     #endregion
+
+    public void SetGameDirectory(GameDirectoryInfo gameDirectoryInfo)
+    {
+        _gameDirectoryInfo = gameDirectoryInfo;
+    }
 }

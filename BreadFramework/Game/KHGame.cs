@@ -8,6 +8,7 @@ public abstract class KHGame  : SmartEnum<KHGame>
     public static readonly KHGame KHIIFM = new KHIIFMGame();
     public static readonly KHGame KHRECOM = new KHRECOMGame();
     public static readonly KHGame KHBBS = new KHBBSGame();
+    public static readonly KHGame KHDDD = new KHDDDGame();
     
     protected KHGame(string name, int value) : base(name, value)
     {
@@ -67,7 +68,18 @@ public abstract class KHGame  : SmartEnum<KHGame>
         public override string ProcessName => "KINGDOM HEARTS Birth by Sleep FINAL MIX.exe";
         public override string ProcessId => "KINGDOM HEARTS Birth by Sleep FINAL MIX";
         
-        public KHBBSGame() : base("KHIIFM", 0)
+        public KHBBSGame() : base("KHBBSFM", 0)
+        {
+        }
+    }
+    
+    private sealed class KHDDDGame : KHGame
+    {
+        public override string GameName => "KINGDOM HEARTS Dream Drop Distance";
+        public override string ProcessName => "KINGDOM HEARTS Dream Drop Distance.exe";
+        public override string ProcessId => "KINGDOM HEARTS Dream Drop Distance";
+        
+        public KHDDDGame() : base("KHDDD", 0)
         {
         }
     }

@@ -10,10 +10,4 @@
       <PackageReference Include="Ardalis.SmartEnum" Version="7.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\Chests\" />
-      <Folder Include="Data\Flags\" />
-      <Folder Include="Data\Worlds\" />
-    </ItemGroup>
-
 </Project>

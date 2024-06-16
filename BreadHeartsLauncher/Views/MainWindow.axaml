@@ -28,6 +28,17 @@
             </TabItem.HeaderTemplate>
             <views:ConsoleView AttachedToVisualTree="ConsoleAttached"/>
         </TabItem>
+        <TabItem Header="Patches" Name="PatchTab">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <PathIcon Data="{StaticResource settings_regular}" Margin="4 0"/> 
+                        <TextBlock>Patches</TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+            <views:OpenKhPatchView DataContext="{Binding OpenKhPatchesViewModel}"/>
+        </TabItem>
         <TabItem Header="Config" Name="ConfigTab">
             <TabItem.HeaderTemplate>
                 <DataTemplate>

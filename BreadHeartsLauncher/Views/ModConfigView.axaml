@@ -15,9 +15,9 @@
               IsReadOnly="False">
         
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-            <DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
-            <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True"/>
+            <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True"/>
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True"/>
             <!-- <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" IsReadOnly="False" /> -->
             <DataGridTemplateColumn Header="Enabled" IsReadOnly="False" >
                 <DataGridTemplateColumn.CellTemplate >

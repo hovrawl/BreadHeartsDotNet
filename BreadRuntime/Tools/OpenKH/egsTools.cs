@@ -211,11 +211,6 @@ namespace OpenKh.Egs
         #endregion
 
         #region Patch
-
-        private static void Setup()
-        {
-	       
-        }
         
         public static void Patch(string pkgFile, string inputFolder, string outputFolder, PatchBackgroundWorker bgw1 = null)
         {
@@ -274,6 +269,7 @@ namespace OpenKh.Egs
                     }
                 }
 
+                // Match found, remove so we dont add after the replace process
                 if (patchFiles.Contains(filename))
                 {
                     patchFiles.Remove(filename);
@@ -309,7 +305,8 @@ namespace OpenKh.Egs
 			int actualLength = 0;
 			
             #region Data
-			if(ZipManager.FileExists(completeFilePath)){
+			if (ZipManager.FileExists(completeFilePath)) 
+			{
 				using var newFileStream = ZipManager.FileReadStream(completeFilePath);
 				actualLength = (int)newFileStream.Length;
 				
@@ -346,7 +343,7 @@ namespace OpenKh.Egs
 					header.CompressedLength = compressedData.Length;
 				}
 				
-				SDasset sdasset = new SDasset(filename, decompressedData, RemasterExist);
+				var sdasset = new SDasset(filename, decompressedData, RemasterExist);
 				RemasterExist = false;
 				
 				if(sdasset != null && !sdasset.Invalid) header.RemasteredAssetCount = sdasset.AssetCount;
@@ -373,7 +370,9 @@ namespace OpenKh.Egs
 					// Make sure to write the original file after remastered assets headers
 					pkgStream.Write(encryptedData);
 				}
-			}else if(ZipManager.FileExists(completeRawFilePath)){
+			}
+			else if (ZipManager.FileExists(completeRawFilePath))
+			{
 				var newFileStream = ZipManager.FileReadAllBytes(completeRawFilePath);
 				actualLength = BitConverter.ToInt32(newFileStream, 0);
 				
@@ -400,14 +399,8 @@ namespace OpenKh.Egs
             return hedHeader;
         }
 
-        private static Hed.Entry ReplaceFile(
-            string inputFolder,
-            string filename,
-            FileStream hedStream,
-            FileStream pkgStream,
-            EgsHdAsset asset,
-            Hed.Entry originalHedHeader = null,
-            bool isNameUnknown = false)
+        private static Hed.Entry ReplaceFile(string inputFolder, string filename, FileStream hedStream,
+            FileStream pkgStream, EgsHdAsset asset, Hed.Entry originalHedHeader = null, bool isNameUnknown = false)
         {
             var completeFilePath = Path.Combine(inputFolder, ORIGINAL_FILES_FOLDER_NAME, filename);
 			var completeRawFilePath = Path.Combine(inputFolder, RAW_FILES_FOLDER_NAME, filename);
@@ -435,10 +428,10 @@ namespace OpenKh.Egs
             // We want to replace the original file
             if (ZipManager.FileExists(completeFilePath))
             {
-				bool RemasterExist = false;
+				var RemasterExist = false;
 				
                 Console.WriteLine($"Replacing original: {filename}!");
-				string RemasteredPath = completeFilePath.Replace("\\original\\","\\remastered\\");
+				var RemasteredPath = completeFilePath.Replace("\\original\\","\\remastered\\");
                 if (ZipManager.DirectoryExists(RemasteredPath))
                 {
                     Console.WriteLine($"Remastered Folder Exists! Path: {RemasteredPath}");
@@ -483,12 +476,15 @@ namespace OpenKh.Egs
                 encryptedData = header.CompressedLength > -2 ? EgsEncryption.Encrypt(compressedData, encryptionSeed) : compressedData;
             }
 			
-			if(ZipManager.FileExists(completeRawFilePath)){
+			if (ZipManager.FileExists(completeRawFilePath)) 
+			{
 				var rawFileStream = ZipManager.FileReadAllBytes(completeRawFilePath);
 				actualLength = BitConverter.ToInt32(rawFileStream, 0);
 				
 				pkgStream.Write(rawFileStream);
-			}else{
+			}
+			else 
+			{
 				// Write original file header
 				BinaryMapping.WriteObject<EgsHdAsset.Header>(pkgStream, header);
 
@@ -547,13 +543,16 @@ namespace OpenKh.Egs
             }
 
 			//At the moment this only applies on fresh PKGs (or ones that haven't been patched with this modded MDLX before, otherwise we'd neet to analyse ALL MDLX files)
-			if(sdasset != null && !sdasset.Invalid && assetConfig.UpdateAssetCountFromOriginal){
+			if (sdasset != null && !sdasset.Invalid && assetConfig.UpdateAssetCountFromOriginal)
+			{
 				File.AppendAllText("custom_hd_assets.txt", "HD assets for: " + originalFile + "\n");
-				while(oldRemasteredHeaders.Count > assetCount){
+				while (oldRemasteredHeaders.Count > assetCount)
+				{
 					File.AppendAllText("custom_hd_assets.txt", "Removing: -" + (oldRemasteredHeaders.Count-1) + ".dds\n");
 					oldRemasteredHeaders.RemoveAt(oldRemasteredHeaders.Count-1);
 				}
-				while(oldRemasteredHeaders.Count < assetCount){
+				while (oldRemasteredHeaders.Count < assetCount)
+				{
 					var newRemasteredAssetHeader = new EgsHdAsset.RemasteredEntry()
 					{
 						CompressedLength = 0,
@@ -591,7 +590,8 @@ namespace OpenKh.Egs
                         remasteredNames[l] = Path.ChangeExtension(remasteredNames[l], Path.GetExtension(remasteredNames[l]).ToLower());
                 }
 
-                if(assetConfig.SortOrder){
+                if (assetConfig.SortOrder)
+                {
                     //Make a sorted list tempremasteredNames
                     List<string> tempremasteredNamesD = new List<string>();
                     List<string> tempremasteredNamesP = new List<string>();
@@ -729,36 +729,45 @@ namespace OpenKh.Egs
 		public int ForceAssetCount = -1;
 		
 		public AssetConfig(string remasteredAssetsFolder){
-			string config = Path.Combine(remasteredAssetsFolder, "assets.config");
+			var config = Path.Combine(remasteredAssetsFolder, "assets.config");
+
+			if (!ZipManager.FileExists(config)) return;
 			
-			if(ZipManager.FileExists(config)){
-				string[] options = ZipManager.FileReadAllLines(config);
-				for(int i=0;i<options.Length;i++){
-					string option = options[i].ToLower().Replace(" ", "");
-					if(option.StartsWith("#")) continue;
-					switch(option){
-						case "sortorder=false":
-							SortOrder = false;
-							break;
-						case "updateassetcountfromoriginal=false":
-							UpdateAssetCountFromOriginal = false;
-							break;
-						case "updateassetcountfromremastered=false":
-							UpdateAssetCountFromRemastered = false;
-							break;
+			var options = ZipManager.FileReadAllLines(config);
+			foreach (var t in options)
+			{
+				var option = t.ToLower().Replace(" ", "");
+				
+				if (option.StartsWith("#")) continue;
+				switch(option)
+				{
+					case "sortorder=false":
+						SortOrder = false;
+						break;
+					case "updateassetcountfromoriginal=false":
+						UpdateAssetCountFromOriginal = false;
+						break;
+					case "updateassetcountfromremastered=false":
+						UpdateAssetCountFromRemastered = false;
+						break;
+				}
+				
+				if (option.Contains("forceassetcount="))
+				{
+					try
+					{
+						ForceAssetCount = Int32.Parse(option.Replace("forceassetcount=", ""));
 					}
-					if(option.Contains("forceassetcount=")){
-						try{
-							ForceAssetCount = Int32.Parse(option.Replace("forceassetcount=", ""));
-						}catch(Exception e){
-							Console.WriteLine("Incorrect number format for ForceAssetCount: " + e.ToString());
-						}
+					catch(Exception e)
+					{
+						Console.WriteLine("Incorrect number format for ForceAssetCount: " + e.ToString());
 					}
-					if(option.Contains("forceassetorder=")){
-						string[] assets = option.Replace("forceassetcount=", "").Split(',');
-						for(int j=0;j<assets.Length;j++){
+				}
+				if (option.Contains("forceassetorder="))
+				{
+					string[] assets = option.Replace("forceassetcount=", "").Split(',');
+					for(int j=0;j<assets.Length;j++){
 							
-						}
 					}
 				}
 			}

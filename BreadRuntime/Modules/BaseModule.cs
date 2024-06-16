@@ -11,13 +11,13 @@ public abstract class BaseModule
 
     public Guid Id { get; } = Guid.NewGuid();
     
-    public abstract KHGame Game { get; }
+    public virtual KHGame Game { get; init; }
     
-    public abstract string Author { get; }
+    public virtual string Author { get; init; }
 
-    public abstract string Name { get; }
+    public virtual string Name { get;  init; }
     
-    public abstract string Description { get; }
+    public virtual string Description { get;  init; }
 
     public abstract bool Initialise(Engine.KHEngine khEngine);
 

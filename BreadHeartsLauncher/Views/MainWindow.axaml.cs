@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using BreadHeartsLauncher.Classes;
@@ -25,6 +28,7 @@ public partial class MainWindow : Window
 
         ConsoleManager.Write("Console Initialized...");
 
+        
         InitializeRuntime();
     }
 
@@ -45,6 +49,9 @@ public partial class MainWindow : Window
         KHEngine.Instance.Initialise();
 
         Engine = KHEngine.Instance;
+        
+        // Detect file patches
+        DetectMods();
         
         // Built-in modules
         Engine.AddModule(new SaveAnywhereModule());
@@ -73,5 +80,25 @@ public partial class MainWindow : Window
             // var configView = selectedTab.Content as ModConfigView;
             // configView.RefreshGrid();
         }
+    }
+
+    private void DetectMods()
+    {
+        var modDirectory = Path.Combine(Environment.CurrentDirectory, "Mods");
+
+        if (!Directory.Exists(modDirectory)) return;
+        foreach (var patchFile in Directory.EnumerateFiles(modDirectory))
+        {
+            var fileName = Path.GetFileName(patchFile);
+            var patchModule = new OpenKhPatchModule()
+            {
+                PatchFilePath = patchFile,
+                Name = fileName,
+                Description = "OpenKH Format file patch"
+            };
+            Engine.AddModule(patchModule);
+        }
+        
+        
     }
 }
