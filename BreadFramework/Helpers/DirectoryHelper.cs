@@ -58,7 +58,7 @@ public static class DirectoryHelper
                     var khFolder = common.EnumerateDirectories().FirstOrDefault(i => i.Name.Equals("KINGDOM HEARTS -HD 1.5+2.5 ReMIX-", StringComparison.CurrentCultureIgnoreCase));
                     if (khFolder != null)
                     {
-                        returnDirectory.Path = steamDirectory.FullName;
+                        returnDirectory.Path = khFolder.FullName;
                         returnDirectory.Platform = GamePlatform.Steam;
                         return returnDirectory;
                     }

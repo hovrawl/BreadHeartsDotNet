@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -58,7 +59,7 @@ public partial class OpenKhPatchView : UserControl
 
     private void PatchBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        PatchGame();
     }
 
     private void UnPatchBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -126,14 +127,28 @@ public partial class OpenKhPatchView : UserControl
     public void PatchGame()
     {
         var patchType = KHGame.KHFM;
-        var backupPkg = true;
+        var backupPkg = false;
         var extractPkg = false;
         var patchFiles = new List<string>();
+        var patchDirectory = Path.Combine(Environment.CurrentDirectory, "mods");
+        if (Directory.Exists(patchDirectory))
+        {
+            foreach (var patchFile in Directory.EnumerateFiles(patchDirectory))
+            {
+                patchFiles.Add(patchFile);
+            }
+        }
 
+        if (patchFiles.Count < 1)
+        {
+            ConsoleManager.WriteLine("No patches found.");
+            return;
+        }
+        
         var bgWorker = new PatchBackgroundWorker();
         bgWorker.ProgressChanged += (s, e) =>
         {
-            ConsoleManager.WriteLine((string)e.UserState);
+            if (e.UserState != null) ConsoleManager.WriteLine((string)e.UserState);
             //if (GUI_Displayed) status.Text = (string)e.UserState;
         };
         KHEngine.Instance.PatchFiles(patchFiles, patchType, bgWorker,  backupPkg, extractPkg);

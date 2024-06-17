@@ -69,7 +69,7 @@ public static class FilePatcher
 
             var foundFolder = false;
 
-            foreach (var gameFile in khFiles[patchType])
+            foreach (var gameFile in khFiles[patchType.GameName])
             {
                 bgWorker.ReportProgress(0, $"Searching {gameFile}...");
                 var epicFile = Path.Combine(epicFolder, gameFile + ".pkg");
@@ -146,10 +146,10 @@ public static class FilePatcher
         bgWorker.RunWorkerAsync();
     }
 
-    static Dictionary<KHGame, string[]> khFiles = new ()
+    static Dictionary<string, string[]> khFiles = new ()
     {
         {
-            KHGame.KHFM, new string[]
+            KHGame.KHFM.GameName, new string[]
             {
                 "kh1_first",
                 "kh1_second",
@@ -159,7 +159,7 @@ public static class FilePatcher
             }
         },
         {
-            KHGame.KHIIFM, new string[]
+            KHGame.KHIIFM.GameName, new string[]
             {
                 "kh2_first",
                 "kh2_second",
@@ -170,7 +170,7 @@ public static class FilePatcher
             }
         },
         {
-            KHGame.KHBBS, new string[]
+            KHGame.KHBBS.GameName, new string[]
             {
                 "bbs_first",
                 "bbs_second",
@@ -179,7 +179,7 @@ public static class FilePatcher
             }
         },
         {
-            KHGame.KHDDD, new string[]
+            KHGame.KHDDD.GameName, new string[]
             {
                 "kh3d_first",
                 "kh3d_second",
@@ -188,7 +188,7 @@ public static class FilePatcher
             }
         },
         {
-            KHGame.KHRECOM, new string[]
+            KHGame.KHRECOM.GameName, new string[]
             {
                 "Recom"
             }
