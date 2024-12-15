@@ -180,13 +180,13 @@ public sealed class KHEngine
         MediumPriorityTimer?.Dispose();
         MediumPriorityModules.Clear();
         MediumPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.Medium && i.Game == SelectedGame));
-        MediumPriorityTimer = new Timer(MediumTimerFrame, MediumPriorityModules,1000, (int)ModulePriority.Medium);
+        MediumPriorityTimer = new Timer(MediumTimerFrame, MediumPriorityModules,500, (int)ModulePriority.Medium);
         
         // High Priority
         HighPriorityTimer?.Dispose();
         HighPriorityModules.Clear();
         HighPriorityModules.AddRange(initialisedModules.Where(i => i.Priority == ModulePriority.High && i.Game == SelectedGame));
-        HighPriorityTimer = new Timer(HighTimerFrame, HighPriorityModules,1000, (int)ModulePriority.High);
+        HighPriorityTimer = new Timer(HighTimerFrame, HighPriorityModules,250, (int)ModulePriority.High);
     }
 
     
