@@ -75,10 +75,8 @@ public static class FilePatcher
                 var epicFile = Path.Combine(epicFolder, gameFile + ".pkg");
                 var epicHedFile = Path.Combine(epicFolder, gameFile + ".hed");
                 var patchFolder = Path.Combine(tempFolder, gameFile);
-                var epicPkgBackupFile = Path.Combine(epicBackup,
-                    gameFile + (!backupPKG ? "_" + timestamp : "") + ".pkg");
-                var epicHedBackupFile = Path.Combine(epicBackup,
-                    gameFile + (!backupPKG ? "_" + timestamp : "") + ".hed");
+                var epicPkgBackupFile = Path.Combine(epicBackup, gameFile + (!backupPKG ? "_" + timestamp : "") + ".pkg");
+                var epicHedBackupFile = Path.Combine(epicBackup, gameFile + (!backupPKG ? "_" + timestamp : "") + ".hed");
 
                 try
                 {
