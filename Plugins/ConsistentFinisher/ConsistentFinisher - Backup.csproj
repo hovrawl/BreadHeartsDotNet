@@ -26,12 +26,12 @@
 <!--                DestinationFolder="c:\MyDestinationTree\%(RecursiveDir)"-->
 <!--        />-->
 <!--    </Target>-->
-<!--    <ItemDefinitionGroup>-->
-<!--        <PostBuildEvent>-->
-<!--            <Command>xcopy "$(TargetPath)" "$(SolutionDir)Plugins ignore\" /Y /I</Command>-->
-<!--            <Message>Making a copy of myproject.exe</Message>-->
-<!--        </PostBuildEvent>-->
-<!--    </ItemDefinitionGroup>-->
+    <ItemDefinitionGroup>
+        <PostBuildEvent>
+            <Command>xcopy "$(TargetPath)" "$(SolutionDir)Plugins ignore\" /Y /I</Command>
+            <Message>Making a copy of myproject.exe</Message>
+        </PostBuildEvent>
+    </ItemDefinitionGroup>
     
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Any CPU'">
         <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
@@ -42,6 +42,6 @@
     </PropertyGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Plugins&quot; /Y /I" />
+      <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Plugins ignore\&quot; /Y /I" />
     </Target>
 </Project>

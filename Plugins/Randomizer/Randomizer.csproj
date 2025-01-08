@@ -10,5 +10,15 @@
         <ProjectReference Include="..\..\EngineApi\EngineApi.csproj" />
         <ProjectReference Include="..\..\PluginBase\PluginBase.csproj" />
     </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Any CPU'">
+        <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Any CPU'">
+        <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    </PropertyGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)Plugins&quot; /Y /I" />
+    </Target>
 
 </Project>
