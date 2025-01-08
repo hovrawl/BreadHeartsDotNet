@@ -1,11 +1,11 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class OpenInCombatModule: BaseModule
+public class OpenInCombatPlugin: BasePlugin
 {
     private GameFlag OpenMenuInCombat;
     private GameFlag TalkRequirement;
@@ -27,7 +27,7 @@ public class OpenInCombatModule: BaseModule
     public override string Description =>
         "Allows certain actions to be performed in combat.";
 
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

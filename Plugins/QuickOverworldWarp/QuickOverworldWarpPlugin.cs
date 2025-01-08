@@ -1,11 +1,11 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class QuickOverworldWarpModule: BaseModule
+public class QuickOverworldWarpPlugin: BasePlugin
 {
     private GameFlag WarpRequirement1;
     private GameFlag WarpRequirement2;
@@ -23,7 +23,7 @@ public class QuickOverworldWarpModule: BaseModule
     public override string Description =>
         "Warp to Gummi Ship at any time by pressing both bumpers and both analog sticks.";
 
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

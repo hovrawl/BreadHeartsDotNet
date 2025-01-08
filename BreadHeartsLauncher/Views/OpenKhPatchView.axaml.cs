@@ -17,6 +17,7 @@ using BreadRuntime.Modules;
 using BreadRuntime.Tools;
 using Material.Icons;
 using Material.Icons.Avalonia;
+using PluginBase;
 
 namespace BreadHeartsLauncher.Views;
 
@@ -41,8 +42,8 @@ public partial class OpenKhPatchView : UserControl
         
         // Add modules to grid
         var modules = KHEngine.Instance.GetModules();
-        var openKhPatches = modules.Where(i => i is OpenKhPatchModule);
-        viewModel.Modules = new ObservableCollection<BaseModule>(openKhPatches);
+        var openKhPatches = modules.Where(i => i is OpenKhPatchPlugin);
+        viewModel.Modules = new ObservableCollection<BasePlugin>(openKhPatches);
         configGrid.ItemsSource = viewModel.Modules;
     }
 

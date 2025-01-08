@@ -1,13 +1,8 @@
-using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadRuntime.Enums;
-using BreadRuntime.Extensions;
-using Memory;
+using PluginBase;
 
-namespace BreadRuntime.Modules;
-
-public class ConsistentFinishersModule: BaseModule
+public class ConsistentFinishersPlugin: BasePlugin
 {
     private GameFlag GravityBreak;
     private GameFlag Zantetsuken;
@@ -22,11 +17,11 @@ public class ConsistentFinishersModule: BaseModule
         "30% chance finishers are now 100%";
 
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi engine)
     {
         var success = true;
 
-        KhEngine = khEngine;
+        KhEngine = engine;
         GravityBreak = KhEngine.GameFlagsRepo.GetFlag(GameFlags.GravityBreakHack);
         Zantetsuken = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ZantetsukenHack);
         

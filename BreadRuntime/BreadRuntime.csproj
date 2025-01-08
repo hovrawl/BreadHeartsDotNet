@@ -11,10 +11,18 @@
       <PackageReference Include="DotNetZip" Version="1.16.0" />
       <PackageReference Include="Memory.dll.x64" Version="1.2.24" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <PackageReference Include="Weikio.PluginFramework" Version="1.5.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\BreadFramework\BreadFramework.csproj" />
+      <ProjectReference Include="..\EngineApi\EngineApi.csproj" />
+      <ProjectReference Include="..\PluginBase\PluginBase.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Enums\" />
+      <Folder Include="Settings\" />
     </ItemGroup>
 
 </Project>

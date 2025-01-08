@@ -1,16 +1,13 @@
-using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Xml.Schema;
 using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
 using BreadRuntime.Settings;
-using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class SaveAnywhereModule: BaseModule
+public class SaveAnywherePlugin: BasePlugin
 {
     private GameFlag GameState;
     private GameFlag DeathCheck;
@@ -49,7 +46,7 @@ public class SaveAnywhereModule: BaseModule
 
     public override string Description => "Open the save menu anywhere via pressing Both Bumpers + Left Trigger + Select .";
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

@@ -1,13 +1,9 @@
 using BreadFramework.Flags;
 using BreadFramework.Game;
+using PluginBase;
 
-namespace BreadRuntime.Modules;
-
-public class DiscordRichPresenceModule : BaseModule
+public class DiscordRichPresencePlugin: BasePlugin
 {
-    private GameFlag GravityBreak;
-    private GameFlag Zantetsuken;
-    
     public override KHGame Game => KHGame.KHFM;
     
     public override string Author => "Dekirai";
@@ -18,16 +14,12 @@ public class DiscordRichPresenceModule : BaseModule
         "Rich Presence for Kingdom Hearts with World/Character info";
 
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 
         KhEngine = khEngine;
-        GravityBreak = KhEngine.GameFlagsRepo.GetFlag(GameFlags.GravityBreakHack);
-        Zantetsuken = KhEngine.GameFlagsRepo.GetFlag(GameFlags.ZantetsukenHack);
-        
         // InitializeRPC("827214883190734889")
-
         
         Initialised = success;
         return success;

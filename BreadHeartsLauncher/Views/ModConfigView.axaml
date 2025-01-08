@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:BreadHeartsLauncher.ViewModels"
-             xmlns:modules="clr-namespace:BreadRuntime.Modules;assembly=BreadRuntime"
+             xmlns:pluginBase="clr-namespace:PluginBase;assembly=PluginBase"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ModConfigViewModel"
              x:Class="BreadHeartsLauncher.Views.ModConfigView">
@@ -21,7 +21,7 @@
             <!-- <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" IsReadOnly="False" /> -->
             <DataGridTemplateColumn Header="Enabled" IsReadOnly="False" >
                 <DataGridTemplateColumn.CellTemplate >
-                    <DataTemplate DataType="modules:BaseModule" >
+                    <DataTemplate DataType="pluginBase:BasePlugin" >
                         <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Center"
                                       IsChecked="{Binding Enabled}" OnContent="" OffContent=""></ToggleSwitch>
                     </DataTemplate>
@@ -29,7 +29,7 @@
             </DataGridTemplateColumn>
             <DataGridTemplateColumn Header="Configure" >
                 <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="modules:BaseModule">
+                    <DataTemplate DataType="pluginBase:BasePlugin">
                         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
                             <PathIcon Data="{StaticResource edit_settings_regular}" /> 
                         </Button>

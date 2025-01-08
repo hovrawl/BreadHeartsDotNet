@@ -1,11 +1,10 @@
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadRuntime.Extensions;
-using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class FasterDialogModule: BaseModule
+public class FasterDialogPlugin: BasePlugin
 {
     private int lastProg = 0;
     private bool textSpeedup = false;
@@ -23,7 +22,7 @@ public class FasterDialogModule: BaseModule
 
     public override string Description => "Show the text box dialog faster";
 
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

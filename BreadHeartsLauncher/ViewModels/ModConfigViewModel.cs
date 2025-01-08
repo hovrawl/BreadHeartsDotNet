@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
-using BreadRuntime.Modules;
+using PluginBase;
 
 namespace BreadHeartsLauncher.ViewModels;
 
 public class ModConfigViewModel : ViewModelBase
 {
-    public ObservableCollection<BaseModule> Modules { get; set; } = new ObservableCollection<BaseModule>();
+    public ObservableCollection<BasePlugin> Modules { get; set; } = new ObservableCollection<BasePlugin>();
 
     
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using BreadFramework.Game;
-using BreadRuntime.Modules;
+﻿using BreadFramework.Game;
 using BreadRuntime.Engine;
 using BreadRuntime.Tools;
 
@@ -36,14 +34,6 @@ namespace EngineTest
 
         private static void RunModules()
         {
-            Engine.AddModule(new SaveAnywhereModule());
-            Engine.AddModule(new InstantGummiWarpModule());
-            Engine.AddModule(new FastCameraModule());
-            Engine.AddModule(new FasterAnimationsModule());
-            Engine.AddModule(new FasterDialogModule());
-            Engine.AddModule(new OpenInCombatModule());
-            Engine.AddModule(new UnskippableModule());
-            
             Console.WriteLine("Engine Initialised!");
             Console.WriteLine("Press any key after KH1 is open...");
             Console.ReadKey();

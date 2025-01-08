@@ -1,14 +1,13 @@
 using BreadFramework.Game;
 using BreadRuntime.Enums;
 using BreadRuntime.Settings;
-using Memory;
 
-namespace BreadRuntime.Modules;
+namespace PluginBase;
 
-public abstract class BaseModule
+public abstract class BasePlugin
 {
-    protected Engine.KHEngine KhEngine;
-
+    protected EngineApi.EngineApi KhEngine;
+    
     public Guid Id { get; } = Guid.NewGuid();
     
     public virtual KHGame Game { get; init; }
@@ -19,8 +18,8 @@ public abstract class BaseModule
     
     public virtual string Description { get;  init; }
 
-    public abstract bool Initialise(Engine.KHEngine khEngine);
-
+    public abstract bool Initialise(EngineApi.EngineApi engine);
+    
     public abstract void OnFrame();
 
     public bool Initialised { get; set; } = false;

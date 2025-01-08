@@ -1,11 +1,11 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadFramework.Helpers;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class UnskippableModule : BaseModule
+public class UnskippablePlugin : BasePlugin
 {
     private int lastCutscene = 0;
     private int lastSkippable = 0;
@@ -25,13 +25,13 @@ public class UnskippableModule : BaseModule
     public override string Name => "Unskippable";
 
     public override string Description => "Makes unskippable cutscenes skippable + allows cutscenes to be skipped earlier";
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 
         KhEngine = khEngine;
         
-        var processAddress = KhEngine.Memory.mProc.MainModule.BaseAddress.ToInt64();
+        var processAddress = khEngine.MainModule.BaseAddress.ToInt64();
         var offset = GameFlags.Offset.GetAddress();
         
         var writeAddress1 = processAddress + offset -0x22A5AA;

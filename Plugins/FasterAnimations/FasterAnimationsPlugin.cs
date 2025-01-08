@@ -1,12 +1,11 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadRuntime.Extensions;
-using Memory;
+using PluginBase;
 
-namespace BreadRuntime.Modules;
+namespace FasterAnimations;
 
-public class FasterAnimationsModule : BaseModule
+public class FasterAnimationsPlugin : BasePlugin
 {
     private bool summonSpeedup = true;
     private double speedMult = 2.0;
@@ -24,7 +23,7 @@ public class FasterAnimationsModule : BaseModule
 
     public override string Description => "Faster animations for opening chests etc.";
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

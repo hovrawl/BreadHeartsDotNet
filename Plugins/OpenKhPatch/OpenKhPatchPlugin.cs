@@ -1,9 +1,9 @@
 using BreadFramework.Game;
-using BreadRuntime.Engine;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class OpenKhPatchModule : BaseModule
+public class OpenKhPatchPlugin : BasePlugin
 {
     public override KHGame Game { get; init; }
     public override string Author { get; init; }
@@ -12,7 +12,7 @@ public class OpenKhPatchModule : BaseModule
     
     public string PatchFilePath { get; init; }
     
-    public override bool Initialise(KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         return true;
     }

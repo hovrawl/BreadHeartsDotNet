@@ -52,15 +52,6 @@ public partial class MainWindow : Window
         
         // Detect file patches
         DetectMods();
-        
-        // Built-in modules
-        Engine.AddModule(new SaveAnywhereModule());
-        Engine.AddModule(new InstantGummiWarpModule());
-        Engine.AddModule(new FastCameraModule());
-        Engine.AddModule(new FasterAnimationsModule());
-        Engine.AddModule(new FasterDialogModule());
-        Engine.AddModule(new OpenInCombatModule());
-        Engine.AddModule(new UnskippableModule());
 
         // Auto-attach to running game
         AutoAttach();
@@ -90,7 +81,7 @@ public partial class MainWindow : Window
         foreach (var patchFile in Directory.EnumerateFiles(modDirectory))
         {
             var fileName = Path.GetFileName(patchFile);
-            var patchModule = new OpenKhPatchModule()
+            var patchModule = new OpenKhPatchPlugin
             {
                 PatchFilePath = patchFile,
                 Name = fileName,

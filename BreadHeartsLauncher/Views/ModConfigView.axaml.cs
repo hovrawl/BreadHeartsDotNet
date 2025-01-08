@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
 using BreadRuntime.Modules;
+using PluginBase;
 
 namespace BreadHeartsLauncher.Views;
 
@@ -34,7 +35,7 @@ public partial class ModConfigView : UserControl
         // Add modules to grid
         var modules = KHEngine.Instance.GetModules();
             
-        viewModel.Modules = new ObservableCollection<BaseModule>(modules);
+        viewModel.Modules = new ObservableCollection<BasePlugin>(modules);
         configGrid.ItemsSource = viewModel.Modules;
     }
 }

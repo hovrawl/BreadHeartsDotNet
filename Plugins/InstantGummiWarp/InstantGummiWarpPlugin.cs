@@ -1,12 +1,11 @@
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadRuntime.Extensions;
-using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class InstantGummiWarpModule: BaseModule
+public class InstantGummiWarpPlugin: BasePlugin
 {
     private GameFlag WorldWarpBase;
     private GameFlag CutsceneFlagBase;
@@ -22,7 +21,7 @@ public class InstantGummiWarpModule: BaseModule
 
     public override string Description => "Instantly warp the Gummi Ship when selecting a world";
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

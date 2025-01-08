@@ -27,5 +27,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BreadRuntime\BreadRuntime.csproj" />
+      <ProjectReference Include="..\Plugins\OpenKhPatch\OpenKhPatch.csproj" />
     </ItemGroup>
 </Project>

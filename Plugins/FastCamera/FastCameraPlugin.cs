@@ -2,12 +2,10 @@ using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
 using BreadRuntime.Enums;
-using BreadRuntime.Extensions;
-using Memory;
+using PluginBase;
 
-namespace BreadRuntime.Modules;
 
-public class FastCameraModule : BaseModule
+public class FastCameraPlugin : BasePlugin
 {
     // For some reason can't write to these addresses
     private GameFlag Accel;
@@ -45,7 +43,7 @@ public class FastCameraModule : BaseModule
 
     public override ModulePriority Priority => ModulePriority.High;
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

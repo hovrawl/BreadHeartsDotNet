@@ -1,16 +1,12 @@
-using System.Security.Cryptography;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using BreadFramework.Flags;
 using BreadFramework.Game;
 using BreadFramework.Items;
-using BreadFramework.Worlds;
-using Memory;
-using Newtonsoft.Json;
+using PluginBase;
 
 namespace BreadRuntime.Modules;
 
-public class RandomItemsModule : BaseModule
+public class RandomiserPlugin : BasePlugin
 {
     #region Flags
 
@@ -232,7 +228,7 @@ public class RandomItemsModule : BaseModule
 
     public override string Description => "Randomise the items in game. Can be configured";
     
-    public override bool Initialise(Engine.KHEngine khEngine)
+    public override bool Initialise(EngineApi.EngineApi khEngine)
     {
         var success = true;
 

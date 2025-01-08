@@ -1,19 +1,18 @@
-using System.Reflection;
-using System.Text;
+using System.Diagnostics;
 using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
 using BreadFramework.Worlds;
 using BreadRuntime.Enums;
-using BreadRuntime.Modules;
 using BreadRuntime.Settings;
 using BreadRuntime.Tools;
 using Memory;
+using PluginBase;
 
 namespace BreadRuntime.Engine;
 
-public sealed class KHEngine
+public sealed class KHEngine: EngineApi.EngineApi
 {
     #region InstanceLocking
     private static volatile KHEngine _instance = new KHEngine();
@@ -53,22 +52,25 @@ public sealed class KHEngine
         }
     }
 
-    private static List<BaseModule> Modules = new ();
+    private static List<BasePlugin> Modules = new ();
     public Mem Memory;
+    public ProcessModule MainModule => Memory.mProc.MainModule;
 
-    public WorldInfo CurrentWorld;
+
+    public WorldInfo CurrentWorld { get; set; }
+    
     private List<WorldInfo> Worlds = new ();
 
     private Timer LowPriorityTimer;
     private Timer MediumPriorityTimer;
     private Timer HighPriorityTimer;
 
-    private List<BaseModule> LowPriorityModules = new ();
-    private List<BaseModule> MediumPriorityModules = new ();
-    private List<BaseModule> HighPriorityModules = new ();
+    private List<BasePlugin> LowPriorityModules = new ();
+    private List<BasePlugin> MediumPriorityModules = new ();
+    private List<BasePlugin> HighPriorityModules = new ();
 
-    public GameFlagsRepo GameFlagsRepo = new();
-    
+    public GameFlagsRepo GameFlagsRepo { get; } = new();
+
     private static ReaderWriterLockSlim _readWriteLock = new ();
 
     private static bool _attached = false;
@@ -159,7 +161,10 @@ public sealed class KHEngine
 
         if (pid > 0) openedProc = Memory.OpenProcess(pid);
 
-        if (openedProc) _attached = true;
+        if (openedProc)
+        {
+            _attached = true;
+        }
     }
 
     #endregion
@@ -195,7 +200,7 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
         
-        if (stateInfo is not List<BaseModule> modules) return;
+        if (stateInfo is not List<BasePlugin> modules) return;
         
         foreach (var module in modules)
         {
@@ -209,7 +214,7 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
 
-        if (stateInfo is not List<BaseModule> modules) return;
+        if (stateInfo is not List<BasePlugin> modules) return;
         
         foreach (var module in modules)
         {
@@ -223,7 +228,7 @@ public sealed class KHEngine
         // Update Current World
         CurrentWorld = GetCurrentWorld();
         
-        if (stateInfo is not List<BaseModule> modules) return;
+        if (stateInfo is not List<BasePlugin> modules) return;
         
         foreach (var module in modules)
         {
@@ -241,7 +246,7 @@ public sealed class KHEngine
         foreach (var module in Modules)
         {
             if (!module.Enabled) continue;
-            var executed = module.Initialise(this);
+            var executed = module.Initialise(Instance);
             if (!executed)
             {
                 // Log the individual module that didnt start
@@ -249,17 +254,17 @@ public sealed class KHEngine
         }
     }
 
-    public List<BaseModule> GetModules()
+    public List<BasePlugin> GetModules()
     {
         return Modules;
     }
     
-    public BaseModule GetModuleById(Guid moduleId)
+    public BasePlugin GetModuleById(Guid moduleId)
     {
         return Modules.FirstOrDefault(i => i.Id.Equals(moduleId));
     }
 
-    public BaseModule GetModuleByName(string moduleName)
+    public BasePlugin GetModuleByName(string moduleName)
     {
         return Modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
     }
@@ -273,13 +278,13 @@ public sealed class KHEngine
         return module.GetSettings();
     }
 
-    public void AddModule(BaseModule module)
+    public void AddModule(BasePlugin module)
     {
         RemoveModule(module);
         Modules.Add(module);
     }
 
-    public void RemoveModule(BaseModule module)
+    public void RemoveModule(BasePlugin module)
     {
         RemoveModule(module.Id);
     }
@@ -350,8 +355,6 @@ public sealed class KHEngine
         {
             _readWriteLock.ExitWriteLock();
         }
-        
-        
 
         return text;
     }
@@ -566,7 +569,6 @@ public sealed class KHEngine
         double result = Memory.ReadDouble($"{processName}+{address:X8}");
         return result;
     }
-    
     #endregion
 
     #region Abilities
