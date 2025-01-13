@@ -11,9 +11,11 @@
         <entry key="BreadHeartsLauncher/Styles/Icons.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/ConsoleView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/ConsoleWindow.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/LauncherConfigView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/MainWindow.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/ModConfigView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/OpenKhPatchView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/PluginConfigView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/da.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
       </map>
     </option>

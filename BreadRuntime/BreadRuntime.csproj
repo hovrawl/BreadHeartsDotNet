@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -11,7 +11,7 @@
       <PackageReference Include="DotNetZip" Version="1.16.0" />
       <PackageReference Include="Memory.dll.x64" Version="1.2.24" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-      <PackageReference Include="Weikio.PluginFramework" Version="1.5.1" />
+      <PackageReference Include="System.ComponentModel.Composition" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -30,7 +30,7 @@ public class ConsistentFinishersPlugin: BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         //var zanteCheck = KhEngine.ReadByte(Zantetsuken.Address);
         // KhEngine.WriteFloat(GravityBreak.Address, (float)-1.0);

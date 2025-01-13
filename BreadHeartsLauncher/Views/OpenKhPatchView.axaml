@@ -7,23 +7,44 @@
              xmlns:pluginBase="clr-namespace:PluginBase;assembly=PluginBase"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ModConfigViewModel"
-             x:Class="BreadHeartsLauncher.Views.OpenKhPatchView">
-    <StackPanel Name="PatchViewContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-
+             x:Class="BreadHeartsLauncher.Views.OpenKhPatchView"
+             Initialized="OpenKhPatchView_Initialized">
+    <DockPanel Name="PatchViewContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        <Border DockPanel.Dock="Top" Classes="contentBorder">
+            <StackPanel Name="PatchControlPanel" Orientation="Horizontal" Classes="menuPanel">
+                <Button Name="PatchBtn" Classes="menuBtn" Click="PatchBtn_OnClick">Patch</Button>
+                <Button Name="UnPatchBtn" Classes="menuBtn" Click="UnPatchBtn_OnClick">Un-Patch</Button>
+                <StackPanel Orientation="Horizontal" Classes="directoryPanel">
+                    <Button Name="SelectDirectoryBtn" 
+                            VerticalAlignment="Center"
+                            Classes="menuBtn" 
+                            Click="SelectDirectoryBtn_OnClick"
+                            Content="{materialIcons:MaterialIconExt Kind=Folder}">
+                    </Button>
+                    <StackPanel Orientation="Horizontal">
+                    
+                        <materialIcons:MaterialIcon Kind="CloseCircle" Name="DirectoryStatusIcon" Classes="directoryIcon"/>
+                   
+                        <TextBlock Name="DirectoryPathTxt" Text="Directory" Classes="directoryText"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+          
+            </StackPanel>
+        </Border>
+        
         <DataGrid Name="OpenKhPatchGrid" AttachedToVisualTree="OpenKhPatchGrid_OnAttachedToVisualTree"
                   GridLinesVisibility="All"
-                  ItemsSource="{Binding Modules}"
-                  BorderThickness="1" BorderBrush="Gray"
-                  IsReadOnly="False">
+                  ItemsSource="{Binding OpenKhPatches}"
+                  IsReadOnly="False"
+                  Classes="contentBorder"
+            >
             
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True"/>
                 <!-- <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" IsReadOnly="False" /> -->
                 <DataGridTemplateColumn Header="Enabled" IsReadOnly="False" >
                     <DataGridTemplateColumn.CellTemplate >
-                        <DataTemplate DataType="pluginBase:BasePlugin" >
+                        <DataTemplate DataType="pluginBase:PluginState" >
                             <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Center"
                                           IsChecked="{Binding Enabled}" OnContent="" OffContent=""></ToggleSwitch>
                         </DataTemplate>
@@ -31,7 +52,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Configure" >
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="pluginBase:BasePlugin">
+                        <DataTemplate DataType="pluginBase:PluginState">
                             <Button VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
                                 <PathIcon Data="{StaticResource edit_settings_regular}" /> 
                             </Button>
@@ -40,22 +61,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Name="PatchControlPanel" Orientation="Horizontal">
-            <Button Name="PatchBtn" Click="PatchBtn_OnClick">Patch</Button>
-            <Button Name="StopEngineBtn" Click="UnPatchBtn_OnClick">Un-Patch</Button>
-            <StackPanel Orientation="Horizontal">
-                <Button Name="SelectDirectoryBtn" 
-                        VerticalAlignment="Center"
-                        Click="SelectDirectoryBtn_OnClick"
-                        Content="{materialIcons:MaterialIconExt Kind=Folder}">
-                </Button>
-                <StackPanel Orientation="Horizontal">
-                    
-                    <materialIcons:MaterialIcon Kind="CloseCircle" Name="GameDirectoryStatusIcon"/>
-                   
-                    <TextBlock Name="DirectoryPathTxt" Text="Directory" VerticalAlignment="Center"></TextBlock>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
-    </StackPanel>
+        
+    </DockPanel>
 </UserControl>

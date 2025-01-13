@@ -66,7 +66,7 @@ public class FastCameraPlugin : BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         //var menuOpen = KhEngine.ReadByte(MenuOpen.Address);
         // var currentSpeedH = KhEngine.ReadFloat(CurSpeedH.Address);

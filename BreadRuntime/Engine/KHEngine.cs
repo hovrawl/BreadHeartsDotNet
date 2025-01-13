@@ -5,10 +5,14 @@ using BreadFramework.Flags;
 using BreadFramework.Game;
 using BreadFramework.Worlds;
 using BreadRuntime.Enums;
-using BreadRuntime.Settings;
 using BreadRuntime.Tools;
 using Memory;
 using PluginBase;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using BreadFramework.Patches;
+using PluginBase.Settings;
 
 namespace BreadRuntime.Engine;
 
@@ -30,6 +34,9 @@ public sealed class KHEngine: EngineApi.EngineApi
     
     public KHGame SelectedGame => _selectedGame;
 
+    private DirectoryInfo _modsDirectoryInfo;
+    private DirectoryInfo _patchesDirectoryInfo;
+    
     private GameDirectoryInfo _gameDirectoryInfo;
 
     public GameDirectoryInfo GameDirectoryInfo
@@ -37,6 +44,20 @@ public sealed class KHEngine: EngineApi.EngineApi
         get => _gameDirectoryInfo;
         private set => _gameDirectoryInfo = value;
     }
+    
+    public DirectoryInfo ModsDirectoryInfo
+    {
+        get => _modsDirectoryInfo;
+        private set => _modsDirectoryInfo = value;
+    }
+    
+    public DirectoryInfo PatchesDirectoryInfo
+    {
+        get => _patchesDirectoryInfo;
+        private set => _patchesDirectoryInfo = value;
+    }
+    
+    private FileSystemWatcher _modsFileWatcher;
     
     
     public string GameDataFolder
@@ -51,9 +72,38 @@ public sealed class KHEngine: EngineApi.EngineApi
             return Path.Combine(Instance.GameDirectoryInfo.Path, "Image\\en\\");
         }
     }
+    
+    [ImportMany(typeof(BasePlugin))]
+    private ObservableCollection<BasePlugin> _modules = new ();
+    
+    public ObservableCollection<BasePlugin> Plugins => _modules;
+    
+    
+    public ObservableCollection<PluginState> PluginStates = new();
 
-    private static List<BasePlugin> Modules = new ();
-    public Mem Memory;
+    
+    private ObservableCollection<OpenKhPatch> _patches = new ();
+    
+    public ObservableCollection<OpenKhPatch> Patches => _patches;
+    
+    public List<BasePlugin> LoadedPlugins
+    {
+        get
+        {
+            var enabledPlugins = new List<BasePlugin>();
+            foreach (var pluginState in PluginStates.Where(i => i.Enabled))
+            {
+                var plugin = Plugins.FirstOrDefault(i => i.Id == pluginState.Id);
+                if (plugin == null) continue;
+                enabledPlugins.Add(plugin);
+            }
+
+            return enabledPlugins;
+        }
+    }
+
+    private Mem Memory;
+    
     public ProcessModule MainModule => Memory.mProc.MainModule;
 
 
@@ -173,7 +223,7 @@ public sealed class KHEngine: EngineApi.EngineApi
 
     private void SetupTimers()
     {
-        var initialisedModules = Modules.Where(i => i.Initialised);
+        var initialisedModules = _modules.Where(i => i.Initialised);
         
         // Low Priority
         LowPriorityTimer?.Dispose();
@@ -205,7 +255,11 @@ public sealed class KHEngine: EngineApi.EngineApi
         foreach (var module in modules)
         {
             if(!module.Initialised) continue;
-            module.OnFrame();
+            var moduleState = PluginStates.FirstOrDefault(i => i.Id == module.Id);
+            if (moduleState == null) continue;
+            if (!moduleState.Enabled) continue;
+            
+            module.OnFrame(moduleState);
         }
     }
     
@@ -219,7 +273,11 @@ public sealed class KHEngine: EngineApi.EngineApi
         foreach (var module in modules)
         {
             if(!module.Initialised) continue;
-            module.OnFrame();
+            var moduleState = PluginStates.FirstOrDefault(i => i.Id == module.Id);
+            if (moduleState == null) continue;
+            if (!moduleState.Enabled) continue;
+            
+            module.OnFrame(moduleState);
         }
     }
     
@@ -233,7 +291,11 @@ public sealed class KHEngine: EngineApi.EngineApi
         foreach (var module in modules)
         {
             if(!module.Initialised) continue;
-            module.OnFrame();
+            var moduleState = PluginStates.FirstOrDefault(i => i.Id == module.Id);
+            if (moduleState == null) continue;
+            if (!moduleState.Enabled) continue;
+            
+            module.OnFrame(moduleState);
         }
     }
 
@@ -243,9 +305,8 @@ public sealed class KHEngine: EngineApi.EngineApi
     private void InitialiseModules()
     {
         // Iterate over modules, attempt to activate if enabled
-        foreach (var module in Modules)
+        foreach (var module in LoadedPlugins)
         {
-            if (!module.Enabled) continue;
             var executed = module.Initialise(Instance);
             if (!executed)
             {
@@ -254,26 +315,26 @@ public sealed class KHEngine: EngineApi.EngineApi
         }
     }
 
-    public List<BasePlugin> GetModules()
+    public ObservableCollection<BasePlugin> GetModules()
     {
-        return Modules;
+        return _modules;
     }
     
     public BasePlugin GetModuleById(Guid moduleId)
     {
-        return Modules.FirstOrDefault(i => i.Id.Equals(moduleId));
+        return _modules.FirstOrDefault(i => i.Id.Equals(moduleId));
     }
 
     public BasePlugin GetModuleByName(string moduleName)
     {
-        return Modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
+        return _modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
     }
 
-    public List<ModuleSetting> GetModuleSettings(string moduleName)
+    public PluginSettings GetModuleDefaultSettings(string moduleName)
     {
-        var module = Modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
+        var module = _modules.FirstOrDefault(i => i.Name.Equals(moduleName, StringComparison.CurrentCultureIgnoreCase));
         
-        if (module == null) return new List<ModuleSetting>();
+        if (module == null) return new PluginSettings();
 
         return module.GetSettings();
     }
@@ -281,17 +342,41 @@ public sealed class KHEngine: EngineApi.EngineApi
     public void AddModule(BasePlugin module)
     {
         RemoveModule(module);
-        Modules.Add(module);
+        _modules.Add(module);
+    }
+    
+    public void AddPatch(OpenKhPatch patch)
+    {
+        RemovePatch(patch);
+        Patches.Add(patch);
     }
 
     public void RemoveModule(BasePlugin module)
     {
         RemoveModule(module.Id);
     }
+    
+    public void RemovePatch(OpenKhPatch patch)
+    {
+        var matchingModules = _patches.Where(i => i.Name.Equals(patch.Name)).ToList();
+        foreach (var module in matchingModules)
+        {
+            _patches.Remove(module);
+        }    
+    }
 
     public void RemoveModule(Guid moduleId)
     {
-        Modules.RemoveAll(i => i.Id.Equals(moduleId));
+        var matchingModules = _modules.Where(i => i.Id.Equals(moduleId)).ToList();
+        foreach (var module in matchingModules)
+        {
+            _modules.Remove(module);
+        }
+    }
+
+    public void ClearPatches()
+    {
+        _patches.Clear();
     }
     
     #endregion
@@ -598,8 +683,116 @@ public sealed class KHEngine: EngineApi.EngineApi
 
     #endregion
 
+    #region UI Utilities
     public void SetGameDirectory(GameDirectoryInfo gameDirectoryInfo)
     {
         _gameDirectoryInfo = gameDirectoryInfo;
     }
+    
+    public void SetModsDirectory(DirectoryInfo directoryInfo, Action<Action> uiDispatchAction)
+    {
+        if (directoryInfo == null) return;
+        
+        ModsDirectoryInfo = directoryInfo;
+        if (!ModsDirectoryInfo.Exists) return;
+        
+        _modsFileWatcher?.Dispose();
+        _modsFileWatcher = new FileSystemWatcher(ModsDirectoryInfo.FullName);
+        
+        _modsFileWatcher.EnableRaisingEvents = true;
+        
+        _modsFileWatcher.Created += (sender, e) =>
+        {
+            modsFileWatcherOnCreated(sender, e, uiDispatchAction);
+        };
+        _modsFileWatcher.Deleted += (sender, e) =>
+        {
+            modsFileWatcherOnDelete(sender, e, uiDispatchAction);
+        };
+        //_modsFileWatcher.Created += (sender, args) => uiCallback?.Invoke();
+        
+        // Clear loaded mods
+        //ModsCompositionContainer.ReleaseExports();
+        
+        ModsDirectoryCatalog?.Dispose();
+        ModsAggregateCatalog?.Dispose();
+        ModsCompositionContainer?.Dispose();
+        
+        ModsDirectoryCatalog = new DirectoryCatalog(ModsDirectoryInfo.FullName);
+        ModsAggregateCatalog = new AggregateCatalog(ModsDirectoryCatalog);
+        
+        ModsCompositionContainer = new CompositionContainer(ModsAggregateCatalog);
+        ModsCompositionContainer.SatisfyImportsOnce(this);
+
+        // // Initial process of mods
+        // ProcessModsInDirectory(ModsDirectoryInfo);
+        uiDispatchAction.Invoke(RefreshMods);
+    }
+    
+    public void SetPatchesDirectory(DirectoryInfo directoryInfo)
+    {
+        if (directoryInfo == null) return;
+
+        PatchesDirectoryInfo = directoryInfo;
+    }
+    
+    private static DirectoryCatalog ModsDirectoryCatalog;
+    private static AggregateCatalog ModsAggregateCatalog;
+    private static CompositionContainer ModsCompositionContainer;
+    
+    private void modsFileWatcherOnCreated(object sender, FileSystemEventArgs e, Action<Action> uiDispatchAction)
+    {
+        // Interrogate the file that changed, if it matches a mod file we will load it
+        if (string.IsNullOrEmpty(e.Name)) return;
+
+        uiDispatchAction.Invoke(RefreshMods);
+    }
+    
+    private void modsFileWatcherOnDelete(object sender, FileSystemEventArgs e, Action<Action> uiDispatchAction)
+    {
+        // Interrogate the file that changed, if it matches a mod file we will load it
+        if (string.IsNullOrEmpty(e.Name)) return;
+
+        uiDispatchAction.Invoke(RefreshMods);
+    }
+
+    private void RefreshMods()
+    {
+        ModsDirectoryCatalog?.Refresh();
+        ModsCompositionContainer?.SatisfyImportsOnce(this);
+
+        var loadedPlugins = Plugins.ToList();
+        // Remove states for plugins that are no longer loaded
+        var existingStates = PluginStates.ToList();
+        foreach (var pluginState in existingStates)
+        {
+            var loadedPlugin = loadedPlugins.FirstOrDefault(p => p.Id == pluginState.Id);
+            if (loadedPlugin == null) continue;
+            
+            PluginStates.Remove(pluginState);
+        }
+        
+        existingStates = PluginStates.ToList();
+        foreach (var loadedPlugin in loadedPlugins)
+        {
+            var existingState = existingStates.FirstOrDefault(p => p.Id == loadedPlugin.Id);
+            if (existingState != null) continue;
+            
+            var pluginState = new PluginState(loadedPlugin);
+            ApplySettingsToPluginState(pluginState);
+            PluginStates.Add(pluginState);
+        }
+        
+    }
+
+    private void ApplySettingsToPluginState(PluginState pluginState)
+    {
+        foreach (var setting in pluginState.PluginSettings)
+        {
+            var loadedValue = "";
+            pluginState.ApplySettingValue(setting.Name, loadedValue);
+        }
+    }
+
+    #endregion
 }

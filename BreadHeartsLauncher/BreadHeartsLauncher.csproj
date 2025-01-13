@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -19,14 +19,21 @@
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.5" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.3" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
+        <PackageReference Include="Config.Net" Version="5.2.1" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
     </ItemGroup>
 
 
     <ItemGroup>
       <ProjectReference Include="..\BreadRuntime\BreadRuntime.csproj" />
-      <ProjectReference Include="..\Plugins\OpenKhPatch\OpenKhPatch.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

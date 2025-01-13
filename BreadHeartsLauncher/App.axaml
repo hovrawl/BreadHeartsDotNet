@@ -16,8 +16,43 @@
         <StyleInclude Source="avares://BreadHeartsLauncher/Styles/Icons.axaml" />
         
         <avalonia:MaterialIconStyles />
+        
+        <Style Selector="Border.contentBorder">
+            <Setter Property="BorderBrush" Value="Gray"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="CornerRadius" Value="3"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
+        <Style Selector="DataGrid.contentBorder">
+            <Setter Property="BorderBrush" Value="Gray"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="CornerRadius" Value="3"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
+        <Style Selector="StackPanel.menuPanel">
+            
+            <Style Selector="^ Button.menuBtn">
+                <Setter Property="Margin" Value="4 0"></Setter>
+            </Style>
+        </Style>
+       
+        <Style Selector="StackPanel.directoryPanel">
+            <Setter Property="Margin" Value="4 0"></Setter>
+            
+            <Style Selector="^ avalonia|MaterialIcon.directoryIcon">
+                <Setter Property="Margin" Value="4 0"></Setter>
+            </Style> 
+            <Style Selector="^ TextBlock.directoryText">
+                <Setter Property="Margin" Value="4 0"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+        </Style> 
+       
     </Application.Styles>
-     <!-- <Application.Resources> -->
-     <!--     <FontFamily x:Key="FontAwesome">avares://BreadHeartsLauncher/Assets/Fonts#Font Awesome</FontFamily> -->
-     <!-- </Application.Resources> -->
+     <Application.Resources>
+         <!-- <FontFamily x:Key="FontAwesome">avares://BreadHeartsLauncher/Assets/Fonts#Font Awesome</FontFamily> -->
+         
+     </Application.Resources>
 </Application>

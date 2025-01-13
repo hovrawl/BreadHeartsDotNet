@@ -41,7 +41,7 @@ public class QuickOverworldWarpPlugin: BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         var buttonPress = KhEngine.ReadInt(ButtonPress.Address);
         var shoulderPress = KhEngine.ReadInt(ShoulderPress.Address);

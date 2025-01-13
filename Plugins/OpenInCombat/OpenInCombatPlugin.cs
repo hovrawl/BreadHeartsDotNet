@@ -49,7 +49,7 @@ public class OpenInCombatPlugin: BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         if (OpenMenu)
         {

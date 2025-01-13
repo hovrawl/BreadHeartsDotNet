@@ -252,7 +252,7 @@ public class RandomiserPlugin : BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         
     }

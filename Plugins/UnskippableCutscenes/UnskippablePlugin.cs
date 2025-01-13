@@ -65,7 +65,7 @@ public class UnskippablePlugin : BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         var cutsceneNow = KhEngine.ReadInt(0x233AE74);
         var skippableStatus = KhEngine.ReadByte(CutsceneSkippable.Address);

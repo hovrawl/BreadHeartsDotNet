@@ -2,8 +2,8 @@ using BreadFramework.Common;
 using BreadFramework.Enums;
 using BreadFramework.Flags;
 using BreadFramework.Game;
-using BreadRuntime.Settings;
 using PluginBase;
+using PluginBase.Settings;
 
 namespace BreadRuntime.Modules;
 
@@ -96,36 +96,41 @@ public class SaveAnywherePlugin: BasePlugin
         return success;
     }
 
-    public override List<ModuleSetting> GetSettings()
+    private string SAVEANYHWERE = "Save Anywhere Enabled";
+    private string SOFTRESET = "Soft Reset Enabled";
+    private string RELOADAUTOSAVE = "Reload AutoSave Enabled";
+    private string INSTANTDEATH = "Instant Death Enabled";
+    
+    public override PluginSettings GetSettings()
     {
         var settings = base.GetSettings();
 
         // Combinations enabled
-        settings.Add(new ModuleSetting
+        settings.Add(new PluginBoolSetting
         {
-            Name = "Save Anywhere Enabled", 
-            ValueAsString = "true"
+            Name = SAVEANYHWERE, 
+            Value = true
         });
-        settings.Add(new ModuleSetting
+        settings.Add(new PluginBoolSetting
         {
-            Name = "Soft Reset Enabled", 
-            ValueAsString = "true"
+            Name = SOFTRESET, 
+            Value = true
         });
-        settings.Add(new ModuleSetting
+        settings.Add(new PluginBoolSetting
         {
-            Name = "Reload AutoSave Enabled", 
-            ValueAsString = "true"
+            Name = RELOADAUTOSAVE, 
+            Value = true
         });
-        settings.Add(new ModuleSetting
+        settings.Add(new PluginBoolSetting
         {
-            Name = "Instant Death Enabled", 
-            ValueAsString = "true"
+            Name = INSTANTDEATH, 
+            Value = true
         });
         
         return settings;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
 
         var input = KhEngine.ReadInt(ButtonPress.Address);
@@ -137,6 +142,11 @@ public class SaveAnywherePlugin: BasePlugin
         var blackFade = KhEngine.ReadByte(BlackFade.Address);
         var deathCheck = KhEngine.ReadShort(DeathCheck.Address);
         var deathPointer = KhEngine.ReadInt(DeathPointer.Address);
+
+        var saveAnywhereEnabled = state.GetSettingByKey<bool>(SAVEANYHWERE).Value;
+        var softResetEnabled = state.GetSettingByKey<bool>(SOFTRESET).Value;
+        var reloadAutoSaveEnabled = state.GetSettingByKey<bool>(RELOADAUTOSAVE).Value;
+        var instantDeathEnabled = state.GetSettingByKey<bool>(INSTANTDEATH).Value;
         
         // if(input > 0) Console.WriteLine($"Controller input: {input}");
         var saveAnyWhereCombination = InputHelper.CombineInputs(ControllerInput.LeftBumper, ControllerInput.LeftTrigger,

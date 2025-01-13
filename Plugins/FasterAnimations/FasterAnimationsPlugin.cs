@@ -38,7 +38,7 @@ public class FasterAnimationsPlugin : BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         SoraHud.ReadMemory(KhEngine, Priority);
         Summoning.ReadMemory(KhEngine, Priority);

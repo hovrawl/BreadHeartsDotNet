@@ -17,7 +17,7 @@ public class OpenKhPatchPlugin : BasePlugin
         return true;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         // No op
     }

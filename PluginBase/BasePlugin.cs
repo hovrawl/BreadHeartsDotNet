@@ -1,9 +1,11 @@
+using System.ComponentModel.Composition;
 using BreadFramework.Game;
 using BreadRuntime.Enums;
-using BreadRuntime.Settings;
+using PluginBase.Settings;
 
 namespace PluginBase;
 
+[InheritedExport(typeof(BasePlugin))]
 public abstract class BasePlugin
 {
     protected EngineApi.EngineApi KhEngine;
@@ -20,23 +22,16 @@ public abstract class BasePlugin
 
     public abstract bool Initialise(EngineApi.EngineApi engine);
     
-    public abstract void OnFrame();
+    public abstract void OnFrame(PluginState state);
 
     public bool Initialised { get; set; } = false;
     
-    public bool Enabled => true;
-    
     public virtual ModulePriority Priority => ModulePriority.Medium;
 
-    public virtual List<ModuleSetting> GetSettings()
+    public virtual PluginSettings GetSettings()
     {
         // Base settings
-        var settings = new List<ModuleSetting>();
-        settings.Add(new ModuleSetting()
-        {
-            Name = "Enabled",
-            ValueAsString = "true"
-        });
+        var settings = new PluginSettings();
 
         return settings;
     }

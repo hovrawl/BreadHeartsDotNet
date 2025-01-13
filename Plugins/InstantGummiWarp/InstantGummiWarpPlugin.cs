@@ -39,7 +39,7 @@ public class InstantGummiWarpPlugin: BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         var currentWorld = KhEngine.CurrentWorld;
         WorldSelection.ReadMemory(KhEngine, Priority);

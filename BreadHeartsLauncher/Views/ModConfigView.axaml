@@ -4,38 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:BreadHeartsLauncher.ViewModels"
              xmlns:pluginBase="clr-namespace:PluginBase;assembly=PluginBase"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ModConfigViewModel"
-             x:Class="BreadHeartsLauncher.Views.ModConfigView">
+             x:Class="BreadHeartsLauncher.Views.ModConfigView"
+             Initialized="ModConfigView_Initialized"
+             >
     
-    <DataGrid Name="ModConfigGrid" AttachedToVisualTree="ModConfigGrid_OnAttachedToVisualTree"
-              GridLinesVisibility="All"
-              ItemsSource="{Binding Modules}"
-              BorderThickness="1" BorderBrush="Gray"
-              IsReadOnly="False">
+    <DockPanel Name="ModViewContainer" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Border DockPanel.Dock="Top" Classes="contentBorder">
+            <StackPanel Name="ModsControlPanel" Orientation="Horizontal" DockPanel.Dock="Top" Classes="menuPanel">
+                <Button Name="ResetBtn" Classes="menuBtn"  Click="ResetBtn_OnClickBtn_OnClick">Reset</Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="SelectModsDirectoryBtn" 
+                            VerticalAlignment="Center"
+                            Click="SelectModDirectoryBtn_OnClick"
+                            Content="{avalonia:MaterialIconExt Kind=Folder}">
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Classes="directoryPanel">
+                        <avalonia:MaterialIcon Kind="CloseCircle" Name="ModsDirectoryStatusIcon" Classes="directoryIcon"/>
+                        <TextBlock Name="DirectoryPathTxt" Text="Directory" Classes="directoryText" ></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
         
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True"/>
-            <DataGridTextColumn Header="Author" Binding="{Binding Author}" IsReadOnly="True"/>
-            <DataGridTextColumn Header="Description" Binding="{Binding Description}" IsReadOnly="True"/>
-            <!-- <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding Enabled}" IsReadOnly="False" /> -->
-            <DataGridTemplateColumn Header="Enabled" IsReadOnly="False" >
-                <DataGridTemplateColumn.CellTemplate >
-                    <DataTemplate DataType="pluginBase:BasePlugin" >
-                        <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Center"
-                                      IsChecked="{Binding Enabled}" OnContent="" OffContent=""></ToggleSwitch>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Configure" >
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="pluginBase:BasePlugin">
-                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4">
-                            <PathIcon Data="{StaticResource edit_settings_regular}" /> 
-                        </Button>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-        </DataGrid.Columns>
-    </DataGrid>
+        <DataGrid Name="ModConfigGrid"
+                  Initialized="ModConfigGrid_OnInitialized"
+                  GridLinesVisibility="All"
+                  ItemsSource="{Binding PluginStates}"
+                  IsReadOnly="False"
+                  Classes="contentBorder"
+                  >
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="Auto" Header="Name" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="Auto" Header="Author" Binding="{Binding Author}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Width="Auto" Header="Enabled" IsReadOnly="False" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate DataType="pluginBase:PluginState" >
+                            <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          IsChecked="{Binding Enabled}" 
+                                          OnContent="" OffContent="">
+                            </ToggleSwitch>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="Auto" Header="Configure" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="pluginBase:PluginState">
+                            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4"
+                                    DataContext="{Binding }"
+                                    Click="ModConfigBtn_OnClick">
+                                <PathIcon Data="{StaticResource edit_settings_regular}" /> 
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </DockPanel>
 </UserControl>

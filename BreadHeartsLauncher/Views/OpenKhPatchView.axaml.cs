@@ -10,14 +10,16 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
 using BreadFramework.Game;
 using BreadFramework.Helpers;
+using BreadFramework.Patches;
 using BreadHeartsLauncher.Classes;
+using BreadHeartsLauncher.Config;
 using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
-using BreadRuntime.Modules;
 using BreadRuntime.Tools;
 using Material.Icons;
 using Material.Icons.Avalonia;
 using PluginBase;
+using Splat;
 
 namespace BreadHeartsLauncher.Views;
 
@@ -28,10 +30,11 @@ public partial class OpenKhPatchView : UserControl
         InitializeComponent();
     }
 
-    private void OpenKhPatchGrid_OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+    private void Initalize()
     {
-        RefreshGrid();
-        AutoDetectDirectory();
+        // Setup initial patches, whether default of saved directories
+        KHEngine.Instance.ClearPatches();
+        DetectPatches();
     }
     
     private void RefreshGrid()
@@ -41,89 +44,10 @@ public partial class OpenKhPatchView : UserControl
         if (DataContext is not ModConfigViewModel viewModel) return;
         
         // Add modules to grid
-        var modules = KHEngine.Instance.GetModules();
-        var openKhPatches = modules.Where(i => i is OpenKhPatchPlugin);
-        viewModel.Modules = new ObservableCollection<BasePlugin>(openKhPatches);
-        configGrid.ItemsSource = viewModel.Modules;
+        var openKhPatches = KHEngine.Instance.Patches;
+        viewModel.OpenKhPatches = openKhPatches;
+        configGrid.ItemsSource = viewModel.OpenKhPatches;
     }
-
-    private void AutoDetectDirectory()
-    {
-
-        var directory = DirectoryHelper.AutoDetectGameDirectory();
-        if (string.IsNullOrEmpty(directory.Path)) return;
-        
-        KHEngine.Instance.SetGameDirectory(directory);
-        
-        UpdateGameDirectoryUi();
-    }
-
-    private void PatchBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
-        PatchGame();
-    }
-
-    private void UnPatchBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
-        
-    }
-
-    private async void SelectDirectoryBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
-        // Get top level from the current control. Alternatively, you can use Window reference instead.
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-        
-        var directories = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
-        {
-            Title = "Select Game Directory",
-            AllowMultiple = false,
-            //SuggestedStartLocation = new IStorageFolder()
-            
-        });
-
-        if (directories.Count < 1) return;
-        
-        var directory = directories[0];
-
-        var directoryInfo = new DirectoryInfo(directory.Path.LocalPath);
-        
-        // find base KH directory and determine if STEAM or EPIC
-        
-        var gameDirectory = DirectoryHelper.VerifyGameDirectory(directoryInfo);
-
-        directory.Dispose();
-
-        // set ui components
-        KHEngine.Instance.SetGameDirectory(gameDirectory);
-
-        UpdateGameDirectoryUi();
-    }
-
-    private void UpdateGameDirectoryUi()
-    {
-        var gameDirectory = KHEngine.Instance.GameDirectoryInfo;
-
-        var directoryTextBlock = this.Find<TextBlock>("DirectoryPathTxt");
-        var gameDirectoryIcon = this.Find<MaterialIcon>("GameDirectoryStatusIcon");
-
-        if (directoryTextBlock == null) return;
-        if (gameDirectoryIcon == null) return;
-        
-        if (string.IsNullOrEmpty(gameDirectory.Path))
-        {
-            directoryTextBlock.Text = "";
-            gameDirectoryIcon.Kind = MaterialIconKind.CloseCircle; 
-            return;
-        }
-        
-
-        directoryTextBlock.Text = $"{gameDirectory.Platform:G}";
-        gameDirectoryIcon.Kind = MaterialIconKind.CheckCircle; 
-
-    }
-    
-    
 
     public void PatchGame()
     {
@@ -155,5 +79,124 @@ public partial class OpenKhPatchView : UserControl
         KHEngine.Instance.PatchFiles(patchFiles, patchType, bgWorker,  backupPkg, extractPkg);
     }
 
+    private DirectoryInfo GetPatchesDirectoryInfo()
+    {
+        // If directory info already set
+        if (KHEngine.Instance.PatchesDirectoryInfo != null &&
+            KHEngine.Instance.PatchesDirectoryInfo.Exists)
+            return KHEngine.Instance.PatchesDirectoryInfo;
+        
+        // Else setup
+        var config = Locator.Current.GetService<IConfig>();
+
+        // Check saved patch
+        var savedPath = config?.Paths.Patches ?? string.Empty;
+
+        var patchesDirectory = !string.IsNullOrEmpty(savedPath) ? new DirectoryInfo(savedPath) :
+            // Else default to local patches directory
+            new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "Patches"));
+
+        return patchesDirectory;
+    }
     
+    private void DetectPatches()
+    {
+        var patchesDirectory = GetPatchesDirectoryInfo();
+
+        if (!patchesDirectory.Exists) return;
+        
+        // Set directory
+        KHEngine.Instance.SetPatchesDirectory(patchesDirectory);
+        
+        // Add patches
+        foreach (var patchFile in patchesDirectory.EnumerateFiles())
+        {
+            var patchModule = new OpenKhPatch
+            {
+                PatchFilePath = patchFile.FullName,
+                Name = patchFile.Name,
+                Enabled = true,
+            };
+            KHEngine.Instance.AddPatch(patchModule);
+        }
+    }
+
+    private void UpdatePatchDirectoryUi()
+    {
+        var patchDirectory = KHEngine.Instance.PatchesDirectoryInfo;
+
+        var directoryTextBlock = this.Find<TextBlock>("DirectoryPathTxt");
+        var directoryIcon = this.Find<MaterialIcon>("DirectoryStatusIcon");
+
+        if (directoryTextBlock == null) return;
+        if (directoryIcon == null) return;
+        
+        if (patchDirectory == null || !patchDirectory.Exists)
+        {
+            directoryTextBlock.Text = "";
+            directoryIcon.Kind = MaterialIconKind.CloseCircle; 
+            return;
+        }
+        
+
+        directoryTextBlock.Text = $"{patchDirectory.FullName}";
+        directoryIcon.Kind = MaterialIconKind.CheckCircle; 
+
+    }
+    
+    private async void SelectPatchDirectory()
+    {
+        // Get top level from the current control. Alternatively, you can use Window reference instead.
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel == null) return;
+        
+        var directories = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = "Select Patch Directory",
+            AllowMultiple = false,
+            //SuggestedStartLocation = new IStorageFolder()
+            
+        });
+
+        if (directories.Count < 1) return;
+        
+        var directory = directories[0];
+
+        var directoryInfo = new DirectoryInfo(directory.Path.LocalPath);
+
+        // set ui components
+        KHEngine.Instance.SetPatchesDirectory(directoryInfo);
+        UpdatePatchDirectoryUi();
+    }
+
+    #region Events
+
+    private void OpenKhPatchView_Initialized(object? sender, EventArgs e)
+    {
+        Initalize();
+    }
+
+    
+    
+    private void PatchBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        PatchGame();
+    }
+
+    private void UnPatchBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        
+    }
+
+    private void SelectDirectoryBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        SelectPatchDirectory();
+    }
+
+    private void OpenKhPatchGrid_OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        
+    }
+
+    #endregion
 }

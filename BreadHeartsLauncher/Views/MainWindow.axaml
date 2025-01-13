@@ -8,7 +8,7 @@
         x:Class="BreadHeartsLauncher.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="BreadHeartsLauncher">
+        Title="Bread Hearts Launcher">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -26,18 +26,29 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:ConsoleView AttachedToVisualTree="ConsoleAttached"/>
+            <views:ConsoleView />
         </TabItem>
         <TabItem Header="Patches" Name="PatchTab">
             <TabItem.HeaderTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <PathIcon Data="{StaticResource settings_regular}" Margin="4 0"/> 
+                        <PathIcon Data="{StaticResource apps_list_regular}" Margin="4 0"/> 
                         <TextBlock>Patches</TextBlock>
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
             <views:OpenKhPatchView DataContext="{Binding OpenKhPatchesViewModel}"/>
+        </TabItem>
+        <TabItem Header="Mods" Name="ModsTab">
+            <TabItem.HeaderTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <PathIcon Data="{StaticResource apps_list_regular}" Margin="4 0"/> 
+                        <TextBlock>Mods</TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </TabItem.HeaderTemplate>
+            <views:ModConfigView DataContext="{Binding ModConfigViewModel}"/>
         </TabItem>
         <TabItem Header="Config" Name="ConfigTab">
             <TabItem.HeaderTemplate>
@@ -48,10 +59,6 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:ModConfigView DataContext="{Binding ModConfigViewModel}"/>
-        </TabItem>
-        <TabItem Header="Tracker" Name="TrackerTab">
-            <TextBlock Margin="5">Tracker will be here eventually</TextBlock>
         </TabItem>
     </TabControl>
     

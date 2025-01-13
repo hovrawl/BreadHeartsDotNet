@@ -2,9 +2,7 @@
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting => "Welcome to Avalonia!";
-
-    public ModConfigViewModel ModConfigViewModel { get; set; } = new ModConfigViewModel();
+    public ModConfigViewModel ModConfigViewModel { get; set; } = new ();
     
-    public ModConfigViewModel OpenKhPatchesViewModel { get; set; } = new ModConfigViewModel();
+    public ModConfigViewModel OpenKhPatchesViewModel { get; set; } = new ();
 }

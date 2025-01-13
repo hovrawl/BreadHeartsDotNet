@@ -37,7 +37,7 @@ public class FasterDialogPlugin: BasePlugin
         return success;
     }
 
-    public override void OnFrame()
+    public override void OnFrame(PluginState state)
     {
         TextBoxProgression.ReadMemory(KhEngine, Priority);
         
