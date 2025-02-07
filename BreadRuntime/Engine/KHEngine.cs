@@ -6,7 +6,6 @@ using BreadFramework.Game;
 using BreadFramework.Worlds;
 using BreadRuntime.Enums;
 using BreadRuntime.Tools;
-using Memory;
 using PluginBase;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
@@ -102,9 +101,9 @@ public sealed class KHEngine: EngineApi.EngineApi
         }
     }
 
-    private Mem Memory;
+    private BreadHeartsMemoryManager Memory;
     
-    public ProcessModule MainModule => Memory.mProc.MainModule;
+    public ProcessModule MainModule => Memory.MainModule;
 
 
     public WorldInfo CurrentWorld { get; set; }
@@ -138,7 +137,7 @@ public sealed class KHEngine: EngineApi.EngineApi
 
     public void Initialise()
     {
-        Memory = new Mem();
+        Memory = new BreadHeartsMemoryManager();
     }
 
     public void Start()
@@ -461,12 +460,12 @@ public sealed class KHEngine: EngineApi.EngineApi
 
     #endregion
 
-    #region Memory Read/Write functions
+    #region Write Methods
 
     public void WriteInt(long address, int value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
 
     public void WriteShort(long address, int value)
@@ -476,191 +475,183 @@ public sealed class KHEngine: EngineApi.EngineApi
         try
         {
             writeVal = (ushort)value;
-        }catch{/**/}
-        Memory.WriteMemory($"{processName}+{address:X8}", "int", $"{writeVal}");
+        }
+        catch
+        {
+            /* */
+        }
+
+        Memory.WriteMemory($"{processName}+{address:X8}", writeVal);
     }
-    
+
     public void WriteFloat(long address, float value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "float", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
 
     public void WriteString(long address, string value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "string", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
 
     public void WriteByte(long address, byte value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "byte", $"0x{value:X2}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
+
     public void Write2Bytes(long address, byte value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "2bytes", $"0x{value:X2}");
+        Memory.WriteBytes($"{processName}+{address:X8}", new byte[] { value, 0 });
     }
+
     public void WriteBytes(long address, List<int> value)
     {
         var processName = SelectedGame.ProcessName;
-        var hexValues = new List<string>();
-        foreach (var byteVal in value)
-        {
-            hexValues.Add($"{byteVal:X2}");
-        }
-        var byteString = string.Join(",", hexValues);
-
-        Memory.WriteMemory($"{processName}+{address:X8}", "bytes", $"{byteString}");
+        var bytes = value.Select(v => (byte)v).ToArray();
+        Memory.WriteBytes($"{processName}+{address:X8}", bytes);
     }
-    
+
     public void WriteBytesAbsolute(long address, List<int> value)
     {
-        var hexValues = new List<string>();
-        foreach (var byteVal in value)
-        {
-            hexValues.Add($"{byteVal:X2}");
-        }
-        var byteString = string.Join(",", hexValues);
-
-        Memory.WriteMemory($"{address:X8}", "bytes", $"{byteString}");
+        var bytes = value.Select(v => (byte)v).ToArray();
+        Memory.WriteBytes($"{address:X8}", bytes);
     }
-    
+
     public void WriteDouble(long address, double value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "double", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
-    
+
     public void WriteLong(long address, long value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "long", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", value);
     }
+
     public void WriteLong(long address, ulong value)
     {
         var processName = SelectedGame.ProcessName;
-        Memory.WriteMemory($"{processName}+{address:X8}", "long", $"{value}");
+        Memory.WriteMemory($"{processName}+{address:X8}", (long)value);
     }
-    
+
+    #endregion
+
+    #region Read Methods
+
     public int ReadInt(long address)
     {
         var processName = SelectedGame.ProcessName;
-        int result = Memory.ReadInt($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadInt($"{processName}+{address:X8}");
     }
+
     public uint ReadUInt(long address)
     {
         var processName = SelectedGame.ProcessName;
-        uint result = Memory.ReadUInt($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadUInt($"{processName}+{address:X8}");
     }
 
     public int ReadIntRev(long address)
     {
         var processName = SelectedGame.ProcessName;
-        int result = Memory.ReadInt($"{processName}+-{address:X8}");
-        return result;
+        return Memory.ReadInt($"{processName}+-{address:X8}");
     }
-    
+
     public uint ReadUIntAbsolute(long address)
     {
-        uint result = Memory.ReadUInt($"{address:X8}");
-        return result;
+        return Memory.ReadUInt($"{address:X8}");
     }
-    
+
     public float ReadFloat(long address)
     {
         var processName = SelectedGame.ProcessName;
-        float result = Memory.ReadFloat($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadFloat($"{processName}+{address:X8}");
     }
 
     public string ReadString(long address)
     {
         var processName = SelectedGame.ProcessName;
-        string result = Memory.ReadString($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadString($"{processName}+{address:X8}");
     }
-    
+
     public string ReadString(long address, int length)
     {
         var processName = SelectedGame.ProcessName;
-        string result = Memory.ReadString($"{processName}+{address:X8}", length:length);
-        return result;
+        return Memory.ReadString($"{processName}+{address:X8}", length);
     }
-    
+
     public short ReadShort(long address)
     {
         var processName = SelectedGame.ProcessName;
         var result = Memory.ReadInt($"{processName}+{address:X8}");
-        short shortVal = 0;
         try
         {
-            shortVal = (short)(result);
-        }catch{/**/}
-        return shortVal;
+            return (short)result;
+        }
+        catch
+        {
+            return 0;
+        }
     }
-    
+
     public short ReadShortAbsolute(long address)
     {
         var result = Memory.ReadInt($"{address:X8}");
-        short shortVal = 0;
         try
         {
-            shortVal = (short)(result);
-        }catch{/**/}
-        return shortVal;
+            return (short)result;
+        }
+        catch
+        {
+            return 0;
+        }
     }
-    
+
     public byte ReadByte(long address)
     {
         var processName = SelectedGame.ProcessName;
-        byte result = (byte)Memory.ReadByte($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadByte($"{processName}+{address:X8}");
     }
 
     public byte[] ReadBytes(long address, int length)
     {
         var processName = SelectedGame.ProcessName;
-        byte[] result = Memory.ReadBytes($"{processName}+{address:X8}", length);
-        return result;
+        return Memory.ReadBytes($"{processName}+{address:X8}", length);
     }
-    
+
     public byte Read2Byte(long address)
     {
         var processName = SelectedGame.ProcessName;
-        byte result = (byte)Memory.Read2Byte($"{processName}+{address:X8}");
-        return result;
+        var bytes = Memory.ReadBytes($"{processName}+{address:X8}", 2);
+        return bytes[0];
     }
-    
+
     public long ReadLong(long address)
     {
         var processName = SelectedGame.ProcessName;
-        long result = Memory.ReadLong($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadLong($"{processName}+{address:X8}");
     }
-    
+
     public long ReadLongAbsolute(long address)
     {
-        long result = Memory.ReadLong($"{address:X8}");
-        return result;
+        return Memory.ReadLong($"{address:X8}");
     }
-    
+
     public double ReadDouble(long address)
     {
         var processName = SelectedGame.ProcessName;
-        double result = Memory.ReadDouble($"{processName}+{address:X8}");
-        return result;
+        return Memory.ReadDouble($"{processName}+{address:X8}");
     }
+
     #endregion
 
     #region Abilities
 
-    private GameFlags AbilityFlags = new ();
-    
-    
+    private GameFlags AbilityFlags = new();
 
     #endregion
 
