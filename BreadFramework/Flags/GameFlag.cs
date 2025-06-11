@@ -8,10 +8,14 @@ public class GameFlag
     /// </summary>
     public GameFlags Flag { get;  init; }
     
+    
+    public FlagType Type { get; set; }
+
+    
     /// <summary>
     /// The c# type of the flag value
     /// </summary>
-    public FlagType Type { get; set; }
+    public FlagValueType ValueType { get; set; }
     
     /// <summary>
     /// Display name of the flag
@@ -65,6 +69,6 @@ public class GameFlag
     
     public override string ToString()
     {
-        return $"{Name} - {Type:G} - {Value}";
+        return $"{Name} - {ValueType:G} - {Value}";
     }
 }

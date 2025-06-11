@@ -9,6 +9,7 @@
         <entry key="AvoloniaEngineUI/MainWindow.axaml" value="AvoloniaEngineUI/AvoloniaEngineUI.csproj" />
         <entry key="BreadHeartsLauncher/App.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Styles/Icons.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
+        <entry key="BreadHeartsLauncher/Views/ConfigItem.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/ConsoleView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/ConsoleWindow.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />
         <entry key="BreadHeartsLauncher/Views/LauncherConfigView.axaml" value="BreadHeartsLauncher/BreadHeartsLauncher.csproj" />

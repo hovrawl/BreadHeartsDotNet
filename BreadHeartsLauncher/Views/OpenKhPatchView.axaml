@@ -25,7 +25,7 @@
                     
                         <materialIcons:MaterialIcon Kind="CloseCircle" Name="DirectoryStatusIcon" Classes="directoryIcon"/>
                    
-                        <TextBlock Name="DirectoryPathTxt" Text="Directory" Classes="directoryText"></TextBlock>
+                        <TextBlock Name="DirectoryPathTxt" Text="Patch Directory" Classes="directoryText"></TextBlock>
                     </StackPanel>
                 </StackPanel>
           

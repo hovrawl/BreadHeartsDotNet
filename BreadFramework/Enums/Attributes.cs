@@ -120,20 +120,20 @@ public class CheckNameAttribute : Attribute
 
 public class FlagTypeAttribute : Attribute
 {
-    private readonly FlagType _type;
+    private readonly FlagValueType _valueType;
 
     /// <summary>
     /// 
     /// </summary>
-    public FlagType Type => _type;
+    public FlagValueType ValueType => _valueType;
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="type"></param>
-    public FlagTypeAttribute(FlagType type)
+    /// <param name="valueType"></param>
+    public FlagTypeAttribute(FlagValueType valueType)
     {
-        _type = type;
+        _valueType = valueType;
     }
 }
 

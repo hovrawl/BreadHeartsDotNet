@@ -2,10 +2,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:BreadHeartsLauncher.Views"
+             xmlns:viewModels="clr-namespace:BreadHeartsLauncher.ViewModels"
+             xmlns:config="clr-namespace:BreadHeartsLauncher.Config"
+             xmlns:converters="clr-namespace:BreadHeartsLauncher.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BreadHeartsLauncher.Views.LauncherConfigView"
+             x:DataType="viewModels:LauncherConfigViewModel"
              Initialized="LauncherConfigView_Initialized">
+    
+    <UserControl.Resources>
+        <converters:BrushConverter x:Key="BrushConverter" />
+    </UserControl.Resources>
     <DockPanel>
-
+       
+        <Grid Name="SettingsGrid" >
+            <ScrollViewer x:CompileBindings="True"
+                          x:DataType="viewModels:LauncherConfigViewModel"
+                          DataContext="{Binding }"
+                          VerticalScrollBarVisibility="Auto">
+                <ContentControl HorizontalAlignment="Left">
+                    <Grid Margin="20" RowDefinitions="Auto,*">
+                        <TextBlock Margin="5,5,5,10"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Text="Settings" />
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding ConfigItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <views:ConfigItem Content="{Binding Content}"
+                                                      Description="{Binding Description}"
+                                                      Header="{Binding Header}"
+                                                      ValidationBrush="{Binding ValidationColor, Converter={StaticResource BrushConverter}}" 
+                                                      />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </ContentControl>
+            </ScrollViewer>
+        </Grid>
     </DockPanel>
 </UserControl>

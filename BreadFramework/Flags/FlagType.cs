@@ -2,12 +2,20 @@ namespace BreadFramework.Flags;
 
 public enum FlagType
 {
-    Int,
-    Long,
-    Float,
-    Double,
-    Bool,
-    String,
-    Byte,
-    Bytes
+    Table,
+    Stats,
+    Ability,
+    Progress,
+    Inventory,
+    World,
+    System,
+    Shop,
+    Synthesis,
+    Camera,
+    UI,
+    Combat,
+    Interaction,
+    Character,
+    Input,
+    Visual
 }

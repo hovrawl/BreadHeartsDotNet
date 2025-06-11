@@ -5,6 +5,10 @@ using Avalonia;
 using Avalonia.Controls;
 using BreadFramework.Patches;
 using BreadHeartsLauncher.Classes;
+using BreadHeartsLauncher.Config;
+using BreadHeartsLauncher.Config.Builders;
+using BreadHeartsLauncher.Config.Models;
+using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
 
 namespace BreadHeartsLauncher.Views;
@@ -30,5 +34,18 @@ public partial class MainWindow : Window
             // var configView = selectedTab.Content as ModConfigView;
             // configView.RefreshGrid();
         }
+    }
+
+    private void SetupModel()
+    {
+        // Setup main window model
+        if (DataContext is not MainWindowViewModel viewModel) return;
+
+        
+    }
+
+    private void MainWindow_Initialized(object? sender, EventArgs e)
+    {
+        SetupModel();
     }
 }

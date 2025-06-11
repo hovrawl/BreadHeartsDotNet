@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using BreadFramework.Patches;
+using BreadRuntime.Tools.Logging;
 using PluginBase.Settings;
 
 namespace BreadRuntime.Engine;
@@ -18,12 +19,22 @@ namespace BreadRuntime.Engine;
 public sealed class KHEngine: EngineApi.EngineApi
 {
     #region InstanceLocking
+    
     private static volatile KHEngine _instance = new KHEngine();
     private static readonly object ThreadLock = new object();
 
     private static readonly object SyncRoot = new object();
     
+    private readonly EngineLogger _log;
+    public event EventHandler<LogEventArgs> OnLogMessage;
+
     public static KHEngine Instance => _instance;
+
+    private KHEngine()
+    {
+        _log = new EngineLogger();
+        _log.OnNewLog += (sender, args) => OnLogMessage?.Invoke(this, args);
+    }
 
     #endregion
 
@@ -388,7 +399,7 @@ public sealed class KHEngine: EngineApi.EngineApi
     }
     
     // TODO - this should be game specific 
-    private int WorldIdAddress = GameFlags.WorldId.GetAddress();
+    private int WorldIdAddress = GameFlags.WorldId;
     
     private WorldInfo GetCurrentWorld()
     {
@@ -651,7 +662,7 @@ public sealed class KHEngine: EngineApi.EngineApi
 
     #region Abilities
 
-    private GameFlags AbilityFlags = new();
+    //private GameFlags AbilityFlags = new();
 
     #endregion
 
@@ -784,6 +795,19 @@ public sealed class KHEngine: EngineApi.EngineApi
             pluginState.ApplySettingValue(setting.Name, loadedValue);
         }
     }
+
+    #endregion
+
+    #region Logging
+
+    public void LogDebug(string pluginName, string message) => _log.Log(pluginName, LogLevel.Debug, message);
+    public void LogInfo(string pluginName, string message) => _log.Log(pluginName, LogLevel.Info, message);
+    public void LogWarning(string pluginName, string message) => _log.Log(pluginName, LogLevel.Warning, message);
+    public void LogError(string pluginName, string message) => _log.Log(pluginName, LogLevel.Error, message);
+
+    public IReadOnlyList<LogEntry> GetPluginLogs(string pluginName) => _log.GetPluginLogs(pluginName);
+    public IReadOnlyList<LogEntry> GetAllLogs() => _log.GetAllLogs();
+
 
     #endregion
 }

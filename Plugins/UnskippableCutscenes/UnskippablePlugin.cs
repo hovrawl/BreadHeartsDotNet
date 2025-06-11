@@ -32,7 +32,7 @@ public class UnskippablePlugin : BasePlugin
         KhEngine = khEngine;
         
         var processAddress = khEngine.MainModule.BaseAddress.ToInt64();
-        var offset = GameFlags.Offset.GetAddress();
+        var offset = GameFlags.BaseOffset;
         
         var writeAddress1 = processAddress + offset -0x22A5AA;
         var writeAddress2 = processAddress + offset -0x225763;

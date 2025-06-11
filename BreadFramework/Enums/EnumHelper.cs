@@ -56,7 +56,7 @@ public static class EnumHelper
         return 0;
     }
     
-    public static FlagType GetFlagType<T>(this T enumerationValue) where T : struct
+    public static FlagValueType GetFlagType<T>(this T enumerationValue) where T : struct
     {
         Type type = enumerationValue.GetType();
         if (!type.IsEnum)
@@ -72,11 +72,11 @@ public static class EnumHelper
 
             if (attrs is { Length: > 0 })
             {
-                return ((FlagTypeAttribute)attrs[0]).Type;
+                return ((FlagTypeAttribute)attrs[0]).ValueType;
             }
         }
         // No address set, return 0
-        return FlagType.Int;
+        return FlagValueType.Int;
     }
     
     public static int GetLength<T>(this T enumerationValue) where T : struct

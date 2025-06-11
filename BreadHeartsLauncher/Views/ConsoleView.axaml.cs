@@ -9,6 +9,7 @@ using BreadFramework.Patches;
 using BreadHeartsLauncher.Classes;
 using BreadHeartsLauncher.Config;
 using BreadRuntime.Engine;
+using BreadRuntime.Tools.Logging;
 using Castle.Core.Configuration;
 using Material.Icons;
 using Material.Icons.Avalonia;
@@ -33,12 +34,32 @@ public partial class ConsoleView : UserControl
         // Start engine
         ConsoleManager.WriteLine("Starting engine...");
         KHEngine.Instance.Start();
+        KHEngine.Instance.OnLogMessage += OnLogMessage;
+
+    }
+
+    private void OnLogMessage(object? sender, LogEventArgs args)
+    {
+        var entry = args.LogEntry;
+        var color = entry.Level switch
+        {
+            BreadRuntime.Tools.Logging.LogLevel.Error => ConsoleColor.Red,
+            BreadRuntime.Tools.Logging.LogLevel.Warning => ConsoleColor.Yellow,
+            BreadRuntime.Tools.Logging.LogLevel.Info => ConsoleColor.White,
+            BreadRuntime.Tools.Logging.LogLevel.Debug => ConsoleColor.Gray,
+            _ => ConsoleColor.White
+        };
+
+        Console.ForegroundColor = color;
+        Console.WriteLine(entry.ToString());
+        Console.ResetColor();
     }
 
     private void StopEngineBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         // Stop engine
         ConsoleManager.WriteLine("Stopping engine...");
+        KHEngine.Instance.OnLogMessage -= OnLogMessage;
         KHEngine.Instance.Stop();
     }
 

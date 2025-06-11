@@ -7,6 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BreadHeartsLauncher.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        Initialized="MainWindow_Initialized"
         Icon="/Assets/avalonia-logo.ico"
         Title="Bread Hearts Launcher">
 
@@ -59,6 +60,8 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
+            <views:LauncherConfigView DataContext="{Binding LauncherConfigViewModel}"/>
+
         </TabItem>
     </TabControl>
     

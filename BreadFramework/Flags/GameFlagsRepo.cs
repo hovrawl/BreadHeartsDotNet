@@ -29,9 +29,10 @@ public class GameFlagsRepo
         {
             var flag = new GameFlag
             {
-                Name = flagEnum.GetDescription(),
-                Address = flagEnum.GetAddress(),
-                Type = flagEnum.GetFlagType(),
+                Name = flagEnum.Description,
+                Address = flagEnum.Address,
+                Type = flagEnum.Type,
+                ValueType = flagEnum.ValueType,
                 Flag = flagEnum,
             };
             Flags.Add(flagEnum, flag);

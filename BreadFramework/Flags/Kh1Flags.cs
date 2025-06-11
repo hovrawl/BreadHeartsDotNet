@@ -2,7 +2,7 @@ namespace BreadFramework.Flags;
 
 public class Kh1Flags : GameFlagsBase
 {
-    public override FlagType FlagType { get; set; }
+    public override FlagValueType FlagValueType { get; set; }
     public override string Description { get; set; }
     public override long Address { get; set; } = 0L;
     

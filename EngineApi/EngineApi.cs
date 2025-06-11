@@ -72,4 +72,14 @@ public interface EngineApi
     public double ReadDouble(long address);
 
     #endregion
+
+    #region Loggin
+
+    public void LogDebug(string pluginName, string message);
+    public void LogInfo(string pluginName, string message);
+    public void LogWarning(string pluginName, string message);
+    public void LogError(string pluginName, string message);
+
+
+    #endregion
 }

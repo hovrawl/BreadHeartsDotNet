@@ -79,7 +79,7 @@ public class SaveAnywherePlugin: BasePlugin
         if (deathCheck != 0x2E74)
         {
             // Run jp checks
-            deathCheck = khEngine.ReadShort(GameFlags.DeathCheckAlternate.GetAddress());
+            deathCheck = khEngine.ReadShort(GameFlags.DeathCheckAlternate.Address);
             if (deathCheck == 0x2E74)
             {
                 DeathCheck = KhEngine.GameFlagsRepo.GetFlag(GameFlags.DeathCheckAlternate);

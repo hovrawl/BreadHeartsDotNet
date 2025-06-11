@@ -5,6 +5,8 @@ public class PluginSettingBase
     public Type Type { get; }
     
     public string Name { get; set; }
+    
+    public string Description { get; set; }
 }
 
 public class PluginSettingBase<T> : PluginSettingBase
@@ -14,4 +16,6 @@ public class PluginSettingBase<T> : PluginSettingBase
     public T Value { get; set; }
     
     public string Name { get; set; }
+    
+    public string Description { get; set; }
 }

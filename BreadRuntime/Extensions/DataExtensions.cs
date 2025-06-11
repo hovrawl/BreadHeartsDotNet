@@ -11,44 +11,44 @@ public static class DataExtensions
         // Do not re-read memory if enough time has not passed
         if (flag.TimeSinceLastRead + priorityTimeMs <= DateTime.Now.Millisecond) return;
         
-        switch (flag.Type)
+        switch (flag.ValueType)
         {
-            case FlagType.Int:
+            case FlagValueType.Int:
             {
                 flag.Value = engine.ReadInt(flag.Address);
                 break;
             }
-            case FlagType.Long:
+            case FlagValueType.Long:
             {
                 flag.Value = engine.ReadLong(flag.Address);
                 break;
             }
-            case FlagType.Float:
+            case FlagValueType.Float:
             {
                 flag.Value = engine.ReadFloat(flag.Address);
                 break;
             }
-            case FlagType.Double:
+            case FlagValueType.Double:
             {
                 flag.Value = engine.ReadDouble(flag.Address);
                 break;
             }
-            case FlagType.Bool:
+            case FlagValueType.Bool:
             {
                 flag.Value = engine.ReadInt(flag.Address) != 0;
                 break;
             }
-            case FlagType.String:
+            case FlagValueType.String:
             {
                 flag.Value = engine.ReadString(flag.Address);
                 break;
             }
-            case FlagType.Byte:
+            case FlagValueType.Byte:
             {
                 flag.Value = engine.ReadByte(flag.Address);
                 break;
             }
-            case FlagType.Bytes:
+            case FlagValueType.Bytes:
             {
                 flag.Value = engine.ReadBytes(flag.Address, flag.Length);
                 break;
@@ -68,46 +68,46 @@ public static class DataExtensions
         // Do not re-write memory if enough time has not passed
         if (flag.TimeSinceLastWrite + priorityTimeMs <= DateTime.Now.Millisecond) return;
         
-        switch (flag.Type)
+        switch (flag.ValueType)
         {
-            case FlagType.Int when newValue is int result:
+            case FlagValueType.Int when newValue is int result:
             {
                 engine.WriteInt(flag.Address, result);
                 break;
             }
-            case FlagType.Long when newValue is long result:
+            case FlagValueType.Long when newValue is long result:
             {
                 engine.WriteLong(flag.Address, result);
                 break;
             }
-            case FlagType.Float when newValue is float result:
+            case FlagValueType.Float when newValue is float result:
             {
                 engine.WriteFloat(flag.Address, result);
                 break;
             }
-            case FlagType.Double when newValue is double result:
+            case FlagValueType.Double when newValue is double result:
             {
                 engine.WriteDouble(flag.Address, result);
                 break;
             }
-            case FlagType.Bool when newValue is bool result:
+            case FlagValueType.Bool when newValue is bool result:
             {
                 // true == 1
                 // false == 0
                 engine.WriteInt(flag.Address, result ? 1 : 0);
                 break;
             }
-            case FlagType.String when newValue is string result:
+            case FlagValueType.String when newValue is string result:
             {
                 engine.WriteString(flag.Address, result);
                 break;
             }
-            case FlagType.Byte when newValue is byte result:
+            case FlagValueType.Byte when newValue is byte result:
             {
                 engine.WriteByte(flag.Address, result);
                 break;
             }
-            case FlagType.Bytes when newValue is List<int> result:
+            case FlagValueType.Bytes when newValue is List<int> result:
             {
                 engine.WriteBytes(flag.Address, result);
                 break;
