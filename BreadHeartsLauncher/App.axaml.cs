@@ -5,10 +5,12 @@ using Avalonia.Markup.Xaml;
 using BreadHeartsLauncher.Config;
 using BreadHeartsLauncher.Config.Builders;
 using BreadHeartsLauncher.Config.Models;
+using BreadHeartsLauncher.Extensions;
 using BreadHeartsLauncher.Helpers;
 using BreadHeartsLauncher.ViewModels;
 using BreadHeartsLauncher.Views;
 using Config.Net;
+using Microsoft.Extensions.DependencyInjection;
 using Splat;
 
 namespace BreadHeartsLauncher;
@@ -22,12 +24,20 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // Register all the services needed for the application to run
+        var collection = new ServiceCollection();
+        collection.AddCommonServices();
+
+        // Creates a ServiceProvider containing services from the provided IServiceCollection
+        var services = collection.BuildServiceProvider();
+        // Get mainViewModel 
+        var mainViewModel = services.GetRequiredService<MainWindowViewModel>();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             BooleanControlBuilder.Shared.Register();
             DirectoryPickerControlBuilder.Shared.Register();
             
-            var mainViewModel = new MainWindowViewModel();
             
             var gameDirectory = new LauncherConfig
             {
@@ -65,4 +75,5 @@ public partial class App : Application
         Locator.CurrentMutable.Register<IPluginConfig>(() => pluginConfig);
 
         base.OnFrameworkInitializationCompleted();
-    } }
+    }
+}
