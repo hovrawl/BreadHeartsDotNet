@@ -1,6 +1,7 @@
 using System.Configuration;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using BreadHeartsLauncher.Config;
 using BreadHeartsLauncher.Config.Builders;
@@ -17,6 +18,7 @@ namespace BreadHeartsLauncher;
 
 public partial class App : Application
 {
+    public static ServiceProvider Services { get; set; }
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -24,14 +26,25 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // If you use CommunityToolkit, line below is needed to remove Avalonia data validation.
+        // Without this line you will get duplicate validations from both Avalonia and CT
+        BindingPlugins.DataValidators.RemoveAt(0);
+        
         // Register all the services needed for the application to run
         var collection = new ServiceCollection();
+        // Add Common Services
         collection.AddCommonServices();
+        
+        // Add KhEngine
+        collection.AddKhEngine();
 
         // Creates a ServiceProvider containing services from the provided IServiceCollection
         var services = collection.BuildServiceProvider();
+        Services = services;
+        
         // Get mainViewModel 
         var mainViewModel = services.GetRequiredService<MainWindowViewModel>();
+        var launcherConfigViewModel = services.GetRequiredService<LauncherConfigViewModel>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -53,7 +66,7 @@ public partial class App : Application
 
             gameDirectory.BuildControl();
         
-            mainViewModel.LauncherConfigViewModel.ConfigItems.Add(gameDirectory);
+            launcherConfigViewModel.ConfigItems.Add(gameDirectory);
             
             desktop.MainWindow = new MainWindow
             {
@@ -76,4 +89,5 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
     }
+
 }

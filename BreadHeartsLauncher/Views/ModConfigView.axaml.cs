@@ -21,6 +21,9 @@ namespace BreadHeartsLauncher.Views;
 
 public partial class ModConfigView : UserControl
 {
+    private ModConfigViewModel ViewModel => (ModConfigViewModel)DataContext!;
+    private KHEngine _khEngine => ViewModel.KhEngine;
+    
     public ModConfigView()
     {
         InitializeComponent();
@@ -36,16 +39,16 @@ public partial class ModConfigView : UserControl
         var directoryInfo = GetModsDirectoryInfo();
                 
         // set ui components
-        KHEngine.Instance.SetModsDirectory(directoryInfo, UiDispatchMethod);
+        _khEngine.SetModsDirectory(directoryInfo, UiDispatchMethod);
         UpdateModsDirectoryUi();
     }
 
     private DirectoryInfo GetModsDirectoryInfo()
     {
         // If directory info already set
-        if (KHEngine.Instance.ModsDirectoryInfo != null &&
-            KHEngine.Instance.ModsDirectoryInfo.Exists)
-            return KHEngine.Instance.ModsDirectoryInfo;
+        if (_khEngine.ModsDirectoryInfo != null &&
+            _khEngine.ModsDirectoryInfo.Exists)
+            return _khEngine.ModsDirectoryInfo;
         
         // Else setup
         var config = Locator.Current.GetService<IConfig>();
@@ -68,7 +71,7 @@ public partial class ModConfigView : UserControl
         if (DataContext is not ModConfigViewModel viewModel) return;
         
         // Set view model modules reference to engine
-        viewModel.PluginStates = KHEngine.Instance.PluginStates;
+        viewModel.PluginStates = _khEngine.PluginStates;
         modConfigDataGrid.ItemsSource = viewModel.PluginStates;
         
     }
@@ -81,7 +84,7 @@ public partial class ModConfigView : UserControl
     
     private void UpdateModsDirectoryUi()
     {
-        var modsDirectory = KHEngine.Instance.ModsDirectoryInfo;
+        var modsDirectory = _khEngine.ModsDirectoryInfo;
 
         var directoryTextBlock = this.Find<TextBlock>("DirectoryPathTxt");
         var gameDirectoryIcon = this.Find<MaterialIcon>("ModsDirectoryStatusIcon");
@@ -143,7 +146,7 @@ public partial class ModConfigView : UserControl
         // find base KH directory and determine if STEAM or EPIC
 
         // set ui components
-        KHEngine.Instance.SetModsDirectory(directoryInfo, UiDispatchMethod);
+        _khEngine.SetModsDirectory(directoryInfo, UiDispatchMethod);
         
         directory.Dispose();
 

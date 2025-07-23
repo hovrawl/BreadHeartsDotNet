@@ -25,6 +25,9 @@ namespace BreadHeartsLauncher.Views;
 
 public partial class OpenKhPatchView : UserControl
 {
+    private ModConfigViewModel ViewModel => (ModConfigViewModel)DataContext!;
+    private KHEngine _khEngine => ViewModel.KhEngine;
+    
     public OpenKhPatchView()
     {
         InitializeComponent();
@@ -33,7 +36,7 @@ public partial class OpenKhPatchView : UserControl
     private void Initalize()
     {
         // Setup initial patches, whether default of saved directories
-        KHEngine.Instance.ClearPatches();
+        _khEngine.ClearPatches();
         DetectPatches();
     }
     
@@ -44,7 +47,7 @@ public partial class OpenKhPatchView : UserControl
         if (DataContext is not ModConfigViewModel viewModel) return;
         
         // Add modules to grid
-        var openKhPatches = KHEngine.Instance.Patches;
+        var openKhPatches = _khEngine.Patches;
         viewModel.OpenKhPatches = openKhPatches;
         configGrid.ItemsSource = viewModel.OpenKhPatches;
     }
@@ -76,15 +79,15 @@ public partial class OpenKhPatchView : UserControl
             if (e.UserState != null) ConsoleManager.WriteLine((string)e.UserState);
             //if (GUI_Displayed) status.Text = (string)e.UserState;
         };
-        KHEngine.Instance.PatchFiles(patchFiles, patchType, bgWorker,  backupPkg, extractPkg);
+        _khEngine.PatchFiles(patchFiles, patchType, bgWorker,  backupPkg, extractPkg);
     }
 
     private DirectoryInfo GetPatchesDirectoryInfo()
     {
         // If directory info already set
-        if (KHEngine.Instance.PatchesDirectoryInfo != null &&
-            KHEngine.Instance.PatchesDirectoryInfo.Exists)
-            return KHEngine.Instance.PatchesDirectoryInfo;
+        if (_khEngine.PatchesDirectoryInfo != null &&
+            _khEngine.PatchesDirectoryInfo.Exists)
+            return _khEngine.PatchesDirectoryInfo;
         
         // Else setup
         var config = Locator.Current.GetService<IConfig>();
@@ -106,7 +109,7 @@ public partial class OpenKhPatchView : UserControl
         if (!patchesDirectory.Exists) return;
         
         // Set directory
-        KHEngine.Instance.SetPatchesDirectory(patchesDirectory);
+        _khEngine.SetPatchesDirectory(patchesDirectory);
         
         // Add patches
         foreach (var patchFile in patchesDirectory.EnumerateFiles())
@@ -117,13 +120,13 @@ public partial class OpenKhPatchView : UserControl
                 Name = patchFile.Name,
                 Enabled = true,
             };
-            KHEngine.Instance.AddPatch(patchModule);
+            _khEngine.AddPatch(patchModule);
         }
     }
 
     private void UpdatePatchDirectoryUi()
     {
-        var patchDirectory = KHEngine.Instance.PatchesDirectoryInfo;
+        var patchDirectory = _khEngine.PatchesDirectoryInfo;
 
         var directoryTextBlock = this.Find<TextBlock>("DirectoryPathTxt");
         var directoryIcon = this.Find<MaterialIcon>("DirectoryStatusIcon");
@@ -165,7 +168,7 @@ public partial class OpenKhPatchView : UserControl
         var directoryInfo = new DirectoryInfo(directory.Path.LocalPath);
 
         // set ui components
-        KHEngine.Instance.SetPatchesDirectory(directoryInfo);
+        _khEngine.SetPatchesDirectory(directoryInfo);
         UpdatePatchDirectoryUi();
     }
 

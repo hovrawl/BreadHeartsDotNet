@@ -8,6 +8,7 @@ using BreadFramework.Helpers;
 using BreadFramework.Patches;
 using BreadHeartsLauncher.Classes;
 using BreadHeartsLauncher.Config;
+using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
 using BreadRuntime.Tools.Logging;
 using Castle.Core.Configuration;
@@ -19,6 +20,9 @@ namespace BreadHeartsLauncher.Views;
 
 public partial class ConsoleView : UserControl
 {
+    private ConsoleViewModel ViewModel => (ConsoleViewModel)DataContext!;
+    private KHEngine _khEngine => ViewModel.KhEngine;
+    
     public ConsoleView()
     {
         InitializeComponent();
@@ -33,8 +37,8 @@ public partial class ConsoleView : UserControl
     {
         // Start engine
         ConsoleManager.WriteLine("Starting engine...");
-        KHEngine.Instance.Start();
-        KHEngine.Instance.OnLogMessage += OnLogMessage;
+        _khEngine.Start();
+        _khEngine.OnLogMessage += OnLogMessage;
 
     }
 
@@ -59,8 +63,8 @@ public partial class ConsoleView : UserControl
     {
         // Stop engine
         ConsoleManager.WriteLine("Stopping engine...");
-        KHEngine.Instance.OnLogMessage -= OnLogMessage;
-        KHEngine.Instance.Stop();
+        _khEngine.OnLogMessage -= OnLogMessage;
+        _khEngine.Stop();
     }
 
     private void ConsoleViewInitialized(object? sender, EventArgs e)
@@ -82,7 +86,7 @@ public partial class ConsoleView : UserControl
         ConsoleManager.WriteLine("Initializing runtime...");
         
         // Initialise and cache engine
-        KHEngine.Instance.Initialise();
+        _khEngine.Initialise();
 
         // Auto-detect Game Directory
         AutoDetectDirectory();
@@ -92,7 +96,7 @@ public partial class ConsoleView : UserControl
     {
         ConsoleManager.WriteLine("Checking for running game...");
 
-        KHEngine.Instance.Attach();
+        _khEngine.Attach();
     }
     
     
@@ -102,14 +106,14 @@ public partial class ConsoleView : UserControl
         var directory = DirectoryHelper.AutoDetectGameDirectory();
         if (string.IsNullOrEmpty(directory.Path)) return;
         
-        KHEngine.Instance.SetGameDirectory(directory);
+        _khEngine.SetGameDirectory(directory);
         
         UpdateGameDirectoryUi();
     }
     
     private void UpdateGameDirectoryUi()
     {
-        var gameDirectory = KHEngine.Instance.GameDirectoryInfo;
+        var gameDirectory = _khEngine.GameDirectoryInfo;
 
         var directoryTextBlock = this.Find<TextBlock>("DirectoryPathTxt");
         var gameDirectoryIcon = this.Find<MaterialIcon>("GameDirectoryStatusIcon");

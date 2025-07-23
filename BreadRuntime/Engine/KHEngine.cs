@@ -20,17 +20,14 @@ public sealed class KHEngine: EngineApi.EngineApi
 {
     #region InstanceLocking
     
-    private static volatile KHEngine _instance = new KHEngine();
-    private static readonly object ThreadLock = new object();
+    private readonly object ThreadLock = new object();
 
-    private static readonly object SyncRoot = new object();
+    private readonly object SyncRoot = new object();
     
     private readonly EngineLogger _log;
     public event EventHandler<LogEventArgs> OnLogMessage;
 
-    public static KHEngine Instance => _instance;
-
-    private KHEngine()
+    public KHEngine()
     {
         _log = new EngineLogger();
         _log.OnNewLog += (sender, args) => OnLogMessage?.Invoke(this, args);
@@ -76,10 +73,10 @@ public sealed class KHEngine: EngineApi.EngineApi
         {
             if (GameDirectoryInfo.Platform == GamePlatform.Steam)
             {
-                return Path.Combine(Instance.GameDirectoryInfo.Path, "Image\\dt\\");
+                return Path.Combine(GameDirectoryInfo.Path, "Image\\dt\\");
             }
             
-            return Path.Combine(Instance.GameDirectoryInfo.Path, "Image\\en\\");
+            return Path.Combine(GameDirectoryInfo.Path, "Image\\en\\");
         }
     }
     
@@ -317,7 +314,7 @@ public sealed class KHEngine: EngineApi.EngineApi
         // Iterate over modules, attempt to activate if enabled
         foreach (var module in LoadedPlugins)
         {
-            var executed = module.Initialise(Instance);
+            var executed = module.Initialise(this);
             if (!executed)
             {
                 // Log the individual module that didnt start
@@ -674,7 +671,7 @@ public sealed class KHEngine: EngineApi.EngineApi
     {
         try
         {
-            FilePatcher.ApplyPatch(patchFile, patchType, Instance.GameDataFolder,  bgWorker, backupPKG, extractPatch);
+            FilePatcher.ApplyPatch(patchFile, patchType, GameDataFolder,  bgWorker, backupPKG, extractPatch);
         }
         catch (Exception ex)
         {

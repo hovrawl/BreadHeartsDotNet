@@ -6,12 +6,16 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
 using BreadFramework.Helpers;
+using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
 
 namespace BreadHeartsLauncher.Views;
 
 public partial class LauncherConfigView : UserControl
 {
+    private LauncherConfigViewModel ViewModel => (LauncherConfigViewModel)DataContext!;
+    private KHEngine _khEngine => ViewModel.KhEngine;
+    
     public LauncherConfigView()
     {
         InitializeComponent();
@@ -49,6 +53,6 @@ public partial class LauncherConfigView : UserControl
         directory.Dispose();
 
         // set ui components
-        KHEngine.Instance.SetGameDirectory(gameDirectory);
+        _khEngine.SetGameDirectory(gameDirectory);
     }
 }

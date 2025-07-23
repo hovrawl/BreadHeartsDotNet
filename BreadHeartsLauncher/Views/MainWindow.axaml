@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:BreadHeartsLauncher.Views"
+        xmlns:ext="clr-namespace:BreadHeartsLauncher.Extensions"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BreadHeartsLauncher.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -27,7 +28,7 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:ConsoleView />
+            <views:ConsoleView DataContext="{ext:ServiceMarkup vm:ConsoleViewModel}"/>
         </TabItem>
         <TabItem Header="Patches" Name="PatchTab">
             <TabItem.HeaderTemplate>
@@ -38,7 +39,7 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:OpenKhPatchView DataContext="{Binding OpenKhPatchesViewModel}"/>
+            <views:OpenKhPatchView DataContext="{ext:ServiceMarkup vm:ModConfigViewModel}"/>
         </TabItem>
         <TabItem Header="Mods" Name="ModsTab">
             <TabItem.HeaderTemplate>
@@ -49,7 +50,7 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:ModConfigView DataContext="{Binding ModConfigViewModel}"/>
+            <views:ModConfigView DataContext="{ext:ServiceMarkup vm:ModConfigViewModel}"/>
         </TabItem>
         <TabItem Header="Config" Name="ConfigTab">
             <TabItem.HeaderTemplate>
@@ -60,7 +61,7 @@
                     </WrapPanel>
                 </DataTemplate>
             </TabItem.HeaderTemplate>
-            <views:LauncherConfigView DataContext="{Binding LauncherConfigViewModel}"/>
+            <views:LauncherConfigView DataContext="{ext:ServiceMarkup vm:LauncherConfigViewModel}"/>
 
         </TabItem>
     </TabControl>
