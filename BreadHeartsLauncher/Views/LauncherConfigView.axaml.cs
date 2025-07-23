@@ -6,6 +6,8 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
 using BreadFramework.Helpers;
+using BreadHeartsLauncher.Config;
+using BreadHeartsLauncher.Config.Models;
 using BreadHeartsLauncher.ViewModels;
 using BreadRuntime.Engine;
 
@@ -23,7 +25,19 @@ public partial class LauncherConfigView : UserControl
 
     private void LauncherConfigView_Initialized(object? sender, EventArgs e)
     {
+        var gameDirectory = new LauncherConfig
+        {
+            Key = "GameDirectory",
+            Header = "Game Directory",
+            Description = "Kingdom Hearts Final Mix 1.5 & 2.5 Directory",
+            ConfigModel = new DirectoryPickerConfigModel()
+            {
+                BrowserMode = BrowserMode.OpenFolder,
+            }
+        };
+        gameDirectory.BuildControl();
         
+        ViewModel.ConfigItems.Add(gameDirectory);
     }
     
     private async void SelectDirectoryBtn_OnClick(object? sender, RoutedEventArgs e)

@@ -44,29 +44,11 @@ public partial class App : Application
         
         // Get mainViewModel 
         var mainViewModel = services.GetRequiredService<MainWindowViewModel>();
-        var launcherConfigViewModel = services.GetRequiredService<LauncherConfigViewModel>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             BooleanControlBuilder.Shared.Register();
             DirectoryPickerControlBuilder.Shared.Register();
-            
-            
-            var gameDirectory = new LauncherConfig
-            {
-                Key = "GameDirectory",
-                Header = "Game Directory",
-                Description = "Kingdom Hearts Final Mix 1.5 & 2.5 Directory",
-                ConfigModel = new DirectoryPickerConfigModel()
-                {
-                    BrowserMode = BrowserMode.OpenFolder,
-                }
-            };
-        
-
-            gameDirectory.BuildControl();
-        
-            launcherConfigViewModel.ConfigItems.Add(gameDirectory);
             
             desktop.MainWindow = new MainWindow
             {
