@@ -38,13 +38,3 @@ The runtime is an engine that connects to an instance of a Kingdom Hearts game a
 | Kingdom Hearts II Final Mix             |     ❌     |       |
 | Kingdom Hearts Birth By Sleep Final Mix |     ❌     |       |
 
-## Built in Mods
-
-<details>
-
-<summary>Kingdom Hearts Final Mix</summary>
-    - Save Anywhere
-    
-
-</details>
-
